@@ -48,6 +48,7 @@
     box-shadow: 0 1px 4px rgba(16, 38, 63, 0.07), 0 2px 8px rgba(16, 38, 63, 0.04);
     transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
     cursor: pointer;
+    min-height: 375px;
 }
 
 .card:hover,
@@ -66,6 +67,7 @@
     background: #ffffff;
     padding: 20px 24px;
     overflow: hidden;
+    min-height: 320px;
 }
 
 .card__media img {
@@ -89,11 +91,10 @@
 .card__body {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     gap: 0.5rem;
     padding: 1rem 1.25rem;
-    border-top: 1px solid #edf2f7;
-    background: #fafcfe;
+    background: #fff;
 }
 
 .card__title {

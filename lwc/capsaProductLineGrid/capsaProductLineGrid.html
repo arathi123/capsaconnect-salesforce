@@ -1,8 +1,10 @@
 <template>
     <section class="section">
-        <h2 class="section__title">{heading}</h2>
-        <p class="section__subtitle">{subheading}</p>
-        <div class="grid">
+        <div class="section__header">
+            <h2 class="section__title">{heading}</h2>
+            <p class="section__subtitle">{subheading}</p>
+        </div>
+        <div class="grid" role="list">
             <template for:each={cards} for:item="card">
                 <a
                     key={card.key}
@@ -10,6 +12,7 @@
                     href={card.url}
                     data-key={card.key}
                     onclick={handleCardClick}
+                    role="listitem"
                 >
                     <div class="card__media">
                         <template lwc:if={card.imageUrl}>
@@ -20,8 +23,10 @@
                         </template>
                     </div>
                     <div class="card__body">
-                        <span class="card__title">{card.title}</span>
-                        <span class="card__arrow" aria-hidden="true">&#8594;</span>
+                        <div class="card__text">
+                            <span class="card__title">{card.title}</span>
+                        </div>
+                        <!-- <span class="card__arrow" aria-hidden="true">&#8594;</span> -->
                     </div>
                 </a>
             </template>
