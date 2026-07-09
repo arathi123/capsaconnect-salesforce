@@ -42,15 +42,17 @@
                             <path d={card.icon}></path>
                         </svg>
                     </span>
-                    <span class="acard__title">{card.label}</span>
-                    <span class="acard__desc">{card.description}</span>
+                    <div class="acard__content">
+                        <div class="acard__title">{card.label}</div>
+                        <p class="acard__desc">{card.description}</p>
+                    </div>
                 </button>
             </template>
         </div>
 
         <div class="hero__curve" aria-hidden="true">
-            <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
-                <path d="M0,80 L1440,80 L1440,28 C1080,82 360,-6 0,28 Z"></path>
+            <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+                <path d="M0,32 C195,62 404,102 720,102 C977,102 1178,66 1440,74 L1440,120 L0,120 Z"></path>
             </svg>
         </div>
     </section>

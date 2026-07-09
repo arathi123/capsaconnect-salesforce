@@ -6,13 +6,17 @@
     position: relative;
     left: 50%;
     right: 50%;
+    top: 0;
     margin-left: -50vw;
     margin-right: -50vw;
+    margin-top: -2vh;
+    font-family: 'Archivo', sans-serif;
 }
 
 .hero {
     position: relative;
     overflow: hidden;
+    margin-top: 0;
     padding: 2.5rem 1.5rem 6rem;
     text-align: center;
     color: #fff;
@@ -22,24 +26,25 @@
 .hero__inner {
     position: relative;
     z-index: 1;
-    max-width: 860px;
+    max-width: 1080px;
     margin: 0 auto;
 }
 
 .hero__title {
     margin: 0 0 0.65rem;
-    font-weight: 700;
-    letter-spacing: -0.01em;
-    line-height: 1.1;
-    font-size: clamp(1.6rem, 3.5vw, 2.5rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.02;
+    font-size: clamp(1.7rem, 4vw, 3.15rem);
 }
 
 .hero__subtitle {
-    max-width: 600px;
+    max-width: 980px;
     margin: 0 auto 1.5rem;
-    font-size: clamp(0.85rem, 1.5vw, 1rem);
-    line-height: 1.45;
-    opacity: 0.9;
+    font-size: clamp(0.95rem, 1.6vw, 1.12rem);
+    line-height: 1.34;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.92);
 }
 
 .hero__actions {
@@ -107,11 +112,11 @@
 .hero__cards {
     position: relative;
     z-index: 1;
-    max-width: 1060px;
-    margin: 2.25rem auto 0;
+    max-width: 1230px;
+    margin: 5.4rem auto 0;
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 1rem;
+    gap: 1.2rem;
     text-align: left;
 }
 
@@ -122,18 +127,22 @@
     font: inherit;
     cursor: pointer;
 
-    display: flex; 
-    text-align:left;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.55rem;
-    padding: 1.05rem 1.15rem 1.2rem;
-    border-radius: 12px;
+    display: grid;
+    text-align: left;
+    grid-template-columns: 62px minmax(0, 1fr);
+    align-items: center;
+    column-gap: 1.35rem;
+    min-height: 118px;
+    padding: 1.2rem 1.55rem 1.15rem;
+    border-radius: 10px;
     color: #fff;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    -webkit-backdrop-filter: blur(4px);
-    backdrop-filter: blur(4px);
+    background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.12) 0%,
+        rgba(255, 255, 255, 0.08) 100%
+    );
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
     transition: transform 0.2s ease, background-color 0.2s ease,
         border-color 0.2s ease, box-shadow 0.2s ease;
 }
@@ -141,63 +150,93 @@
 .acard:hover,
 .acard:focus-visible {
     transform: translateY(-4px);
-    background: rgba(255, 255, 255, 0.15);
-    border-color: rgba(255, 255, 255, 0.45);
-    box-shadow: 0 14px 30px rgba(3, 28, 50, 0.35);
+    background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.17) 0%,
+        rgba(255, 255, 255, 0.11) 100%
+    );
+    border-color: rgba(255, 255, 255, 0.22);
+    box-shadow: 0 16px 30px rgba(3, 28, 50, 0.18);
     outline: none;
 }
 
 .acard:focus-visible {
     box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.7),
-        0 14px 30px rgba(3, 28, 50, 0.35);
+        0 16px 30px rgba(3, 28, 50, 0.18);
 }
 
 .acard__icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.16);
-    transition: background-color 0.2s ease;
+    width: 62px;
+    height: 62px;
+    border-radius: 18px;
+    background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.16) 0%,
+        rgba(255, 255, 255, 0.1) 100%
+    );
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
 .acard:hover .acard__icon,
 .acard:focus-visible .acard__icon {
-    background: rgba(255, 255, 255, 0.28);
+    background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.22) 0%,
+        rgba(255, 255, 255, 0.14) 100%
+    );
+    border-color: rgba(255, 255, 255, 0.24);
 }
 
 .acard__icon svg {
-    width: 22px;
-    height: 22px;
+    width: 26px;
+    height: 26px;
     fill: #fff;
 }
 
+.acard__content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 0.35rem;
+    min-width: 0;
+    width: 100%;
+}
+
 .acard__title {
-    font-size: 1.02rem;
+    font-size: 0.96rem;
     font-weight: 700;
-    line-height: 1.2;
+    letter-spacing: -0.01em;
+    line-height: 1.08;
+    margin: 0;
 }
 
 .acard__desc {
-    font-size: 0.82rem;
-    line-height: 1.4;
-    color: rgba(255, 255, 255, 0.78);
+    margin: 0;
+    max-width: 100%;
+    font-size: 0.76rem;
+    font-weight: 400;
+    line-height: 1.18;
+    color: rgba(255, 255, 255, 0.5);
 }
 
 .hero__curve {
     position: absolute;
     left: 0;
     right: 0;
-    bottom: -1px;
+    bottom: -2px;
     line-height: 0;
 }
 
 .hero__curve svg {
     display: block;
     width: 100%;
-    height: 70px;
+    height: 72px;
 }
 
 .hero__curve path {
@@ -205,22 +244,68 @@
 }
 
 @media (max-width: 1024px) {
+    .hero {
+        padding-bottom: 5.4rem;
+    }
+
+    .hero__title {
+        font-size: clamp(1.6rem, 3.7vw, 2.7rem);
+    }
+
+    .hero__subtitle {
+        max-width: 860px;
+    }
+
     .hero__cards {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        max-width: 640px;
+        max-width: 860px;
+        margin-top: 3.2rem;
     }
 }
 
 @media (max-width: 768px) {
     .hero {
-        padding: 2rem 1.25rem 4.5rem;
+        padding: 2.2rem 1.25rem 4.6rem;
     }
+
+    .hero__title {
+        margin-bottom: 0.85rem;
+        font-size: clamp(1.45rem, 6vw, 2.1rem);
+    }
+
+    .hero__subtitle {
+        font-size: 0.95rem;
+        line-height: 1.4;
+    }
+
     .hero__actions {
         flex-direction: column;
     }
+
     .btn {
         width: 100%;
         justify-content: center;
+    }
+
+    .hero__cards {
+        margin-top: 2.5rem;
+        gap: 1rem;
+    }
+
+    .acard {
+        min-height: 0;
+        grid-template-columns: 54px minmax(0, 1fr);
+        padding: 1.1rem;
+    }
+
+    .acard__icon {
+        width: 54px;
+        height: 54px;
+        border-radius: 16px;
+    }
+
+    .hero__curve svg {
+        height: 58px;
     }
 }
 
@@ -228,6 +313,15 @@
     .hero__cards {
         grid-template-columns: 1fr;
         max-width: 380px;
+    }
+
+    .acard {
+        gap: 1rem;
+        align-items: flex-start;
+    }
+
+    .acard__desc {
+        line-height: 1.25;
     }
 }
 
