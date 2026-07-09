@@ -1,0 +1,285 @@
+<template>
+    <div class="cases-root">
+
+        <!-- ─── Header: title + Open a case ─── -->
+        <div class="cases-header">
+            <h1 class="cases-title">{heading}</h1>
+            <template lwc:if={canCreateCase}>
+                <button type="button" class="btn-open-case" onclick={handleNewCase}>
+                    <span class="plus">+</span> Open a case
+                </button>
+            </template>
+        </div>
+
+        <!-- ─── Card / table ─── -->
+        <div class="cases-card">
+
+            <!-- Search toolbar: stays mounted while a query is in flight so the
+                 input keeps focus, and remains reachable when a search returns
+                 nothing (otherwise there'd be no way to clear it). -->
+            <template lwc:if={showToolbar}>
+                <div class="list-toolbar">
+                    <div class="search-box">
+                        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <circle cx="11" cy="11" r="7"></circle>
+                            <line x1="20" y1="20" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        <input type="text" class="search-input" autocomplete="off"
+                            placeholder="Search by case number or subject" aria-label="Search cases"
+                            oninput={handleSearchInput} onkeydown={handleSearchKeydown} />
+                        <template lwc:if={hasSearchText}>
+                            <button type="button" class="search-clear" title="Clear search"
+                                aria-label="Clear search" onclick={handleClearSearch}>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                </svg>
+                            </button>
+                        </template>
+                    </div>
+                    <template lwc:if={isSearching}>
+                        <span class="search-meta" aria-live="polite">{searchResultLabel}</span>
+                    </template>
+                </div>
+            </template>
+
+            <div class="table-area">
+
+                <template lwc:if={showSpinner}>
+                    <div class="spinner-overlay">
+                        <lightning-spinner alternative-text="Loading cases" size="medium"></lightning-spinner>
+                    </div>
+                </template>
+
+                <template lwc:if={showTable}>
+                    <div class="table-scroll">
+                        <table class="cases-table" aria-label="Support cases">
+                            <thead>
+                                <tr>
+                                    <th scope="col" data-column="caseNumber" onclick={handleSort} class="sortable">
+                                        <span class="th-inner">Case <span class="sort-ic">{sortIconCaseNumber}</span></span>
+                                    </th>
+                                    <th scope="col" data-column="subject" onclick={handleSort} class="sortable">
+                                        <span class="th-inner">Subject <span class="sort-ic">{sortIconSubject}</span></span>
+                                    </th>
+                                    <th scope="col" data-column="product" onclick={handleSort} class="sortable">
+                                        <span class="th-inner">Product <span class="sort-ic">{sortIconProduct}</span></span>
+                                    </th>
+                                    <th scope="col" data-column="createdDate" onclick={handleSort} class="sortable">
+                                        <span class="th-inner">Opened <span class="sort-ic">{sortIconOpened}</span></span>
+                                    </th>
+                                    <th scope="col" data-column="priority" onclick={handleSort} class="sortable">
+                                        <span class="th-inner">Priority <span class="sort-ic">{sortIconPriority}</span></span>
+                                    </th>
+                                    <th scope="col" data-column="status" onclick={handleSort} class="sortable">
+                                        <span class="th-inner">Status <span class="sort-ic">{sortIconStatus}</span></span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template for:each={rows} for:item="row">
+                                    <tr key={row.id} class="data-row">
+                                        <td data-label="Case">
+                                            <a href="javascript:void(0);" class="case-link"
+                                                data-id={row.id} onclick={handleCaseClick}>{row.caseNumber}</a>
+                                        </td>
+                                        <td data-label="Subject" class="subject-cell">{row.subject}</td>
+                                        <td data-label="Product" class="muted-cell">{row.product}</td>
+                                        <td data-label="Opened" class="muted-cell">
+                                            <lightning-formatted-date-time value={row.createdDate}
+                                                year="numeric" month="short" day="numeric">
+                                            </lightning-formatted-date-time>
+                                        </td>
+                                        <td data-label="Priority">
+                                            <span class={row.priorityClass}>
+                                                <span class="qbadge__dot"></span>{row.priority}
+                                            </span>
+                                        </td>
+                                        <td data-label="Status">
+                                            <span class={row.statusClass}>
+                                                <span class="qbadge__dot"></span>{row.status}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <template lwc:if={showPagination}>
+                        <div class="pagination-bar">
+                            <span class="page-summary">{pageSummary}</span>
+                            <div class="page-nav">
+                                <button class="pg-btn" onclick={handlePrev} disabled={isFirstPage}>Previous</button>
+                                <span class="page-status">Page {pageNumber} of {totalPages}</span>
+                                <button class="pg-btn" onclick={handleNext} disabled={isLastPage}>Next</button>
+                            </div>
+                        </div>
+                    </template>
+                </template>
+
+                <!-- Empty state -->
+                <template lwc:if={showEmptyState}>
+                    <div class="empty-state">
+                        <lightning-icon icon-name="standard:case" size="large"></lightning-icon>
+                        <p class="empty-title">{emptyTitle}</p>
+                        <p class="empty-text">{emptyText}</p>
+                    </div>
+                </template>
+
+                <!-- Guest state -->
+                <template lwc:if={showGuestState}>
+                    <div class="empty-state">
+                        <lightning-icon icon-name="utility:lock" size="large"></lightning-icon>
+                        <p class="empty-title">Please log in</p>
+                        <p class="empty-text">Sign in to your account to view your cases.</p>
+                    </div>
+                </template>
+            </div>
+        </div>
+
+        <!-- ─── New Case modal ─── -->
+        <template lwc:if={showNewCaseModal}>
+            <div class="cmodal" onclick={handleBackdropClick}>
+                <section role="dialog" tabindex="-1" aria-modal="true"
+                    aria-labelledby="newCaseHeading" class="cmodal__card">
+
+                    <header class="cmodal__header">
+                        <div class="cmodal__heading">
+                            <p class="cmodal__eyebrow">New support case</p>
+                            <h2 id="newCaseHeading" class="cmodal__title">Open a case</h2>
+                        </div>
+                        <button type="button" class="cmodal__close" title="Close" aria-label="Close"
+                            onclick={handleCloseModal}>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                        </button>
+                    </header>
+
+                    <div class="cmodal__body">
+                        <template lwc:if={newCaseError}>
+                            <div class="cmodal__error" role="alert">{newCaseError}</div>
+                        </template>
+
+                        <div class="cmodal__note">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="16" x2="12" y2="12"></line>
+                                <line x1="12" y1="8" x2="12" y2="8"></line>
+                            </svg>
+                            <span>Your account, contact, case number, owner and date opened are filled in
+                                automatically from your login.</span>
+                        </div>
+
+                        <div class="cfield">
+                            <label class="cfield__label" for="ncSubject">
+                                Subject <span class="cfield__req">*</span>
+                            </label>
+                            <input id="ncSubject" type="text" class="cfield__input" value={newSubject}
+                                maxlength="255" placeholder="Brief summary of your issue"
+                                oninput={handleSubjectChange} />
+                        </div>
+
+                        <div class="cfield">
+                            <label class="cfield__label" for="ncPriority">Priority</label>
+                            <div class="cfield__selectwrap">
+                                <select id="ncPriority" class="cfield__select" onchange={handlePriorityChange}>
+                                    <template for:each={priorityOptions} for:item="opt">
+                                        <option key={opt.value} value={opt.value} selected={opt.selected}>
+                                            {opt.label}
+                                        </option>
+                                    </template>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="cfield">
+                            <label class="cfield__label" for="ncDescription">Description</label>
+                            <textarea id="ncDescription" class="cfield__textarea" rows="5"
+                                placeholder="Add any details that will help us resolve your case"
+                                oninput={handleDescriptionChange}>{newDescription}</textarea>
+                        </div>
+
+                        <div class="cfield">
+                            <label class="cfield__label">Attachments</label>
+
+                            <div class={dropZoneClass}
+                                ondragover={handleDragOver}
+                                ondragleave={handleDragLeave}
+                                ondrop={handleDrop}
+                                onclick={handleBrowseFiles}>
+                                <svg class="dropzone__icon" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                                    stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="17 8 12 3 7 8"></polyline>
+                                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                                </svg>
+                                <p class="dropzone__title">
+                                    <span class="dropzone__link">Click to upload</span> or drag &amp; drop
+                                </p>
+                                <p class="dropzone__hint">Excel, Word, PDF, images or email • up to 2&nbsp;MB each</p>
+                                <input type="file" multiple accept={acceptAttr}
+                                    class="visually-hidden" onchange={handleFilePicker} />
+                            </div>
+
+                            <template lwc:if={isUploadingFiles}>
+                                <div class="upload-status">
+                                    <span class="btn-spinner" aria-hidden="true"></span>
+                                    <span>Uploading…</span>
+                                </div>
+                            </template>
+
+                            <template lwc:if={fileError}>
+                                <p class="upload-error" role="alert">{fileError}</p>
+                            </template>
+
+                            <template lwc:if={hasStagedFiles}>
+                                <ul class="staged-list">
+                                    <template for:each={stagedFiles} for:item="file">
+                                        <li key={file.contentDocumentId} class="staged-row">
+                                            <span class={file.iconClass}>{file.extLabel}</span>
+                                            <span class="staged-meta">
+                                                <span class="staged-name" title={file.name}>{file.name}</span>
+                                                <span class="staged-sub">{file.sizeLabel}</span>
+                                            </span>
+                                            <button type="button" class="staged-remove"
+                                                data-id={file.contentDocumentId}
+                                                onclick={handleRemoveStaged}
+                                                title="Remove" aria-label="Remove file">
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round"
+                                                    stroke-linejoin="round" aria-hidden="true">
+                                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                                </svg>
+                                            </button>
+                                        </li>
+                                    </template>
+                                </ul>
+                            </template>
+                        </div>
+                    </div>
+
+                    <footer class="cmodal__footer">
+                        <button type="button" class="btn-ghost" onclick={handleCloseModal}
+                            disabled={isSavingCase}>Cancel</button>
+                        <button type="button" class="btn-primary" onclick={handleCreateCase}
+                            disabled={isSavingCase}>
+                            <template lwc:if={isSavingCase}>
+                                <span class="btn-spinner" aria-hidden="true"></span>Submitting…
+                            </template>
+                            <template lwc:else>Submit case</template>
+                        </button>
+                    </footer>
+                </section>
+            </div>
+        </template>
+    </div>
+</template>

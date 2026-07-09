@@ -1,0 +1,76 @@
+<template>
+    <div class="path-wrapper">
+        <c-cart-path-bar 
+            product-family={productType}
+            current-step={currentStep} 
+            enabled-steps={allowedSteps}
+            onchildevent={handlePathSelection}
+            onbacktoproducts={handleResetFlow}>
+        </c-cart-path-bar>
+    </div>
+
+    <template if:true={showLandingPage}>
+        <div class="page-container">
+            <h1 class="title">Avalo Medical Cart Convenient Packages</h1>
+            <h4 class="subtitle">Select a package that meets your care application</h4>
+            <hr>
+
+            <template if:true={packageConfigs}>
+                <div class="cart-grid">
+                    <template for:each={packageConfigs} for:item="pkg">
+                        <div key={pkg.Id} class="cart-card">
+                            <p class="cart-title">{pkg.Option_Label__c}</p>
+                            <img src={pkg.Image_URL__c} class="cart-img" alt={pkg.Option_Label__c}>
+                            <button 
+                                class="select-btn" 
+                                data-id={pkg.Unique_Identifier__c} 
+                                data-path={pkg.Path__c}
+                                onclick={handleSelect}>
+                                SELECT
+                            </button>
+                        </div>
+                    </template>
+                </div>
+            </template>
+        </div>
+
+        <div class="build-container">
+            <h2 class="title">Avalo Medical Carts</h2>
+            <hr>
+            <p class="description">
+                Use this interactive tool to configure an Avalo Medical Cart to meet your clinical workflow requirements.
+                <!-- Select one of the easy-to-order <b>Convenient Packages</b> below or choose 
+                <b> Build Your Own</b> to custom configure a cart. -->
+            </p>
+
+            <button class="build-btn" onclick={handleBuildClick}>
+                BUILD YOUR OWN →
+            </button>
+        </div>
+    </template>
+
+    <template if:true={isLoading}>
+        <div class="spinner-container">
+            <lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+        </div>
+    </template>
+
+    <template if:false={isLoading}>
+        <template if:true={showBuildYourOwn}>
+            <c-capsa-build-your-own opportunity-id={opportunityId} product-type={productType} onstepchange={handleStepChange} onresetflow={handleResetFlow} quote-id={quoteId}></c-capsa-build-your-own>
+        </template>
+
+        <template if:true={showPackageFlow}>
+            <c-capsa-package-flow 
+                cart-label={selectedCartLabel}
+                cart-id={selectedCartId} 
+                cart-unique-id={selectedCartUniqueId}
+                path-json={selectedCartPath}
+                opportunity-id={opportunityId}
+                onstepchange={handleStepChange}
+                onresetflow={handleResetFlow}
+                quote-id={quoteId}>
+            </c-capsa-package-flow>
+        </template>
+    </template>
+</template>

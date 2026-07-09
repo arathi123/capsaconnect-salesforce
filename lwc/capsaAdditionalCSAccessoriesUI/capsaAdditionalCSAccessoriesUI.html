@@ -1,0 +1,67 @@
+<template>
+
+    <div class="path-wrapper">
+
+        <c-cart-path-bar 
+            product-family={productType}
+            current-step={currentStep}
+            enabled-steps={allowedSteps}
+            onchildevent={handlePathSelection}
+            onbacktoproducts={handleResetFlow}>
+        </c-cart-path-bar>
+
+    </div>
+
+    <!-- LANDING -->
+
+    <template if:true={showLandingPage}>
+
+        <div class="page-container">
+
+            <h1 class="title">
+                Additional CS Accessories Configurator
+            </h1>
+
+            <hr>
+
+            <p class="description">
+                Configure Additional CS Accessories based on your workflow and requirements.
+            </p>
+
+            <button 
+                class="build-btn"
+                onclick={handleBuildClick}>
+
+                START CONFIGURATION →
+
+            </button>
+
+        </div>
+
+    </template>
+
+    <!-- LOADER -->
+
+    <template if:true={isLoading}>
+
+        <lightning-spinner
+            alternative-text="Loading">
+        </lightning-spinner>
+
+    </template>
+
+    <!-- BUILD FLOW -->
+
+    <template if:true={showBuildYourOwn}>
+
+        <c-capsa-additional-c-s-accessories-build
+            opportunity-id={opportunityId}
+            quote-id={quoteId}
+            product-type={productType}
+            onstepchange={handleStepChange}
+            onresetflow={handleResetFlow}>
+        </c-capsa-additional-c-s-accessories-build>
+
+    </template>
+
+</template>

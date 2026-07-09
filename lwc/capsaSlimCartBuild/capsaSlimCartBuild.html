@@ -1,0 +1,50 @@
+<template>
+     <template if:true={isCartType}>
+            <c-slim-cart-cart-type 
+                product-type={productType} 
+                selections={selections} 
+                onstepcomplete={handleStepComplete}>
+            </c-slim-cart-cart-type>
+        </template>
+
+         <template if:true={isStorage}>
+            <c-slim-cart-storage
+                product-type={productType} 
+                selections={selections} 
+                onstepcomplete={handleStepComplete}>
+            </c-slim-cart-storage>
+        </template>
+
+         <template if:true={isAccessories}>
+            <c-slim-cart-accessories 
+                product-type={productType} 
+                selections={selections} 
+                onstepcomplete={handleStepComplete}>
+            </c-slim-cart-accessories >
+        </template>
+
+         <template if:true={isAssembly}>
+            <c-slim-cart-assembly 
+                product-type={productType} 
+                selections={selections} 
+                onstepcomplete={handleStepComplete}>
+            </c-slim-cart-assembly >
+        </template>
+
+         <template if:true={isWarranty}>
+            <c-slim-cart-warranty  
+                product-type={productType} 
+                selections={selections} 
+                onstepcomplete={handleStepComplete}>
+            </c-slim-cart-warranty>
+        </template>
+
+         <template if:true={isResults}>
+            <c-slim-cart-results
+                opportunity-id={opportunityId}
+                product-type={productType} 
+                selections={selections} 
+                onstepcomplete={handleStepComplete}>
+            </c-slim-cart-results>
+        </template>
+</template>

@@ -1,0 +1,88 @@
+<template>
+    <div class="card-step" id="woodblend-options-card">
+
+        <template if:true={isMetadataLoading}>
+            <div style="height: 300px; position: relative;">
+                <lightning-spinner alternative-text="Loading options..." size="medium" variant="brand"></lightning-spinner>
+            </div>
+        </template>
+
+        <template if:false={isMetadataLoading}>
+            <div class="slds-m-bottom_large">
+                <h2 class="title slds-m-bottom_small">Cart Options</h2>
+                <hr class="slds-m-vertical_small" />
+                <p class="subtitle">Select additional cart options to customize your Woodblend configuration.</p>
+            </div>
+
+            <div class="section-container slds-m-bottom_xx-large">
+                <h3 class="section-title">Handle <span class="required">*</span></h3>
+                <div class="slds-grid slds-wrap slds-gutters">
+                    <template for:each={handleOptions} for:item="opt">
+                        <div key={opt.uiKey} class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4">
+                            <label class="option-label">
+                                <div class={opt.wrapperClass}>
+                                    <img src={opt.Image_URL__c} alt={opt.Option_Label__c} class="option-img" />
+                                    <div class="radio-footer">
+                                        <input type="radio" name="handle" value={opt.uiKey} 
+                                            checked={opt.isSelected} onchange={handleHandleChange} />
+                                        <span>{opt.Option_Label__c}</span>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            <div class="section-container slds-m-bottom_xx-large">
+                <div class="slds-grid slds-wrap slds-gutters slds-grid_vertical-align-center">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-4">
+                        <h3 class="section-title">Pull Out Work Surface</h3>
+                        <p class="info-text">Optional pull-out work surface expands work area, can be positioned on either side of cart. Dimensions: 12.5” W x 16.5” L x 1/2” H</p>
+                        <p class="question-text">Would you like to add a pull-out work surface? <span class="required">*</span></p>
+                        
+                        <div class="slds-grid slds-wrap slds-m-top_medium">
+                            <label class="radio-inline slds-m-right_large slds-m-bottom_small">
+                                <input type="radio" name="surface" value="None" checked onchange={handleSurfaceChange} />
+                                <span>No Pull Out Surface</span>
+                            </label>
+
+                            <template for:each={surfaceOptions} for:item="surf">
+                                <label key={surf.uiKey} class="radio-inline slds-m-right_large slds-m-bottom_small">
+                                    <input type="radio" name="surface" value={surf.optionLabel} onchange={handleSurfaceChange} />
+                                    <span>{surf.optionLabel}</span>
+                                </label>
+                            </template>
+                        </div>
+
+                        <template if:true={showSurfacePositionDropdown}>
+                            <div class="slds-m-top_medium fade-in" style="max-width: 300px; background-color:#f9f9f9; padding: 15px; border-radius:6px; border: 1px solid #e5e5e5;">
+                                <label class="info-text" style="font-weight: 600; display: block; margin-bottom: 4px;">
+                                    Select Surface Position <span class="required">*</span>
+                                </label>
+                                <select class="custom-select" onchange={handleSurfacePositionChange}>
+                                    <template for:each={positionOptions} for:item="pos">
+                                        <option key={pos.value} value={pos.value}>{pos.label}</option>
+                                    </template>
+                                </select>
+                                <template if:false={selectedSurfacePosition}>
+                                    <p style="color: #ea001e; font-size: 12px; margin-top: 4px;">Position selection is required.</p>
+                                </template>
+                            </div>
+                        </template>
+
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4 slds-text-align_center">
+                        <img src={surfaceImg} class="example-img" alt="Work Surface" style="max-height: 200px;" />
+                    </div>
+                </div>
+            </div>
+
+            <hr class="slds-m-vertical_small" />
+
+            <div if:false={isNextDisabled} class="footer-area">
+                <button class="next-btn" onclick={handleNext}>NEXT</button>
+            </div>
+        </template>
+    </div>
+</template>

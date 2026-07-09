@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <isExposed>true</isExposed>
+    <apiVersion>66.0</apiVersion>
+    <description>New Business Account application form — Step 1 download, Step 2 submit.</description>
+    <targets>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="downloadUrl" type="String" label="Download Form URL" default="#"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

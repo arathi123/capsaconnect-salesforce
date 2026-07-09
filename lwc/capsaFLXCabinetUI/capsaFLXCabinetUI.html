@@ -1,0 +1,138 @@
+<template>
+
+    <!-- PATH BAR -->
+
+    <div class="path-wrapper">
+
+        <c-cart-path-bar 
+            product-family={productType}
+            current-step={currentStep}
+            enabled-steps={allowedSteps}
+            onchildevent={handlePathSelection}
+            onbacktoproducts={handleResetFlow}>
+        </c-cart-path-bar>
+
+    </div>
+
+    <!-- LANDING PAGE -->
+
+    <template if:true={showLandingPage}>
+
+        <div class="build-container">
+
+            <div class="page-container">
+
+                <h1 class="title">
+
+                    FLX Cabinet Configurator
+
+                </h1>
+
+                <h4 class="subtitle">
+
+                    Configure your FLX Cabinet based on your workflow requirements.
+
+                </h4>
+
+                <hr>
+
+                <!-- FUTURE PACKAGE FLOW -->
+
+                <template if:true={packageConfigs}>
+
+                    <div class="cart-grid">
+
+                        <template
+                            for:each={packageConfigs}
+                            for:item="pkg">
+
+                            <div
+                                key={pkg.Id}
+                                class="cart-card">
+
+                                <p class="cart-title">
+
+                                    {pkg.Option_Label__c}
+
+                                </p>
+
+                                <img
+                                    src={pkg.Image_URL__c}
+                                    class="cart-img"
+                                    alt={pkg.Option_Label__c}/>
+
+                                <button
+                                    class="select-btn"
+                                    data-id={pkg.Unique_Identifier__c}
+                                    onclick={handleSelect}>
+
+                                    SELECT
+
+                                </button>
+
+                            </div>
+
+                        </template>
+
+                    </div>
+
+                </template>
+
+                <!-- DESCRIPTION -->
+
+                <p class="description slds-m-top_large">
+
+                    Use this interactive configurator to build your custom FLX Cabinet with shell, base, top, lock, divider, and accessories.
+
+                </p>
+
+                <!-- START BUTTON -->
+
+                <button
+                    class="build-btn"
+                    onclick={handleBuildClick}>
+
+                    START CONFIGURATION →
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </template>
+
+    <!-- LOADER -->
+
+    <template if:true={isLoading}>
+
+        <div class="spinner-container">
+
+            <lightning-spinner
+                alternative-text="Loading..."
+                size="medium">
+            </lightning-spinner>
+
+        </div>
+
+    </template>
+
+    <!-- BUILD FLOW -->
+
+    <template if:false={isLoading}>
+
+        <template if:true={showBuildYourOwn}>
+
+            <c-capsa-f-l-x-cabinet-build
+                opportunity-id={opportunityId}
+                product-type={productType}
+                quote-id={quoteId}
+                onstepchange={handleStepChange}
+                onresetflow={handleResetFlow}>
+            </c-capsa-f-l-x-cabinet-build>
+
+        </template>
+
+    </template>
+
+</template>

@@ -1,0 +1,215 @@
+<template>
+
+    <!-- ================= LOADING ================= -->
+
+    <template if:true={isLoading}>
+
+        <div class="spinner-container">
+
+            <lightning-spinner
+                alternative-text="Loading..."
+                size="medium">
+
+            </lightning-spinner>
+
+        </div>
+
+    </template>
+
+    <!-- ================= PAGE ================= -->
+
+    <template if:false={isLoading}>
+
+        <div class="use-case-container fade-in">
+
+            <!-- ================= LEFT PANEL ================= -->
+
+            <div class="questions-column">
+
+                <h2 class="title">
+
+                    Warranty &amp; Service Options
+
+                </h2>
+
+                <hr>
+
+                <p class="slds-text-body_regular slds-m-bottom_large">
+
+                    The Trio comes with a standard
+                    <b>3-Year Comprehensive Warranty.</b>
+
+                    Upgrade with your choice of optional enhanced
+                    Warranty and Service options.
+
+                </p>
+
+                <div class="options-list">
+
+                    <!-- ================= BASE WARRANTIES ================= -->
+
+                    <template
+                        for:each={baseWarrantyOptions}
+                        for:item="option">
+
+                        <div
+                            key={option.Option_Key__c}
+                            class={option.cardClass}
+                            data-key={option.Option_Key__c}
+                            onclick={handleBaseSelect}>
+
+                            <div class="card-content">
+
+                                <input
+                                    type="radio"
+                                    name="baseWarranty"
+                                    checked={option.isSelected}
+                                    readonly />
+
+                                <div class="text-block">
+
+                                    <div class="option-title">
+
+                                        {option.Option_Label__c}
+
+                                    </div>
+
+                                    <template if:true={option.Description__c}>
+
+                                        <div class="option-desc">
+
+                                            {option.Description__c}
+
+                                        </div>
+
+                                    </template>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <hr key={option.Id}>
+
+                    </template>
+
+                    <!-- ================= BATTERY WARRANTY ================= -->
+
+                    <template if:true={batteryOption}>
+
+                        <div class="slds-m-top_large">
+
+                            <div
+                                class={batteryCardClass}
+                                onclick={handleBatterySelect}>
+
+                                <div class="card-content">
+
+                                    <input
+                                        type="checkbox"
+                                        checked={isBatterySelected}
+                                        disabled={isBatteryDisabled}
+                                        readonly />
+
+                                    <div class="text-block">
+
+                                        <div class="option-title">
+
+                                            {batteryOption.Option_Label__c}
+
+                                        </div>
+
+                                        <div class="option-desc">
+
+                                            {batteryOption.Description__c}
+
+                                        </div>
+
+                                        <template if:true={isBatteryDisabled}>
+
+                                            <div
+                                                style="color:#d83a52;
+                                                       margin-top:6px;
+                                                       font-weight:600;">
+
+                                                Select an Extended Warranty
+                                                above to enable this option.
+
+                                            </div>
+
+                                        </template>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </template>
+
+                </div>
+
+                <!-- ================= FOOTER ================= -->
+
+                <template if:true={isStepComplete}>
+
+                    <div class="footer-area">
+
+                        <button
+                            class="next-btn"
+                            onclick={handleNext}>
+
+                            VIEW RESULTS →
+
+                        </button>
+
+                    </div>
+
+                </template>
+
+            </div>
+
+            <!-- ================= RIGHT PANEL ================= -->
+
+            <div class="preview-column">
+
+                <div class="sticky-preview">
+
+                    <div class="canvas-container">
+
+                        <!-- Base Cart -->
+
+                        <img
+                            src={baseCartImage}
+                            class="base-cart-img"
+                            alt="Configured Cart"/>
+
+                        <!-- Drawer Overlays -->
+
+                        <template
+                            for:each={overlays}
+                            for:item="overlay">
+
+                            <img
+                                key={overlay.url}
+                                src={overlay.url}
+                                class="overlay-drawer"
+                                style={overlay.style}
+                                alt="Drawer Overlay"/>
+
+                        </template>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </template>
+
+</template>

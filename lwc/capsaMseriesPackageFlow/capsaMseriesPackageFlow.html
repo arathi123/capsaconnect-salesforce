@@ -1,0 +1,39 @@
+<template>
+
+    <div class="package-engine-container">
+
+        <!-- ACCESSORY KIT -->
+        <template if:true={isAccessoryKit}>
+
+            <c-byo-kit-selection
+
+                product-type="M-Series"
+
+                options={currentOptions}
+
+                onaccessorykitselected={handleAccessoryKitSelection}
+
+                onnextstep={handleNext}>
+
+            </c-byo-kit-selection>
+
+        </template>
+
+        <!-- RESULTS -->
+        <template if:true={isResults}>
+
+            <c-byo-mseries-result-page
+
+                summary-data={summaryData}
+
+                opportunity-id={opportunityId}
+
+                quote-id={quoteId}>
+
+            </c-byo-mseries-result-page>
+
+        </template>
+
+    </div>
+
+</template>

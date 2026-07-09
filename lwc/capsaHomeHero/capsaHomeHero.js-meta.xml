@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>66.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Capsa Home Hero</masterLabel>
+    <description>Hero banner for the B2B Connect home page.</description>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="headline" type="String" label="Headline" default="Explore Our Parts Catalog" />
+            <property name="subheadline" type="String" label="Subheadline" default="Find genuine replacement parts, accessories, and supplies for all Capsa Healthcare products. Fast shipping, expert support, and easy B2B ordering." />
+            <property name="primaryLabel" type="String" label="Primary Button Label" default="New Customer" />
+            <property name="secondaryLabel" type="String" label="Secondary Button Label" default="Already Capsa Customer" />
+            <property name="registerPage" type="String" label="Register Page (API name)" description="Experience route API name for the Request Account button." default="Register" />
+            <property name="ordersPage" type="String" label="Orders Card Page (API name, optional)" description="Leave blank: the Orders card opens the standard Order Summary list. Set a custom route API name only to override that destination." />
+            <property name="invoicesPage" type="String" label="Invoices Card Page (API name)" description="Experience route API name for the Invoices card." default="MyInvoices__c" />
+            <property name="quotesPage" type="String" label="Quotes Card Page (API name)" description="Experience route API name for the Quotes card." default="MyQuotes__c" />
+            <property name="supportPage" type="String" label="Support Cases Card Page (API name)" description="Experience route API name for the Support Cases card." default="MyCases__c" />
+            <!-- Legacy URL/page props retained for backward compatibility with
+                 published instances (the platform forbids removing in-use
+                 properties). No longer used for navigation — the *Page props
+                 above drive it. -->
+            <property name="primaryUrl" type="String" label="Primary Button URL (legacy)" default="/register" />
+            <property name="secondaryUrl" type="String" label="Secondary Button URL (legacy)" default="/login" />
+            <property name="loginPage" type="String" label="Login Page (API name, legacy)" description="No longer used; guests use the typed login page." />
+            <property name="ordersUrl" type="String" label="Orders Card URL (legacy)" default="/Capsaconnect/OrderSummary/OrderSummary/Default" />
+            <property name="invoicesUrl" type="String" label="Invoices Card URL (legacy)" default="/Capsaconnect/my-invoices" />
+            <property name="quotesUrl" type="String" label="Quotes Card URL (legacy)" default="/Capsaconnect/my-quotes" />
+            <property name="supportUrl" type="String" label="Support Cases Card URL (legacy)" default="/Capsaconnect/my-cases" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

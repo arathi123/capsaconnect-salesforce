@@ -1,0 +1,98 @@
+<template>
+
+    <lightning-card>
+
+        <!-- LOADER -->
+        <template if:true={isLoading}>
+            <div style="height:200px">
+
+                <lightning-spinner size="medium">
+                </lightning-spinner>
+
+            </div>
+        </template>
+
+        <template if:false={isLoading}>
+
+            <!-- CABINET LINE -->
+            <template if:true={isCabinetLineStep}>
+
+                <c-byo-cart-type-selection
+                    product-type={productType}
+                    ontypeselected={handleCabinetSelection}
+                    onnextstep={handleNextButton}>
+                </c-byo-cart-type-selection>
+
+            </template>
+
+            <!-- OLYMPUS -->
+            <template if:true={isOlympusStep}>
+
+                <c-byo-cart-type-selection
+                    product-type={productType}
+                    ontypeselected={handleOlympusSelection}
+                    onnextstep={handleNextButton}>
+                </c-byo-cart-type-selection>
+
+            </template>
+
+            <!-- J HOOKS -->
+            <template if:true={isJHooksStep}>
+
+                <c-byo-cart-type-selection
+                    product-type={productType}
+                    ontypeselected={handleJHooksSelection}
+                    onnextstep={handleNextButton}>
+                </c-byo-cart-type-selection>
+
+            </template>
+
+            <!-- DOOR WITH LOCK -->
+            <template if:true={isDoorWithLockStep}>
+
+                <c-byo-cart-type-selection
+                    product-type={productType}
+                    ontypeselected={handleDoorSelection}
+                    onnextstep={handleNextButton}>
+                </c-byo-cart-type-selection>
+
+            </template>
+
+            <!-- LOCK -->
+            <template if:true={isLockStep}>
+
+                <c-byo-lock-selection
+                    product-type={productType}
+                    selections={selections}
+                    onlockselected={handleLockSelection}
+                    onnextstep={handleNextButton}>
+                </c-byo-lock-selection>
+
+            </template>
+
+            <!-- TOP -->
+            <template if:true={isTopStep}>
+
+                <c-byo-cart-type-selection
+                    product-type={productType}
+                    ontypeselected={handleTopSelection}
+                    onnextstep={handleNextButton}>
+                </c-byo-cart-type-selection>
+
+            </template>
+
+            <!-- RESULTS -->
+            <!-- <template if:true={isResultStep}>
+
+                <c-byo-standard-tall-bronc-endo-cab-result-page
+                    summary-data={summaryData}
+                    opportunity-id={opportunityId}>
+                </c-byo-standard-tall-bronc-endo-cab-result-page>
+
+            </template> -->
+
+        </template>
+
+    </lightning-card>
+
+</template>

@@ -1,0 +1,87 @@
+<template>
+    <div class="use-case-container fade-in">
+        
+        <template if:true={isLoading}>
+            <div class="spinner-container">
+                <lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+            </div>
+        </template>
+
+        <template if:false={isLoading}>
+            <div class="questions-column">
+                <h2 class="title">Step 8. Configure Drawers</h2>
+                <hr>
+                
+                <p class="slds-text-body_regular slds-m-bottom_medium">
+                    Select a storage module below, then choose the drawer configuration for that position.
+                </p>
+
+                <div class="vertical-slots">
+                    <template for:each={slotData} for:item="slot">
+                        <div key={slot.id} class="slot-accordion-item">
+                            
+                            <button 
+                                class={slot.tabClass}
+                                data-index={slot.index}
+                                onclick={handleSlotClick}>
+                                
+                                <div style="display:flex; align-items:center; gap: 10px;">
+                                    Storage Module {slot.id}
+                                    <template if:true={slot.hasSelection}>
+                                        <span class="check-icon">✓</span>
+                                    </template>
+                                </div>
+                                <span class="dropdown-icon">{slot.icon}</span>
+                            </button>
+
+                            <template if:true={slot.isActive}>
+                                <div class="drawer-grid fade-in">
+                                    <template for:each={drawerOptions} for:item="opt">
+                                        <div key={opt.Option_Key__c} 
+                                             class={opt.cardClass}
+                                             data-key={opt.Option_Key__c}
+                                             data-url={opt.Image_URL__c}
+                                             onclick={handleDrawerSelect}>
+                                            
+                                            <div class="card-content">
+                                                <img src={opt.Image_URL__c} alt={opt.Option_Label__c} class="drawer-img" />
+                                                <div class="color-name">{opt.Option_Label__c}</div>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </div>
+                            </template>
+                            
+                        </div>
+                    </template>
+                </div>
+
+                <template if:true={isStepComplete}>
+                    <div class="footer-area fade-in">
+                        <button class="next-btn" onclick={handleNext}>NEXT →</button>
+                    </div>
+                </template>
+            </div>
+
+            <div class="preview-column">
+                <div class="sticky-preview">
+                    <div class="canvas-container">
+                        <img src={baseCartImage} alt="Configured Cart" class="base-cart-img" />
+                        
+                        <template for:each={slotData} for:item="slot">
+                            <template if:true={slot.selectedImage}>
+                                <img 
+                                    key={slot.id} 
+                                    src={slot.selectedImage} 
+                                    class="overlay-drawer fade-in"
+                                    style={slot.cssStyle}
+                                    alt="Drawer Overlay" />
+                            </template>
+                        </template>
+                    </div>
+                </div>
+            </div>
+            
+        </template>
+    </div>
+</template>

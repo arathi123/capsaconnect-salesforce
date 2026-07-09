@@ -1,0 +1,60 @@
+/* Layout Containers */
+.container {
+    padding-left: 6%;
+    padding-right: 6%;
+}
+
+.title {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+/* Height, Lock, and Color Grid Styles (Keep these until these steps become children) */
+.height-grid, .color-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.option-row {
+    padding: 15px;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    transition: all 0.2s;
+}
+
+.option-row:hover {
+    background: #f9f9f9;
+}
+
+/* Navigation Buttons */
+.footer-area {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 40px;
+    padding-bottom: 20px;
+}
+
+.next-btn {
+    background-color: #2cb195;
+    color: white;
+    padding: 12px 32px;
+    border-radius: 6px;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.next-btn:hover {
+    background-color: #1aac9d;
+}
+
+/* Spinner centering */
+.Spinner-Container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

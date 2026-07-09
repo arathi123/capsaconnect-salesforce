@@ -1,0 +1,114 @@
+<template>
+
+    <template if:true={isLoading}>
+
+        <div class="spinner-container">
+
+            <lightning-spinner
+                alternative-text="Loading..."
+                size="medium">
+
+            </lightning-spinner>
+
+        </div>
+
+    </template>
+
+    <template if:false={isLoading}>
+
+        <div class="page-container">
+
+            <div class="page-header">
+
+                <h2 class="title">
+
+                    Select Additional Storage Options
+
+                </h2>
+
+                <hr>
+
+                <p class="description">
+
+                    One optional side bin storage option is available for
+                    RX model configurations. Select one option below.
+
+                </p>
+
+            </div>
+
+
+            <div class="option-list">
+
+                <template
+                    for:each={displayOptions}
+                    for:item="option">
+
+                    <div
+                        key={option.Option_Key__c}
+                        class={option.cardClass}
+                        data-key={option.Option_Key__c}
+                        onclick={handleSelect}>
+                                                <template if:true={option.Image_URL__c}>
+
+                            <img
+                                src={option.Image_URL__c}
+                                class="option-image"
+                                alt={option.Option_Label__c}/>
+
+                        </template>
+
+                        <div class="option-content">
+
+                            <div class="option-title">
+
+                                {option.Option_Label__c}
+
+                            </div>
+
+                            <template if:true={option.Description__c}>
+
+                                <div class="option-description">
+
+                                    {option.Description__c}
+
+                                </div>
+
+                            </template>
+
+                        </div>
+
+                        <template if:true={option.selected}>
+
+                            <div class="selected-icon">
+
+                                ✓
+
+                            </div>
+
+                        </template>
+
+                    </div>
+
+                </template>
+
+            </div>
+
+            <div class="footer-area">
+
+                <button
+                    class="next-btn"
+                    disabled={isNextDisabled}
+                    onclick={handleNext}>
+
+                    NEXT →
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </template>
+
+</template>

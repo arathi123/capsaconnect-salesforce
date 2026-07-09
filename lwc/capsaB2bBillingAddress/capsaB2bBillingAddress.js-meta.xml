@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+	<isExposed>false</isExposed>
+	<apiVersion>66.0</apiVersion>
+	<description>Billing-address book embedded in capsaB2bPaymentMethod. Fetches Billing-type ContactPointAddress records and emits the selected billing address to the payment component.</description>
+</LightningComponentBundle>

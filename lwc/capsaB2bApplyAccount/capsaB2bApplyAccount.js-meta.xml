@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <isExposed>true</isExposed>
+    <apiVersion>66.0</apiVersion>
+    <description>Apply for a New Account panel displayed beside the login form on the login page.</description>
+    <targets>
+        <target>lightningCommunity__Default</target>
+        <target>lightningCommunity__Page_Layout</target>
+        <target>lightningCommunity__Page</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="applyUrl" type="String" label="Apply URL" default="/SelfRegister"/>
+            <property name="description" type="String" label="Description" default="Request your Business Account to get pricing terms and allow your Purchase Agents to check out using a PO or Credit Card."/>
+            <property name="buttonLabel" type="String" label="Button Label" default="Sign Up for Capsa Connect Account"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

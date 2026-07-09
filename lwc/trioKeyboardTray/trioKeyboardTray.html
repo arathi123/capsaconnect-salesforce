@@ -1,0 +1,223 @@
+<template>
+
+    <div class="use-case-container">
+
+        <template if:true={isLoading}>
+            <div class="spinner-container">
+                <lightning-spinner
+                    alternative-text="Loading..."
+                    size="medium">
+                </lightning-spinner>
+            </div>
+        </template>
+
+        <template if:false={isLoading}>
+
+            <div class="questions-column">
+
+                <!-- KEYBOARD TRAY -->
+
+                <h2 class="title">
+                    Select Keyboard Tray
+                </h2>
+
+                <p class="option-desc">
+                    Click on a selection to learn more, or the image icon
+                    to view the keyboard option.
+                    Keyboard and mouse not included.
+                </p>
+
+                <hr>
+
+                <div class="options-list">
+
+                    <template
+                        for:each={keyboardOptions}
+                        for:item="opt">
+
+                        <div key={opt.Option_Key__c}>
+
+                            <div
+                                class={opt.rowClass}
+                                data-key={opt.Option_Key__c}
+                                onclick={handleKeyboardSelect}>
+
+                                <div class="text-block">
+
+                                    <div
+                                        style="display:flex;
+                                        align-items:center;
+                                        gap:10px;">
+
+                                        <div class="option-title">
+                                            {opt.Option_Label__c}
+                                        </div>
+
+                                        <template
+                                            if:true={opt.Image_URL__c}>
+
+                                            <img
+                                                src={opt.Image_URL__c}
+                                                class="tiny-image"/>
+
+                                        </template>
+
+                                    </div>
+
+                                    <template if:true={opt.isVisible}>
+
+                                        <div class="option-desc">
+                                            {opt.Description__c}
+                                        </div>
+
+                                    </template>
+
+                                </div>
+
+                                <input
+                                    type="radio"
+                                    checked={opt.isSelected}
+                                    readonly />
+
+                            </div>
+
+                            <hr>
+
+                        </div>
+
+                    </template>
+
+                </div>
+
+                <!-- WRIST COLOR -->
+
+                <template if:true={showWristSection}>
+
+                    <div class="slds-m-top_x-large">
+
+                        <h2 class="section-title">
+                            Select Wrist Rest Color
+                        </h2>
+
+                        <p class="option-desc">
+                            Trio is available with wrist color options,
+                            please choose a color below.
+                            Click on the image icon to view a color example.
+                        </p>
+
+                        <hr>
+
+                        <div class="options-list">
+
+                            <template
+                                for:each={wristColorOptions}
+                                for:item="opt">
+
+                                <div key={opt.Option_Key__c}>
+
+                                    <div
+                                        class={opt.rowClass}
+                                        data-key={opt.Option_Key__c}
+                                        onclick={handleWristSelect}>
+
+                                        <div class="text-block">
+
+                                            <div
+                                                style="display:flex;
+                                                align-items:center;
+                                                gap:10px;">
+
+                                                <div class="option-title">
+                                                    {opt.Option_Label__c}
+                                                </div>
+
+                                                <template
+                                                    if:true={opt.Image_URL__c}>
+
+                                                    <img
+                                                        src={opt.Image_URL__c}
+                                                        class="tiny-image"/>
+
+                                                </template>
+
+                                            </div>
+
+                                            <template if:true={opt.isVisible}>
+
+                                                <div class="option-desc">
+                                                    {opt.Description__c}
+                                                </div>
+
+                                            </template>
+
+                                        </div>
+
+                                        <input
+                                            type="radio"
+                                            checked={opt.isSelected}
+                                            readonly />
+
+                                    </div>
+
+                                    <hr>
+
+                                </div>
+
+                            </template>
+
+                        </div>
+
+                    </div>
+
+                </template>
+
+                <template if:true={isStepComplete}>
+
+                    <div class="footer-area">
+
+                        <button
+                            class="next-btn"
+                            onclick={handleNext}>
+
+                            NEXT →
+
+                        </button>
+
+                    </div>
+
+                </template>
+
+            </div>
+
+            <!-- RIGHT SIDE -->
+
+            <div class="preview-column">
+
+                <div class="sticky-preview">
+
+                    <div class="preview-heading">
+                        YOUR SELECTION
+                    </div>
+
+                    <div class="preview-subheading">
+                        Representative Image
+                    </div>
+
+                    <div class="image-box">
+
+                        <img
+                            src={currentPreviewImage}
+                            alt="Trio Preview"
+                            class="preview-img"/>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </template>
+
+    </div>
+
+</template>

@@ -1,0 +1,82 @@
+<template>
+
+    <!-- PATH BAR -->
+
+    <div class="path-wrapper">
+
+        <c-cart-path-bar 
+            product-family={productType}
+            current-step={currentStep}
+            enabled-steps={allowedSteps}
+            onchildevent={handlePathSelection}
+            onbacktoproducts={handleResetFlow}>
+        </c-cart-path-bar>
+
+    </div>
+
+    <!-- LANDING PAGE -->
+
+    <template if:true={showLandingPage}>
+
+        <div class="page-container">
+
+            <h1 class="title">
+                Olympus Cab Accessories Configurator
+            </h1>
+
+            <hr>
+
+            <p class="description">
+
+                Configure Olympus Cabinet Accessories
+                based on your workflow and requirements.
+
+            </p>
+
+            <button 
+                class="build-btn"
+                onclick={handleBuildClick}>
+
+                START CONFIGURATION →
+
+            </button>
+
+        </div>
+
+    </template>
+
+    <!-- LOADER -->
+
+    <template if:true={isLoading}>
+
+        <div class="spinner-container">
+
+            <lightning-spinner
+                alternative-text="Loading..."
+                size="medium">
+            </lightning-spinner>
+
+        </div>
+
+    </template>
+
+    <!-- BUILD FLOW -->
+
+    <template if:false={isLoading}>
+
+        <template if:true={showBuildYourOwn}>
+
+            <c-capsa-olympus-cab-accessories-build
+                opportunity-id={opportunityId}
+                quote-id={quoteId}
+                product-type={productType}
+                current-step={currentStep}
+                onstepchange={handleStepChange}
+                onresetflow={handleResetFlow}>
+            </c-capsa-olympus-cab-accessories-build>
+
+        </template>
+
+    </template>
+
+</template>

@@ -1,0 +1,195 @@
+<template>
+
+    <template if:true={isLoading}>
+
+        <div class="use-case-container">
+
+            <div class="spinner-container">
+
+                <lightning-spinner
+                    alternative-text="Generating Quote..."
+                    size="medium">
+
+                </lightning-spinner>
+
+                <div class="slds-m-top_medium loading-text">
+
+                    Saving your configuration...
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </template>
+
+    <!-- ================= RESULTS ================= -->
+
+    <template if:false={isLoading}>
+
+        <div class="use-case-container fade-in">
+
+            <!-- ================= LEFT ================= -->
+
+            <div class="questions-column">
+
+                <div class="results-header slds-m-bottom_large">
+
+                    <h2 class="title">
+
+                        YOUR CUSTOMIZED TRIO MOBILE COMPUTING
+                        WORKSTATION IS CONFIGURED!
+
+                    </h2>
+
+                    <p class="slds-m-top_small slds-text-body_regular">
+
+                        Thank you for using the Trio Product
+                        Configurator.
+
+                        <br/><br/>
+
+                        Your customized configuration is available to submit a Request For Quote, Email to Coworker, or Print/Save as PDF Document.
+
+                        If you were not able to configure the Trio workstation to meet your precise requirements, please contact us directly at: 1-800-437-6633, info@capsahealthcare.com, or visit capsahealthcare.com
+
+                    </p>
+
+                </div>
+
+                <h3 class="summary-heading">
+
+                    Configuration Summary
+
+                </h3>
+
+                <hr class="summary-divider"/>
+
+                <div class="summary-list">
+
+                    <div class="summary-section">
+
+                        <div class="section-title">
+
+                            Primary Chassis SKU
+
+                        </div>
+
+                        <div class="section-item">
+
+                            {chassisSku}
+
+                        </div>
+
+                    </div>
+
+                <template
+                    for:each={summarySections}
+                    for:item="section">
+
+                    <template if:true={section.hasData}>
+
+                        <div
+                            key={section.title}
+                            class="summary-section">
+
+                            <div class="section-title">
+                                {section.title}
+                            </div>
+
+                            <ul class="result-list">
+
+                                <template
+                                    for:each={section.items}
+                                    for:item="item">
+
+                                    <li
+                                        key={item.key}
+                                        class="result-item">
+
+                                        <span>{item.label}</span>
+
+                                        <template if:true={item.sku}>
+                                            <strong>&nbsp;-{item.sku}</strong>
+                                        </template>
+
+                                    </li>
+
+                                </template>
+
+                            </ul>
+
+                        </div>
+
+                    </template>
+
+                </template>
+
+                </div>
+
+            </div>
+
+            <!-- ================= RIGHT ================= -->
+
+            <div class="preview-column">
+
+                <div class="sticky-preview">
+
+                    <div
+                        class="canvas-container
+                               slds-m-bottom_large">
+
+                        <!-- BASE CART -->
+
+                        <img
+                            src={baseCartImage}
+                            alt="Configured Cart"
+                            class="base-cart-img"/>
+
+                        <!-- DRAWER OVERLAYS -->
+
+                        <template
+                            for:each={overlays}
+                            for:item="overlay">
+
+                            <img
+                                key={overlay.url}
+                                src={overlay.url}
+                                class="overlay-drawer"
+                                style={overlay.style}
+                                alt="Overlay"/>
+
+                        </template>
+
+                    </div>
+
+                    <!-- BUTTON -->
+
+                    <button
+                        class="next-btn"
+                        onclick={handleGenerateQuote}>
+
+                        <template if:true={isReconfigureMode}>
+
+                            UPDATE QUOTE
+
+                        </template>
+
+                        <template if:false={isReconfigureMode}>
+
+                            GENERATE QUOTE
+
+                        </template>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </template>
+
+</template>

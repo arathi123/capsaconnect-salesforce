@@ -1,0 +1,39 @@
+.placeholder-container {
+    text-align: center;
+    padding: 80px 20px;
+    font-family: 'Montserrat', sans-serif;
+    background: #f8f9fa;
+    border: 2px dashed #d8d8d8;
+    border-radius: 12px;
+    margin: 40px auto;
+    max-width: 600px;
+}
+
+.placeholder-container h2 {
+    font-size: 26px;
+    font-weight: 600;
+    margin: 20px 0 10px 0;
+    color: #333;
+}
+
+.placeholder-container p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.back-btn {
+    padding: 12px 24px;
+    background-color: white;
+    color: #0176d3;
+    border: 1px solid #0176d3;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background-color 0.2s;
+}
+
+.back-btn:hover {
+    background-color: #f0f8fc;
+}

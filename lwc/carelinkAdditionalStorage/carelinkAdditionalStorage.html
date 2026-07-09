@@ -1,0 +1,122 @@
+<template>
+    <div class="use-case-container fade-in">
+        
+        <template if:true={isLoading}>
+            <div class="spinner-container">
+                <lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+            </div>
+        </template>
+
+        <template if:false={isLoading}>
+            <div class="questions-column">
+                
+                <h2 class="title" style="display: flex; align-items: center; gap: 10px;">
+                    Select Additional Storage Options
+                    <lightning-button-icon icon-name="utility:image" variant="border-filled" alternative-text="View Example" title="View Example" onclick={openModal}></lightning-button-icon>
+                </h2>
+                
+                <p class="slds-m-bottom_large step-description">
+                    Optional side bin storage options are available to add to RX model configurations.
+                </p>
+                <hr>
+
+                <div class="options-list">
+                    <template for:each={displayOptions} for:item="opt">
+                        <div key={opt.Option_Key__c}>
+                            <label class={opt.rowClass}>
+                                
+                                <div class="text-block" style="display: flex; align-items: center; gap: 15px;">
+                                    <template if:true={opt.Image_URL__c}>
+                                        <img src={opt.Image_URL__c} alt="Accessory" style="width: 60px; height: 60px; object-fit: contain; border: 1px solid #eee; border-radius: 4px;" />
+                                    </template>
+                                    
+                                    <div>
+                                        <div class="option-title">{opt.Option_Label__c}</div>
+                                        <template if:true={opt.Description__c}>
+                                            <div class="option-desc fade-in">{opt.Description__c}</div>
+                                        </template>
+                                    </div>
+                                </div>
+                                
+                                <div class="checkbox-wrapper">
+                                    <input 
+                                        type="checkbox" 
+                                        data-key={opt.Option_Key__c} 
+                                        checked={opt.isSelected} 
+                                        onchange={handleCheckboxChange} 
+                                        class="custom-checkbox"
+                                    />
+                                </div>
+
+                            </label>
+                            <hr>
+                        </div>
+                    </template>
+
+                    <div>
+                        <label class={noneRowClass}>
+                            <div class="text-block" style="display: flex; align-items: center; gap: 15px;">
+                                <div>
+                                    <div class="option-title">None</div>
+                                </div>
+                            </div>
+                            <div class="checkbox-wrapper">
+                                <input 
+                                    type="checkbox" 
+                                    data-key="None" 
+                                    checked={isNoneSelected} 
+                                    onchange={handleCheckboxChange} 
+                                    class="custom-checkbox"
+                                />
+                            </div>
+                        </label>
+                        <hr>
+                    </div>
+                </div>
+
+                <template if:true={isStepComplete}>
+                    <div class="footer-area fade-in">
+                        <button class="next-btn" onclick={handleNext}>NEXT →</button>
+                    </div>
+                </template>
+            </div>
+
+            <div class="preview-column">
+                <div class="sticky-preview">
+                    <template if:true={layeredPreview}>
+                        <div class="canvas-container">
+                            <img src={layeredPreview.baseImage} alt="Configured Cart" class="base-cart-img" />
+                            <template for:each={layeredPreview.overlays} for:item="overlay" for:index="index">
+                                <img 
+                                    key={overlay.url} 
+                                    src={overlay.url} 
+                                    class="overlay-drawer fade-in"
+                                    style={overlay.style}
+                                    alt="Bin Overlay" />
+                            </template>
+                        </div>
+                    </template>
+                </div>
+            </div>
+            
+        </template>
+
+        <template if:true={isModalOpen}>
+            <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                            <lightning-icon icon-name="utility:close" alternative-text="close" size="small"></lightning-icon>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 class="slds-text-heading_medium slds-hyphenate">Additional Storage Example</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium slds-text-align_center">
+                        <img src="/resource/carelinkImagesPart2/carelinkImagesPart2/sidebins.jpg" alt="Sidebins Example" style="max-width: 100%; height: 400px; border-radius: 8px;" />
+                    </div>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+    </div>
+</template>

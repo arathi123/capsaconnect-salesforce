@@ -1,0 +1,57 @@
+.apply-card {
+    background: #ffffff !important;
+    /* Match the login card: thin gray border, squarish corners, no shadow */
+    border: 1px solid #d0d5dd !important;
+    border-radius: 3px !important;
+    padding: 32px !important;
+    box-shadow: none !important;
+    box-sizing: border-box !important;
+    height: 100% !important;
+    /* Narrow + centred within its column */
+    max-width: 460px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+}
+
+@media (max-width: 768px) {
+    .apply-card {
+        max-width: none !important;
+    }
+}
+
+.apply-description {
+    font-size: 15px !important;
+    color: #344054 !important;
+    line-height: 1.7 !important;
+    margin-bottom: 28px !important;
+    font-family: 'Open Sans', sans-serif !important;
+}
+
+.apply-btn {
+    display: inline-block !important;
+    padding: 13px 28px !important;
+    background-color: #0173A5 !important;
+    border: 1px solid #0173A5 !important;
+    color: #ffffff !important;
+    border-radius: 999px !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    font-family: 'Open Sans', sans-serif !important;
+    text-align: center !important;
+    text-decoration: none !important;
+    cursor: pointer !important;
+    min-width: 220px !important;
+    box-sizing: border-box !important;
+}
+
+.apply-btn:hover {
+    background-color: #015f8a !important;
+    border-color: #015f8a !important;
+    color: #ffffff !important;
+    text-decoration: none !important;
+}

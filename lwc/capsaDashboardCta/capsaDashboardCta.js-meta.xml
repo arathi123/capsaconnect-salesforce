@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>62.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Capsa Dashboard CTA</masterLabel>
+    <description>Centered call-to-action; logged-in users go to the dashboard, guests to login.</description>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="eyebrow" type="String" label="Eyebrow Text" default="Your Account · Real Time" />
+            <property name="heading" type="String" label="Heading" default="Your Unified Login for Every Capsa Service" />
+            <property name="buttonLabel" type="String" label="Button Label" default="Go to Dashboard" />
+            <property name="dashboardPage" type="String" label="Dashboard Page (API name)" description="Experience route API name opened for logged-in users. Takes precedence over the legacy URL. Guests always go to the login page." default="AddPaymentMethods" />
+            <property name="dashboardUrl" type="String" label="Dashboard URL (legacy — leave as-is)" default="/Capsaconnect/dashboard" />
+            <property name="loginUrl" type="String" label="Login URL (legacy — leave as-is)" default="/Capsaconnect/login" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

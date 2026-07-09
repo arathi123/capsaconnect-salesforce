@@ -1,0 +1,10 @@
+<template>
+    <lightning-modal-header label="New Service Quote"></lightning-modal-header>
+    <lightning-modal-body>
+        <lightning-flow
+            flow-api-name="New_Service_Quote_from_Case"
+            flow-input-variables={flowInputVariables}
+            onstatuschange={handleStatusChange}>
+        </lightning-flow>
+    </lightning-modal-body>
+</template>

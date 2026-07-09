@@ -1,0 +1,88 @@
+<template>
+
+    <div class="container">
+
+        <h2 class="title">
+            Extra Storage Type
+        </h2>
+
+        <hr>
+
+        <p class="subtitle">
+            Choose additional storage configuration.
+        </p>
+
+        <div class="height-grid">
+
+            <template
+                for:each={storageTypeOptions}
+                for:item="item">
+
+                <div
+                    key={item.value}
+                    class={item.cardClass}
+                    data-key={item.value}
+                    onmouseenter={handleMouseEnter}
+                    onmouseleave={handleMouseLeave}
+                    onclick={handleSelect}>
+
+                    <div class="card-content">
+
+                        <img
+                            src={item.image}
+                            alt={item.label}
+                            class="cart-img" />
+
+                        <div class="radio-row">
+
+                            <input
+                                type="radio"
+                                name="storageType"
+                                value={item.value}
+                                checked={item.isSelected} />
+
+                            <label class="cart-name">
+                                {item.label}
+                            </label>
+
+                        </div>
+
+                        <div class="description-container">
+
+                            <p
+                                if:true={item.showDesc}
+                                class="cart-subtext fade-in">
+
+                                {item.description}
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </template>
+
+        </div>
+
+        <hr>
+
+        <div
+            if:true={showNextButton}
+            class="footer-area">
+
+            <button
+                class="next-btn"
+                onclick={handleNext}>
+
+                NEXT
+
+            </button>
+
+        </div>
+
+    </div>
+
+</template>

@@ -1,0 +1,78 @@
+<template>
+    <div class="use-case-container fade-in">
+        <template if:true={isLoading}>
+            <div class="spinner-container">
+                <lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+            </div>
+        </template>
+
+        <template if:false={isLoading}>
+            <div class="questions-column">
+                <h2 class="title">Storage Builder (MaxBin System)</h2>
+                <hr>
+                
+                <p class="slds-text-body_regular slds-m-bottom_medium step-description">
+                    Build out your storage options by adding bins to your cart. All available tiers must be filled before you can advance.
+                </p>
+
+                <div class="capacity-tracker slds-m-bottom_large">
+                    <div class="tracker-text">
+                        <strong>Capacity Filled:</strong> {usedCapacity} of {maxCapacity} Tiers
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill" style={progressBarWidth}></div>
+                    </div>
+                </div>
+
+                <div class="options-queue-list">
+                    <template for:each={availableOptions} for:item="opt">
+                        <div key={opt.Option_Key__c} class="queue-row">
+                            <div class="queue-action">
+                                <button class={opt.btnClass} disabled={opt.isDisabled} data-key={opt.Option_Key__c} onclick={handleAddBin}>
+                                    <lightning-icon icon-name="utility:add" size="x-small" variant="inverse" class="slds-m-right_x-small"></lightning-icon>
+                                    Add
+                                </button>
+                            </div>
+                            <div class="queue-image-wrapper">
+                                <img src={opt.Image_URL__c} alt={opt.Option_Label__c} class="queue-img" />
+                            </div>
+                            <div class="queue-label">
+                                {opt.Option_Label__c}
+                                <div class="queue-size-badge">Takes {opt.size} Tier(s)</div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+
+                <div class="action-footer slds-m-top_x-large fade-in">
+                    <button class="reset-btn" onclick={handleReset}>
+                        <lightning-icon icon-name="utility:delete" size="x-small" variant="inverse" class="slds-m-right_x-small"></lightning-icon>
+                        Reset Bins
+                    </button>
+                    
+                    <template if:true={isStepComplete}>
+                        <button class="next-btn" onclick={handleNext}>NEXT →</button>
+                    </template>
+                </div>
+            </div>
+
+            <div class="preview-column">
+                <div class="sticky-preview">
+                    <div class="canvas-container">
+                        <img src={baseCartImage} alt="Configured Cart" class="base-cart-img" />
+                        
+                        <template for:each={processedAddedBins} for:item="bin">
+                            <div key={bin.id}>
+                                <img src={bin.selectedImage} class="overlay-drawer fade-in" style={bin.cssStyle} alt={bin.label} />
+                                
+                                <template if:true={bin.isLast}>
+                                    <button class="canvas-remove-btn" style={bin.crossStyle} onclick={handleRemoveBin} title="Remove Bin">✕</button>
+                                </template>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </div>
+</template>

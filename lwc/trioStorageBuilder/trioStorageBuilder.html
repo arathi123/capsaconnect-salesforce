@@ -1,0 +1,205 @@
+<template>
+
+    <!-- ===================================== -->
+    <!-- LOADING -->
+    <!-- ===================================== -->
+
+    <template if:true={isLoading}>
+
+        <div class="spinner-container">
+
+            <lightning-spinner
+                alternative-text="Loading..."
+                size="medium">
+
+            </lightning-spinner>
+
+        </div>
+
+    </template>
+
+    <template if:false={isLoading}>
+
+        <div class="builder-page">
+
+            <!-- ===================================== -->
+            <!-- HEADER -->
+            <!-- ===================================== -->
+
+            <div class="builder-header">
+
+                <h2 class="title">
+                    Storage Builder
+                </h2>
+
+                <hr>
+
+                <p class="description">
+                    All tiers must be filled before you can advance.
+                </p>
+
+            </div>
+
+            <!-- ===================================== -->
+            <!-- BODY -->
+            <!-- ===================================== -->
+
+            <div class="builder-body">
+
+                <!-- ===================================== -->
+                <!-- LEFT PANEL -->
+                <!-- ===================================== -->
+
+                <div class="preview-column">
+
+                    <div class="canvas-container">
+
+                        <!-- Base Cart -->
+
+                        <img
+                            src={baseCartImage}
+                            class="base-cart"
+                            alt="Configured Cart"/>
+
+                        <!-- Drawer Overlays -->
+
+                        <template
+                            for:each={displaySlots}
+                            for:item="slot">
+
+                            <template if:true={slot.filled}>
+
+                                <img
+                                    key={slot.id}
+                                    src={slot.drawerImage}
+                                    class="overlay-drawer"
+                                    style={slot.cssStyle}
+                                    alt={slot.drawerLabel}/>
+
+                                <button
+                                    key={slot.id}
+                                    class="remove-btn"
+                                    style={slot.removeStyle}
+                                    data-index={slot.index}
+                                    onclick={handleRemove}>
+
+                                    ✕
+
+                                </button>
+
+                            </template>
+
+                        </template>
+
+                    </div>
+
+                </div>
+
+                <!-- ===================================== -->
+                <!-- RIGHT PANEL -->
+                <!-- Part 2 starts here -->
+
+                                <div class="drawer-column">
+
+                    <!-- ===================================== -->
+                    <!-- RESET BUTTON -->
+                    <!-- ===================================== -->
+
+                    <div class="drawer-header">
+
+                        <button
+                            class="reset-btn"
+                            onclick={handleReset}>
+
+                            Reset
+
+                        </button>
+
+                    </div>
+
+                    <!-- ===================================== -->
+                    <!-- DRAWER LIST -->
+                    <!-- ===================================== -->
+
+                    <div class="drawer-list">
+
+                        <template
+                            for:each={drawerCards}
+                            for:item="drawer">
+
+                            <div
+                                key={drawer.Option_Key__c}
+                                class="drawer-card">
+
+                                <!-- ADD BUTTON -->
+
+                                <button
+                                    class="add-btn"
+                                    data-key={drawer.Option_Key__c}
+                                    onclick={handleAdd}
+                                    disabled={drawer.disabled}>
+
+                                    {drawer.buttonLabel}
+
+                                </button>
+
+                                <!-- DRAWER IMAGE -->
+
+                                <img
+                                    src={drawer.Image_URL__c}
+                                    class="drawer-image"
+                                    alt={drawer.Option_Label__c}/>
+
+                                <!-- DRAWER DETAILS -->
+
+                                <div class="drawer-details">
+
+                                    <div class="drawer-title">
+
+                                        {drawer.Option_Label__c}
+
+                                    </div>
+
+                                    <!-- <div class="drawer-count">
+
+                                        Added
+                                        {drawer.addedCount}
+                                        /
+                                        {drawer.maxAllowed}
+
+                                    </div> -->
+
+                                </div>
+
+                            </div>
+
+                        </template>
+
+                    </div>
+
+                    <!-- ===================================== -->
+                    <!-- FOOTER -->
+                    <!-- ===================================== -->
+
+                    <div class="footer-area">
+
+                        <button
+                            class="next-btn"
+                            disabled={disableNext}
+                            onclick={handleNext}>
+
+                            NEXT →
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </template>
+
+</template>

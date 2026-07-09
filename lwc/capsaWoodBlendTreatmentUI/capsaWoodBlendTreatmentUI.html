@@ -1,0 +1,43 @@
+<template>
+    <div class="path-wrapper">
+        <c-cart-path-bar 
+            product-family={productType}
+            current-step={currentStep} 
+            enabled-steps={allowedSteps}
+            onchildevent={handlePathSelection}
+            onbacktoproducts={handleResetFlow}>
+        </c-cart-path-bar>
+    </div>
+
+    <template if:true={showLandingPage}>
+        <div class="page-container">
+            <h1 class="title">WoodBlendTreatment Carts</h1>
+            <hr>
+            <p class="description">
+                Use this interactive tool to custom configure an WoodBlendTreatmentCart to meet your specific clinical workflow and secure storage requirements.
+            </p>
+
+            <button class="build-btn" onclick={handleBuildClick}>
+                START CONFIGURATION →
+            </button>
+        </div>
+    </template>
+
+    <template if:true={isLoading}>
+        <div class="spinner-container">
+            <lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+        </div>
+    </template>
+
+    <template if:false={isLoading}>
+        <template if:true={showBuildYourOwn}>
+            <c-capsa-wood-blend-build
+                opportunity-id={opportunityId}
+                product-type={productType}
+                quote-id={quoteId}
+                onstepchange={handleStepChange}
+                onresetflow={handleResetFlow}>
+            </c-capsa-wood-blend-build>
+        </template>
+    </template>
+</template>

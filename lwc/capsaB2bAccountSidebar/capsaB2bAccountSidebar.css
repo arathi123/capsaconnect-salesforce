@@ -1,0 +1,152 @@
+:host {
+    display: block;
+    height: 100%;
+    /* Pull the sidebar flush to the header — no gap above it. */
+    margin-top: -2.5rem;
+}
+
+.sidebar {
+    background: linear-gradient(to right, #033857, #0173A5);
+    color: #e6edf4;
+    /* Square top so it meets the header flush; keep bottom rounded. */
+    border-radius: 0 0 16px 16px;
+    padding: 14px 12px;
+    font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    min-height: 100%;
+    box-sizing: border-box;
+}
+
+/* ── Account card ── */
+.acct-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 18px;
+}
+
+.acct-avatar {
+    flex: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: #1f6fd6;
+    color: #fff;
+    font-weight: 800;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: 0.02em;
+}
+
+.acct-meta {
+    min-width: 0;
+}
+
+.acct-name {
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 0.95rem;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.acct-sub {
+    font-size: 0.78rem;
+    color: #a9bccd;
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* ── Nav ── */
+.nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 12px;
+    border-radius: 10px;
+    color: #e6edf4;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: background-color 0.12s ease, color 0.12s ease;
+}
+
+.nav-item:link,
+.nav-item:visited {
+    color: #e6edf4;
+}
+
+.nav-item:hover {
+    background: rgba(255, 255, 255, 0.06);
+    color: #ffffff;
+}
+
+.nav-item--active {
+    background: #1f6fd6;
+    color: #ffffff;
+}
+
+.nav-item--active:hover {
+    background: #1f6fd6;
+}
+
+.nav-ic {
+    flex: none;
+    display: inline-flex;
+}
+
+.nav-ic svg {
+    width: 18px;
+    height: 18px;
+    display: block;
+}
+
+.nav-label {
+    flex: 1 1 auto;
+    white-space: nowrap;
+}
+
+.nav-badge {
+    flex: none;
+    min-width: 22px;
+    height: 22px;
+    padding: 0 7px;
+    border-radius: 11px;
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+    font-size: 0.78rem;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.nav-item--active .nav-badge {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+    .sidebar {
+        border-radius: 0;
+    }
+}

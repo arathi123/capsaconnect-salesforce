@@ -1,0 +1,104 @@
+<template>
+    <div class="card-step" id="bridge-card">
+        <div class="slds-m-bottom_large">
+            <h2 class="title slds-m-bottom_small">Bridge & Bins</h2>
+            <hr class="slds-m-vertical_small" />
+        </div>
+
+        <div class="section-container slds-m-bottom_large">
+            <h3 class="section-title">Storage Bin Type</h3>
+            <div class="slds-grid slds-wrap slds-gutters">
+                <template for:each={tiltBins} for:item="opt">
+                    <div key={opt.uiKey} class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4">
+                        <label class="bin-label">
+                            <div class={opt.wrapperClass}>
+                                <img src={opt.Image_URL__c} alt={opt.Option_Label__c} class="bin-img" />
+                                <div class="checkbox-footer">
+                                    <input type="checkbox" data-id={opt.uiKey} checked={opt.isSelected} onchange={handleTiltToggle} />
+                                    <span>{opt.Option_Label__c}</span>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                </template>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4 slds-align-bottom">
+                    <label class="radio-inline slds-m-bottom_medium checkbox-none">
+                        <input type="checkbox" checked={tiltNone} onchange={handleTiltNone} />
+                        <span>None</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-container slds-m-bottom_large slds-m-top_large">
+            <div class="slds-grid slds-wrap slds-gutters">
+                <template for:each={bulkBins} for:item="opt">
+                    <div key={opt.uiKey} class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4">
+                        <div class={opt.wrapperClass}>
+                            <label class="bin-label">
+                                <img src={opt.Image_URL__c} alt={opt.Option_Label__c} class="bin-img" />
+                                <div class="checkbox-footer">
+                                    <input type="checkbox" data-id={opt.uiKey} checked={opt.isSelected} onchange={handleBulkToggle} />
+                                    <span>{opt.Option_Label__c}</span>
+                                </div>
+                            </label>
+                            
+                            <template if:true={opt.isQtyRequired}>
+                                <div class="qty-wrapper slds-m-top_x-small">
+                                    <label>Quantity</label>
+                                    <select 
+                                        class="custom-select-small" 
+                                        data-id={opt.uiKey} 
+                                        disabled={opt.isQtyDisabled} 
+                                        onchange={handleBulkQtyChange}>
+                                        <option value=""></option>
+                                        <template for:each={opt.qtyArray} for:item="q">
+                                            <option key={q} value={q}>{q}</option>
+                                        </template>
+                                    </select>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4 slds-align-bottom">
+                    <label class="radio-inline slds-m-bottom_medium checkbox-none">
+                        <input type="checkbox" checked={bulkNone} onchange={handleBulkNone} />
+                        <span>None</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-container slds-m-bottom_xx-large slds-m-top_large">
+            <h3 class="section-title">Optional Storage Shelf</h3>
+            <div class="slds-grid slds-wrap slds-gutters slds-grid_vertical-align-center">
+                <template for:each={shelfOptions} for:item="opt">
+                    <div key={opt.uiKey} class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                        <div class={opt.wrapperClass}>
+                            <label class="bin-label">
+                                <img src={opt.Image_URL__c} alt={opt.Option_Label__c} class="shelf-img" />
+                                <div class="radio-footer">
+                                    <input type="radio" name="shelf" value={opt.uiKey} checked={opt.isSelected} onchange={handleShelfChange} />
+                                    <span>{opt.Option_Label__c}</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </template>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-align-bottom">
+                    <label class="radio-inline slds-m-bottom_medium checkbox-none">
+                        <input type="radio" name="shelf" value="NONE" checked={shelfNone} onchange={handleShelfChange} />
+                        <span>No Shelf</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <template if:true={showNextButton}>
+            <div class="footer-area">
+                <button class="next-btn" onclick={handleNext}>NEXT</button>
+            </div>
+        </template>
+    </div>
+</template>

@@ -1,0 +1,63 @@
+<template>
+    <div class="results-page-container">
+        <div class="slds-m-bottom_large">
+            <h2 class="title slds-m-bottom_small">Your Configuration Summary</h2>
+            <hr class="slds-m-vertical_small" />
+        </div>
+
+        <template if:true={isLoading}>
+            <div style="display:flex;justify-content:center;align-items:center;height:300px;">
+                <lightning-spinner alternative-text="Processing..." size="medium"></lightning-spinner>
+            </div>
+        </template>
+
+        <template if:false={isLoading}>
+
+            <template if:true={hasStorage}>
+                <div class="summary-section">
+                    <h3 class="section-title">Storage</h3>
+                    <template for:each={summaryData.storage} for:item="item">
+                        <div key={item.key} class="summary-row">
+                            <span class="item-label">{item.label}</span>
+                            <span class="item-code">{item.key}</span>
+                        </div>
+                    </template>
+                </div>
+            </template>
+
+            <template if:true={hasWarrantyService}>
+                <div class="summary-section">
+                    <h3 class="section-title">Warranty &amp; Service Options</h3>
+                    <template for:each={summaryData.warrantyService} for:item="item">
+                        <div key={item.key} class="summary-row">
+                            <span class="item-label">{item.label}</span>
+                            <span class="item-code">{item.key}</span>
+                        </div>
+                    </template>
+                </div>
+            </template>
+
+            <template if:true={hasAccessories}>
+                <div class="summary-section">
+                    <h3 class="section-title">Accessories</h3>
+                    <template for:each={summaryData.accessories} for:item="acc">
+                        <div key={acc.optionKey} class="summary-row">
+                            <span class="item-label">{acc.optionLabel}</span>
+                            <span class="item-code">{acc.optionKey}</span>
+                        </div>
+                    </template>
+                </div>
+            </template>
+
+            <div class="footer-area slds-m-top_xx-large">
+                <template if:false={isReconfigureMode}>
+                    <button class="quote-btn" onclick={handleQuoteRequest}>REQUEST A QUOTE</button>
+                </template>
+                <template if:true={isReconfigureMode}>
+                    <button class="quote-btn" onclick={handleUpdateQuote}>UPDATE QUOTE</button>
+                </template>
+            </div>
+
+        </template>
+    </div>
+</template>

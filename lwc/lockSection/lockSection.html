@@ -1,0 +1,70 @@
+<template>
+    <template if:true={showcartLock}>
+        <!-- REUSABLE PATH BAR (same UI as parent) -->
+        <c-cart-path-bar current-step="Lock"></c-cart-path-bar>
+    <h1 class="title">Lock System Options</h1> <hr>
+    <p class="subtitle">
+       Select a lock system that meets your security requirements. Click an option for more details.
+       </p>
+    <div class="height-grid">
+
+        <template if:true={showKeyLock}>
+            <div class="height-card">
+             <div class="img-wrapper">
+            <img src={keyLock} class="height-img">
+             </div>
+            <label>
+                <input type="radio" name="height" value="keyLock" onchange={handleSelect}>
+                Keylock
+            </label>
+            <div class="hover-text">Featuring the Best Core Removable Lock System, this proven lock system provides advanced security and the flexibility to easily change keys</div>
+        </div>
+        </template>
+        
+
+        <div class="height-card">
+             <div class="img-wrapper">
+            <img src={electronicLock} class="height-img">
+             </div>
+            
+            <label>
+                <input type="radio" name="height" value="electronicLock" onchange={handleSelect}>
+                Electronic Lock
+            </label>
+            <div class="hover-text">Enter a 4-digit access code and push down on the lock lever to access cart. To secure the cart, push the lock lever in. Provides clear visual indication of lock status from a distance.</div>
+        </div>
+
+        <template if:true={showAutoLock}>
+            <div class="height-card">
+             <div class="img-wrapper">
+            <img src={autoLock} class="height-img">
+            </div>
+            <label>
+                <input type="radio" name="height" value="autoLock" onchange={handleSelect}>
+                Auto Lock
+            </label>
+            <div class="hover-text">Automatically secures a motionless unlocked cart with a user-defined relock time delay. Permits up to 5,000 individual user codes to enhance cart access tracking and security.</div>
+        </div>
+        </template>
+        
+
+    </div>
+  <template if:true={showNext}>
+    <div class="next-btn-wrapper">
+        <button class="next-btn" onclick={handlenext}>NEXT</button>
+    </div>
+</template>
+</template>
+  <!-- PAGE 3 — ACCESSORY PACKAGES -->
+   <template if:false={isLoading}>
+    <template if:true={showpackages}>
+        <c-accessory-packages></c-accessory-packages>
+    </template>
+    </template>
+     <template if:true={isLoading}>
+        <div class="slds-is-relative" style="height: 100px;"> <!-- Container for positioning -->
+           <div class="Spinner Container"><lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+      </div> 
+        </div>
+    </template>
+</template>

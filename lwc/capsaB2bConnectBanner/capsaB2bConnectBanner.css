@@ -1,0 +1,90 @@
+:host {
+    display: block;
+    font-family: 'Salesforce Sans', Arial, sans-serif;
+}
+
+/* Full-bleed: break out of the centered content column to span the viewport */
+.connect-banner {
+    position: relative;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    background: linear-gradient(90deg, #06384f 0%, #14688f 48%, #7cc4e8 100%);
+    padding: 5.5rem 1.5rem;
+    overflow: hidden;
+}
+
+.cb-content {
+    position: relative;
+    z-index: 2;
+    max-width: 860px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+}
+
+.cb-title {
+    color: #ffffff;
+    font-size: 2.75rem;
+    font-weight: 700;
+    line-height: 1.15;
+    margin: 0;
+    max-width: 480px;
+}
+
+/* !important defeats the storefront theme's global anchor styling */
+.cb-btn {
+    background: #f5a623 !important;
+    color: #1b1b1b !important;
+    font-weight: 700;
+    font-size: 0.8125rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.85rem 1.9rem;
+    border-radius: 999px;
+    text-decoration: none !important;
+    white-space: nowrap;
+    transition: background 0.15s ease;
+}
+
+.cb-btn:hover {
+    background: #e0951a !important;
+}
+
+/* Wave edges */
+.wave {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 44px;
+    display: block;
+    z-index: 1;
+}
+
+.wave path {
+    fill: #f3f2f2;
+}
+
+.wave-top {
+    top: -1px;
+}
+
+.wave-bottom {
+    bottom: -1px;
+}
+
+@media (max-width: 768px) {
+    .connect-banner {
+        padding: 4rem 1.25rem;
+    }
+    .cb-title {
+        font-size: 2rem;
+        text-align: center;
+        max-width: 100%;
+    }
+    .cb-content {
+        gap: 1.75rem;
+    }
+}

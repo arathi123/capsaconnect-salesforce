@@ -1,0 +1,42 @@
+<template>
+    <lightning-card title={cardTitle} icon-name="standard:quote">
+        <div slot="actions">
+            <lightning-button
+                variant="neutral"
+                label="New Service Quote"
+                onclick={handleNewQuote}>
+            </lightning-button>
+        </div>
+
+        <template lwc:if={isLoading}>
+            <div class="slds-p-around_medium slds-align_absolute-center">
+                <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+            </div>
+        </template>
+        <template lwc:elseif={hasQuotes}>
+            <lightning-datatable
+                key-field="id"
+                data={quotes}
+                columns={columns}
+                hide-checkbox-column
+                onrowaction={handleRowAction}>
+            </lightning-datatable>
+        </template>
+        <template lwc:elseif={hasError}>
+            <div class="slds-p-around_medium slds-text-color_error">
+                Error loading quotes. Please refresh the page.
+            </div>
+        </template>
+        <template lwc:else>
+            <div class="slds-p-around_medium slds-text-align_center slds-text-color_weak">
+                No quotes to display.
+            </div>
+        </template>
+
+        <template lwc:if={hasQuotes}>
+            <p slot="footer" class="slds-text-align_center">
+                <a onclick={handleViewAll}>View All</a>
+            </p>
+        </template>
+    </lightning-card>
+</template>

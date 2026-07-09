@@ -1,0 +1,60 @@
+<template>
+
+    <!-- PATH -->
+    <div class="path-wrapper">
+        <c-cart-path-bar
+            product-family={productType}
+            current-step={currentStep}
+            enabled-steps={allowedSteps}
+            onchildevent={handlePathSelection}
+            onbacktoproducts={handleResetFlow}>
+        </c-cart-path-bar>
+    </div>
+
+    <!-- LANDING -->
+    <template if:true={showLandingPage}>
+
+        <div class="page-container">
+
+            <h1 class="title">
+                Standard Tall Bronc Endo Cab
+            </h1>
+
+            <hr>
+
+            <p class="description">
+                Configure Standard Tall Bronc Endo Cab products
+                based on your workflow requirements.
+            </p>
+
+            <button class="build-btn"
+                    onclick={handleBuildClick}>
+
+                START CONFIGURATION →
+
+            </button>
+
+        </div>
+
+    </template>
+
+    <!-- LOADER -->
+    <template if:true={isLoading}>
+        <lightning-spinner
+            alternative-text="Loading">
+        </lightning-spinner>
+    </template>
+
+    <!-- BUILD -->
+    <!-- <template if:true={showBuildYourOwn}>
+
+        <c-capsa-standard-tall-bronc-endo-cab-build
+            opportunity-id={opportunityId}
+            product-type={productType}
+            onstepchange={handleStepChange}
+            onresetflow={handleResetFlow}>
+        </c-capsa-standard-tall-bronc-endo-cab-build>
+
+    </template> -->
+
+</template>

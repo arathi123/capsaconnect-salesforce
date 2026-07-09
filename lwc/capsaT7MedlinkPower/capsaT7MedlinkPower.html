@@ -1,0 +1,125 @@
+<template>
+    <div class="use-case-container fade-in">
+
+        <!-- LOADING -->
+        <template if:true={isLoading}>
+            <div class="spinner-container">
+                <lightning-spinner alternative-text="Loading"></lightning-spinner>
+            </div>
+        </template>
+
+        <!-- MAIN -->
+        <template if:false={isLoading}>
+
+            <!-- LEFT COLUMN -->
+            <div class="questions-column">
+
+                <!-- STEP 1 -->
+                <h2 class="title">Step 2. Select Power</h2>
+                <hr>
+
+                <div class="options-list">
+                    <template for:each={filteredPowerOptions} for:item="opt">
+
+                        <div key={opt.Option_Key__c}>
+
+                            <div class={opt.rowClass}
+                                 data-key={opt.Option_Key__c}
+                                 onclick={handlePowerSelect}
+                                 onmouseenter={handlePowerMouseEnter}
+                                 onmouseleave={handlePowerMouseLeave}>
+
+                                <div class="text-block">
+                                    <div class="option-title">
+                                        {opt.Option_Label__c}
+                                    </div>
+
+                                    <template if:true={opt.isVisible}>
+                                        <div class="option-desc fade-in">
+                                            {opt.Description__c}
+                                        </div>
+                                    </template>
+                                </div>
+
+                                <input type="radio"
+                                       checked={opt.isSelected}
+                                       readonly />
+                            </div>
+
+                            <hr>
+                        </div>
+
+                    </template>
+                </div>
+
+                <!-- STEP 2 -->
+                <template if:true={selectedPower}>
+
+                    <div class="fade-in" style="margin-top:30px;">
+                        <h2 class="title">Select Power Input Cable</h2>
+                        <hr>
+
+                        <div class="options-list">
+                            <template for:each={visibleCableOptions} for:item="opt">
+
+                                <div key={opt.Option_Key__c}>
+
+                                    <div class={opt.rowClass}
+                                         data-key={opt.Option_Key__c}
+                                         onclick={handleCableSelect}
+                                         onmouseenter={handleCableMouseEnter}
+                                         onmouseleave={handleCableMouseLeave}>
+
+                                        <div class="text-block">
+                                            <div class="option-title">
+                                                {opt.Option_Label__c}
+                                            </div>
+
+                                            <template if:true={opt.isVisible}>
+                                                <div class="option-desc fade-in">
+                                                    {opt.Description__c}
+                                                </div>
+                                            </template>
+                                        </div>
+
+                                        <input type="radio"
+                                               checked={opt.isSelected}
+                                               readonly />
+                                    </div>
+
+                                    <hr>
+                                </div>
+
+                            </template>
+                        </div>
+                    </div>
+
+                </template>
+
+                <!-- NEXT -->
+                <template if:true={isStepComplete}>
+                    <div class="footer-area fade-in">
+                        <button class="next-btn" onclick={handleNext}>
+                            NEXT →
+                        </button>
+                    </div>
+                </template>
+
+            </div>
+
+            <!-- RIGHT COLUMN -->
+            <div class="preview-column">
+                <div class="sticky-preview">
+
+                    <div class="image-box">
+                        <img src={currentPreviewImage}
+                             class="preview-img"
+                             alt="Preview" />
+                    </div>
+
+                </div>
+            </div>
+
+        </template>
+    </div>
+</template>

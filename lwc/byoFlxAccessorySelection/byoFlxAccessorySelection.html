@@ -1,0 +1,131 @@
+<template>
+    <div class="card-step">
+        <div class="slds-m-bottom_large">
+            <h2 class="title slds-m-bottom_small">Accessories</h2>
+            <hr class="slds-m-vertical_small" />
+        </div>
+
+        <!-- SECTION LOOP -->
+        <template for:each={sectionedAccessories} for:item="section">
+            <div key={section.sectionName} class="section-block">
+
+                <!-- SECTION HEADER -->
+                <div class="section-title"
+                     data-section={section.sectionName}
+                     onclick={handleToggleSection}>
+
+                   {section.sectionName} ({section.selectedCount}/{section.totalCount})
+
+                    <span>{section.icon}</span>
+                </div>
+
+                <!-- SECTION CONTENT -->
+                <template if:true={section.isOpen}>
+                    <div class="accessory-list">
+
+                        <template for:each={section.options} for:item="opt">
+                            <div key={opt.uiKey} class={opt.wrapperClass}>
+                                <label class="slds-grid slds-grid_vertical-align-center">
+
+                                    <div class="slds-col slds-size_1-of-12 slds-text-align_center">
+                                        <input 
+                                            type="checkbox" 
+                                            class="large-checkbox"
+                                            data-id={opt.uiKey} 
+                                            checked={opt.isSelected} 
+                                            onchange={handleToggle} />
+                                    </div>
+
+                                    <div class="slds-col slds-size_9-of-12 slds-p-horizontal_medium">
+                                        <p class="acc-name">{opt.Option_Label__c}</p>
+                                        <p class="acc-desc">{opt.Description__c}</p>
+
+                                        <div class="selection-controls">
+
+                                            <!-- Qty -->
+                                            <template if:true={opt.isQtyRequired}>
+                                                <div class="qty-box">
+                                                    <label class="control-label">Qty:</label>
+                                                    <select 
+                                                        class="custom-select-small" 
+                                                        data-id={opt.uiKey} 
+                                                        disabled={opt.isQtyDisabled}
+                                                        onchange={handleQtyChange}>
+                                                        <template for:each={opt.qtyArray} for:item="q">
+                                                            <option key={q} value={q}>{q}</option>
+                                                        </template>
+                                                    </select>
+                                                </div>
+                                            </template>
+
+                                            <!-- Position -->
+                                            <template if:true={opt.isPositionRequired}>
+                                                <div class="qty-box slds-m-top_x-small">
+                                                    <label class="control-label">
+                                                        Position <span class="required-asterisk">*</span>:
+                                                    </label>
+                                                    <div>
+                                                        <select 
+                                                            class="custom-select-medium" 
+                                                            data-id={opt.uiKey} 
+                                                            disabled={opt.isQtyDisabled}
+                                                            onchange={handlePositionChange}>
+                                                            <template for:each={opt.positionOptions} for:item="pos">
+                                                                <option key={pos.value} value={pos.value}>
+                                                                    {pos.label}
+                                                                </option>
+                                                            </template>
+                                                        </select>
+
+                                                        <template if:true={opt.isSelected}>
+                                                            <template if:false={opt.selectedPosition}>
+                                                                <p class="error-text">
+                                                                    Position selection is required.
+                                                                </p>
+                                                            </template>
+                                                        </template>
+                                                    </div>
+                                                </div>
+                                            </template>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="slds-col slds-size_2-of-12">
+                                        <img src={opt.Image_URL__c} 
+                                             alt={opt.Option_Label__c} 
+                                             class="acc-img" />
+                                    </div>
+
+                                </label>
+                            </div>
+                        </template>
+
+                    </div>
+                </template>
+
+            </div>
+        </template>
+
+        <div class="accessory-item none-option">
+            <div class="slds-grid slds-grid_vertical-align-center">
+                <div class="slds-col slds-size_1-of-12 slds-text-align_center">
+                    <input 
+                        type="checkbox" 
+                        class="large-checkbox"
+                        checked={accessoryNone} 
+                        onchange={handleNoneToggle} />
+                </div>
+                <div class="slds-col slds-size_11-of-12">
+                    <span class="acc-name">None</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-area slds-m-top_xx-large">
+            <template if:true={showNextButton}>
+                <button class="next-btn" onclick={handleNext}>NEXT</button>
+            </template>
+        </div>
+    </div>
+</template>

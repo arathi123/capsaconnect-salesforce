@@ -1,0 +1,456 @@
+<template>
+    <lightning-card title="Add Asset">
+
+        <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+
+            <!-- ══════════════════════════════════════════════════════ -->
+            <!--  SECTION 1 : Add Asset                                -->
+            <!-- ══════════════════════════════════════════════════════ -->
+            <div class="slds-m-bottom_medium">
+
+                <!-- Asset lookup — full width -->
+                <lightning-record-picker
+                    label="Search Asset"
+                    placeholder="Search by asset name…"
+                    object-api-name="Asset"
+                    value={selectedAssetId}
+                    onchange={handleAssetSelection}>
+                </lightning-record-picker>
+
+                <!-- Checkboxes + Add button — only shown once an asset is selected -->
+                <template lwc:if={selectedAssetId}>
+                    <div class="add-controls-row slds-m-top_x-small">
+                        <lightning-input
+                            type="checkbox"
+                            label="Technician Required"
+                            name="technicianRequired"
+                            checked={technicianRequired}
+                            onchange={handleTechnicianRequired}>
+                        </lightning-input>
+                        <lightning-input
+                            type="checkbox"
+                            label="Warranty"
+                            name="warranty"
+                            checked={warranty}
+                            onchange={handleWarranty}>
+                        </lightning-input>
+                        <div class="add-btn-wrap">
+                            <lightning-button
+                                label="Add"
+                                variant="brand"
+                                icon-name="utility:add"
+                                icon-position="left"
+                                disabled={isAddDisabled}
+                                onclick={handleAddAsset}>
+                            </lightning-button>
+                            <template lwc:if={isAdding}>
+                                <lightning-spinner
+                                    alternative-text="Adding asset"
+                                    size="small"
+                                    variant="brand"
+                                    class="slds-m-left_small inline-spinner">
+                                </lightning-spinner>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- Asset warranty detail panel -->
+                <template lwc:if={selectedAssetDetails}>
+                    <div class="asset-detail-box slds-box slds-m-top_small slds-p-around_medium">
+                        <p class="slds-text-body_small slds-m-bottom_small">
+                            <strong>Record Type:</strong>&nbsp;{selectedAssetRecordTypeName}
+                        </p>
+                        <template lwc:if={isCapsaAsset}>
+                            <div class="slds-grid slds-wrap slds-gutters_small">
+                                <div class="slds-col slds-size_1-of-2">
+                                    <p class="detail-label">Std Mechanical End</p>
+                                    <lightning-formatted-date-time value={selectedAssetDetails.Standard_Mechanical_End_Date__c} year="numeric" month="short" day="2-digit"></lightning-formatted-date-time>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2">
+                                    <p class="detail-label">Ext Mechanical End</p>
+                                    <lightning-formatted-date-time value={selectedAssetDetails.Extended_Mechanical_End_Date__c} year="numeric" month="short" day="2-digit"></lightning-formatted-date-time>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2">
+                                    <p class="detail-label">Std Electrical End</p>
+                                    <lightning-formatted-date-time value={selectedAssetDetails.Standard_Electrical_End_Date__c} year="numeric" month="short" day="2-digit"></lightning-formatted-date-time>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2">
+                                    <p class="detail-label">Ext Electrical End</p>
+                                    <lightning-formatted-date-time value={selectedAssetDetails.Extended_Electrical_End_Date__c} year="numeric" month="short" day="2-digit"></lightning-formatted-date-time>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2">
+                                    <p class="detail-label">Std Battery End</p>
+                                    <lightning-formatted-date-time value={selectedAssetDetails.Standard_Battery_End_Date__c} year="numeric" month="short" day="2-digit"></lightning-formatted-date-time>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2">
+                                    <p class="detail-label">Ext Battery End</p>
+                                    <lightning-formatted-date-time value={selectedAssetDetails.Extended_Battery_End_Date__c} year="numeric" month="short" day="2-digit"></lightning-formatted-date-time>
+                                </div>
+                            </div>
+                        </template>
+                        <template lwc:if={isKirbyAsset}>
+                            <div class="slds-grid slds-wrap slds-gutters_small">
+                                <div class="slds-col slds-size_1-of-2">
+                                    <p class="detail-label">HW Warranty End</p>
+                                    <lightning-formatted-date-time value={selectedAssetDetails.Warranty_End__c} year="numeric" month="short" day="2-digit"></lightning-formatted-date-time>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2">
+                                    <p class="detail-label">Ext SW/HW Warranty End</p>
+                                    <lightning-formatted-date-time value={selectedAssetDetails.Extended_Warranty_End__c} year="numeric" month="short" day="2-digit"></lightning-formatted-date-time>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2">
+                                    <p class="detail-label">Std Drug Imaging End</p>
+                                    <lightning-formatted-date-time value={selectedAssetDetails.Standard_Drug_Imaging_End__c} year="numeric" month="short" day="2-digit"></lightning-formatted-date-time>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2">
+                                    <p class="detail-label">Ext Drug Imaging End</p>
+                                    <lightning-formatted-date-time value={selectedAssetDetails.Extended_Drug_Imaging_End__c} year="numeric" month="short" day="2-digit"></lightning-formatted-date-time>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+
+            </div>
+
+            <!-- ══════════════════════════════════════════════════════ -->
+            <!--  SECTION 2 : Case Assets                              -->
+            <!-- ══════════════════════════════════════════════════════ -->
+            <div>
+                <template lwc:if={hasAssets}>
+
+                    <!-- ── Capsa Assets ── -->
+                    <template lwc:if={hasCapsaAssets}>
+                        <div class="slds-m-bottom_large">
+                            <div class="asset-section-header slds-m-bottom_x-small">
+                                <lightning-icon icon-name="standard:asset_object" size="x-small" class="slds-m-right_x-small"></lightning-icon>
+                                <span class="asset-section-title">Capsa Assets</span>
+                            </div>
+                            <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                                <thead>
+                                    <tr class="slds-line-height_reset">
+                                        <th scope="col" style="width:5rem"></th>
+                                        <th scope="col" style="width:2rem" class="slds-text-title_caps slds-text-align_center">#</th>
+                                        <th scope="col" class="slds-text-title_caps">Asset</th>
+                                        <th scope="col" style="width:5.5rem" class="slds-text-title_caps slds-text-align_center">Warranty</th>
+                                        <th scope="col" style="width:6rem" class="slds-text-title_caps slds-text-align_center">Tech Req'd</th>
+                                        <th scope="col" style="width:4.5rem" class="slds-text-title_caps slds-text-align_center">Cases</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <template for:each={capsaRows} for:item="row">
+                                        <tr key={row.Id} class="slds-hint-parent">
+                                            <td class="slds-text-align_center">
+                                                <button class="slds-button slds-button_icon slds-button_icon-x-small row-expander" data-id={row.Id} onclick={handleToggleExpand} title={row.toggleTitle}>
+                                                    <lightning-icon icon-name={row.toggleIcon} size="x-small"></lightning-icon>
+                                                    <span class="slds-assistive-text">{row.toggleTitle}</span>
+                                                </button>
+                                                <button class="slds-button slds-button_icon slds-button_icon-x-small delete-btn" data-id={row.Id} onclick={handleDelete} title="Delete">
+                                                    <lightning-icon icon-name="utility:delete" size="x-small"></lightning-icon>
+                                                    <span class="slds-assistive-text">Delete</span>
+                                                </button>
+                                            </td>
+                                            <td class="slds-text-align_center row-number">{row.rowNumber}</td>
+                                            <td><a href={row.assetUrl} target="_blank">{row.assetName}</a></td>
+                                            <td class="slds-text-align_center">
+                                                <template lwc:if={row.warranty}>
+                                                    <lightning-icon icon-name="utility:check" size="x-small" variant="success"></lightning-icon>
+                                                </template>
+                                            </td>
+                                            <td class="slds-text-align_center">
+                                                <template lwc:if={row.technicianRequired}>
+                                                    <lightning-icon icon-name="utility:check" size="x-small" variant="success"></lightning-icon>
+                                                </template>
+                                            </td>
+                                            <td class="slds-text-align_center">
+                                                <div class="case-hover-wrapper"
+                                                     data-assetid={row.assetId}
+                                                     onmouseenter={handleCaseHoverEnter}
+                                                     onmouseleave={handleCaseHoverLeave}>
+                                                    <span class="case-hover-link">{row.caseCountLabel}</span>
+                                                    <template lwc:if={row.showCasesPopover}>
+                                                        <div class="slds-popover slds-popover_medium case-popover slds-nubbin_top" role="tooltip">
+                                                            <div class="slds-popover__header">
+                                                                <h2 class="slds-text-heading_small">{popoverCasesTitle}</h2>
+                                                            </div>
+                                                            <div class="slds-popover__body">
+                                                                <template lwc:if={isLoadingCases}>
+                                                                    <div class="slds-text-align_center slds-p-vertical_small">
+                                                                        <lightning-spinner size="x-small" alternative-text="Loading cases"></lightning-spinner>
+                                                                    </div>
+                                                                </template>
+                                                                <template lwc:else>
+                                                                    <template for:each={hoveredCases} for:item="c">
+                                                                        <div key={c.id} class="case-popover-row">
+                                                                            <a href={c.caseUrl} target="_blank" class="case-popover-number">{c.caseNumber}</a>
+                                                                            <span class="case-popover-subject">{c.subject}</span>
+                                                                            <span class="case-popover-status">{c.status}</span>
+                                                                        </div>
+                                                                    </template>
+                                                                    <template lwc:if={noCasesFound}>
+                                                                        <p class="slds-text-color_weak slds-text-body_small">No cases linked to this asset.</p>
+                                                                    </template>
+                                                                </template>
+                                                            </div>
+                                                        </div>
+                                                    </template>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <template lwc:if={row.isExpanded}>
+                                            <tr key={row.editKey} class="expanded-edit-row">
+                                                <td colspan="6" class="slds-p-around_medium">
+
+                                                    <!-- Read-only warranty dates -->
+                                                    <div class="warranty-info-box slds-m-bottom_medium">
+                                                        <p class="slds-text-title_caps warranty-info-heading slds-m-bottom_x-small">Warranty Dates</p>
+                                                        <div class="slds-grid slds-wrap slds-gutters_small">
+                                                            <div class="slds-col slds-size_1-of-2 slds-m-bottom_x-small">
+                                                                <p class="detail-label">Std Mechanical End</p>
+                                                                <lightning-formatted-date-time value={row.standardMechanicalEndDate} year="numeric" month="short" day="2-digit"></lightning-formatted-date-time>
+                                                            </div>
+                                                            <div class="slds-col slds-size_1-of-2 slds-m-bottom_x-small">
+                                                                <p class="detail-label">Ext Mechanical End</p>
+                                                                <lightning-formatted-date-time value={row.extendedMechanicalEndDate} year="numeric" month="short" day="2-digit"></lightning-formatted-date-time>
+                                                            </div>
+                                                            <div class="slds-col slds-size_1-of-2 slds-m-bottom_x-small">
+                                                                <p class="detail-label">Std Electrical End</p>
+                                                                <lightning-formatted-date-time value={row.standardElectricalEndDate} year="numeric" month="short" day="2-digit"></lightning-formatted-date-time>
+                                                            </div>
+                                                            <div class="slds-col slds-size_1-of-2 slds-m-bottom_x-small">
+                                                                <p class="detail-label">Ext Electrical End</p>
+                                                                <lightning-formatted-date-time value={row.extendedElectricalEndDate} year="numeric" month="short" day="2-digit"></lightning-formatted-date-time>
+                                                            </div>
+                                                            <div class="slds-col slds-size_1-of-2">
+                                                                <p class="detail-label">Std Battery End</p>
+                                                                <lightning-formatted-date-time value={row.standardBatteryEndDate} year="numeric" month="short" day="2-digit"></lightning-formatted-date-time>
+                                                            </div>
+                                                            <div class="slds-col slds-size_1-of-2">
+                                                                <p class="detail-label">Ext Battery End</p>
+                                                                <lightning-formatted-date-time value={row.extendedBatteryEndDate} year="numeric" month="short" day="2-digit"></lightning-formatted-date-time>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Editable fields -->
+                                                    <lightning-record-edit-form record-id={row.Id} object-api-name="Case_Asset__c" onsuccess={handleEditSuccess}>
+                                                        <lightning-messages></lightning-messages>
+                                                        <div class="slds-form" role="list">
+                                                            <div class="slds-form__row">
+                                                                <div class="slds-form__item" role="listitem">
+                                                                    <lightning-input-field field-name="Warrenty__c"></lightning-input-field>
+                                                                </div>
+                                                                <div class="slds-form__item" role="listitem">
+                                                                    <lightning-input-field field-name="Technician_Required__c"></lightning-input-field>
+                                                                </div>
+                                                            </div>
+                                                            <div class="slds-form__row">
+                                                                <div class="slds-form__item" role="listitem">
+                                                                    <lightning-input-field field-name="Impact_End_Date_Time__c"></lightning-input-field>
+                                                                </div>
+                                                            </div>
+                                                            <div class="slds-form__row">
+                                                                <div class="slds-form__item" role="listitem">
+                                                                    <lightning-input-field field-name="Product__c"></lightning-input-field>
+                                                                </div>
+                                                                <div class="slds-form__item" role="listitem">
+                                                                    <lightning-input-field field-name="Issue_Category__c"></lightning-input-field>
+                                                                </div>
+                                                            </div>
+                                                            <div class="slds-form__row">
+                                                                <div class="slds-form__item" role="listitem">
+                                                                    <lightning-input-field field-name="Issue_Type__c"></lightning-input-field>
+                                                                </div>
+                                                                <div class="slds-form__item" role="listitem">
+                                                                    <lightning-input-field field-name="Issue_Sub_Type__c"></lightning-input-field>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="slds-m-top_small">
+                                                            <lightning-button label="Cancel" class="slds-m-right_x-small" onclick={closeInlineEdit}></lightning-button>
+                                                            <lightning-button type="submit" variant="brand" label="Save"></lightning-button>
+                                                        </div>
+                                                    </lightning-record-edit-form>
+
+                                                </td>
+                                            </tr>
+                                        </template>
+                                    </template>
+                                </tbody>
+                            </table>
+                        </div>
+                    </template>
+
+                    <!-- ── Kirby Assets ── -->
+                    <template lwc:if={hasKirbyAssets}>
+                        <div class="slds-m-bottom_large">
+                            <div class="asset-section-header slds-m-bottom_x-small">
+                                <lightning-icon icon-name="standard:asset_object" size="x-small" class="slds-m-right_x-small"></lightning-icon>
+                                <span class="asset-section-title">Kirby Assets</span>
+                            </div>
+                            <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                                <thead>
+                                    <tr class="slds-line-height_reset">
+                                        <th scope="col" style="width:5rem"></th>
+                                        <th scope="col" style="width:2rem" class="slds-text-title_caps slds-text-align_center">#</th>
+                                        <th scope="col" class="slds-text-title_caps">Asset</th>
+                                        <th scope="col" style="width:5.5rem" class="slds-text-title_caps slds-text-align_center">Warranty</th>
+                                        <th scope="col" style="width:6rem" class="slds-text-title_caps slds-text-align_center">Tech Req'd</th>
+                                        <th scope="col" style="width:4.5rem" class="slds-text-title_caps slds-text-align_center">Cases</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <template for:each={kirbyRows} for:item="row">
+                                        <tr key={row.Id} class="slds-hint-parent">
+                                            <td class="slds-text-align_center">
+                                                <button class="slds-button slds-button_icon slds-button_icon-x-small row-expander" data-id={row.Id} onclick={handleToggleExpand} title={row.toggleTitle}>
+                                                    <lightning-icon icon-name={row.toggleIcon} size="x-small"></lightning-icon>
+                                                    <span class="slds-assistive-text">{row.toggleTitle}</span>
+                                                </button>
+                                                <button class="slds-button slds-button_icon slds-button_icon-x-small delete-btn" data-id={row.Id} onclick={handleDelete} title="Delete">
+                                                    <lightning-icon icon-name="utility:delete" size="x-small"></lightning-icon>
+                                                    <span class="slds-assistive-text">Delete</span>
+                                                </button>
+                                            </td>
+                                            <td class="slds-text-align_center row-number">{row.rowNumber}</td>
+                                            <td><a href={row.assetUrl} target="_blank">{row.assetName}</a></td>
+                                            <td class="slds-text-align_center">
+                                                <template lwc:if={row.warranty}>
+                                                    <lightning-icon icon-name="utility:check" size="x-small" variant="success"></lightning-icon>
+                                                </template>
+                                            </td>
+                                            <td class="slds-text-align_center">
+                                                <template lwc:if={row.technicianRequired}>
+                                                    <lightning-icon icon-name="utility:check" size="x-small" variant="success"></lightning-icon>
+                                                </template>
+                                            </td>
+                                            <td class="slds-text-align_center">
+                                                <div class="case-hover-wrapper"
+                                                     data-assetid={row.assetId}
+                                                     onmouseenter={handleCaseHoverEnter}
+                                                     onmouseleave={handleCaseHoverLeave}>
+                                                    <span class="case-hover-link">{row.caseCountLabel}</span>
+                                                    <template lwc:if={row.showCasesPopover}>
+                                                        <div class="slds-popover slds-popover_medium case-popover slds-nubbin_top" role="tooltip">
+                                                            <div class="slds-popover__header">
+                                                                <h2 class="slds-text-heading_small">{popoverCasesTitle}</h2>
+                                                            </div>
+                                                            <div class="slds-popover__body">
+                                                                <template lwc:if={isLoadingCases}>
+                                                                    <div class="slds-text-align_center slds-p-vertical_small">
+                                                                        <lightning-spinner size="x-small" alternative-text="Loading cases"></lightning-spinner>
+                                                                    </div>
+                                                                </template>
+                                                                <template lwc:else>
+                                                                    <template for:each={hoveredCases} for:item="c">
+                                                                        <div key={c.id} class="case-popover-row">
+                                                                            <a href={c.caseUrl} target="_blank" class="case-popover-number">{c.caseNumber}</a>
+                                                                            <span class="case-popover-subject">{c.subject}</span>
+                                                                            <span class="case-popover-status">{c.status}</span>
+                                                                        </div>
+                                                                    </template>
+                                                                    <template lwc:if={noCasesFound}>
+                                                                        <p class="slds-text-color_weak slds-text-body_small">No cases linked to this asset.</p>
+                                                                    </template>
+                                                                </template>
+                                                            </div>
+                                                        </div>
+                                                    </template>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <template lwc:if={row.isExpanded}>
+                                            <tr key={row.editKey} class="expanded-edit-row">
+                                                <td colspan="6" class="slds-p-around_medium">
+
+                                                    <!-- Read-only warranty dates -->
+                                                    <div class="warranty-info-box slds-m-bottom_medium">
+                                                        <p class="slds-text-title_caps warranty-info-heading slds-m-bottom_x-small">Warranty Dates</p>
+                                                        <div class="slds-grid slds-wrap slds-gutters_small">
+                                                            <div class="slds-col slds-size_1-of-2 slds-m-bottom_x-small">
+                                                                <p class="detail-label">HW Warranty End</p>
+                                                                <lightning-formatted-date-time value={row.hardwareWarrantyEnd} year="numeric" month="short" day="2-digit"></lightning-formatted-date-time>
+                                                            </div>
+                                                            <div class="slds-col slds-size_1-of-2 slds-m-bottom_x-small">
+                                                                <p class="detail-label">Ext SW/HW Warranty End</p>
+                                                                <lightning-formatted-date-time value={row.extendedSoftwareHardwareWarrantyEnd} year="numeric" month="short" day="2-digit"></lightning-formatted-date-time>
+                                                            </div>
+                                                            <div class="slds-col slds-size_1-of-2">
+                                                                <p class="detail-label">Std Drug Imaging End</p>
+                                                                <lightning-formatted-date-time value={row.standardDrugImagingEnd} year="numeric" month="short" day="2-digit"></lightning-formatted-date-time>
+                                                            </div>
+                                                            <div class="slds-col slds-size_1-of-2">
+                                                                <p class="detail-label">Ext Drug Imaging End</p>
+                                                                <lightning-formatted-date-time value={row.extendedDrugImagingEnd} year="numeric" month="short" day="2-digit"></lightning-formatted-date-time>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Editable fields -->
+                                                    <lightning-record-edit-form record-id={row.Id} object-api-name="Case_Asset__c" onsuccess={handleEditSuccess}>
+                                                        <lightning-messages></lightning-messages>
+                                                        <div class="slds-form" role="list">
+                                                            <div class="slds-form__row">
+                                                                <div class="slds-form__item" role="listitem">
+                                                                    <lightning-input-field field-name="Warrenty__c"></lightning-input-field>
+                                                                </div>
+                                                                <div class="slds-form__item" role="listitem">
+                                                                    <lightning-input-field field-name="Technician_Required__c"></lightning-input-field>
+                                                                </div>
+                                                            </div>
+                                                            <div class="slds-form__row">
+                                                                <div class="slds-form__item" role="listitem">
+                                                                    <lightning-input-field field-name="Impact_End_Date_Time__c"></lightning-input-field>
+                                                                </div>
+                                                            </div>
+                                                            <div class="slds-form__row">
+                                                                <div class="slds-form__item" role="listitem">
+                                                                    <lightning-input-field field-name="Product__c"></lightning-input-field>
+                                                                </div>
+                                                                <div class="slds-form__item" role="listitem">
+                                                                    <lightning-input-field field-name="Issue_Category__c"></lightning-input-field>
+                                                                </div>
+                                                            </div>
+                                                            <div class="slds-form__row">
+                                                                <div class="slds-form__item" role="listitem">
+                                                                    <lightning-input-field field-name="Issue_Type__c"></lightning-input-field>
+                                                                </div>
+                                                                <div class="slds-form__item" role="listitem">
+                                                                    <lightning-input-field field-name="Issue_Sub_Type__c"></lightning-input-field>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="slds-m-top_small">
+                                                            <lightning-button label="Cancel" class="slds-m-right_x-small" onclick={closeInlineEdit}></lightning-button>
+                                                            <lightning-button type="submit" variant="brand" label="Save"></lightning-button>
+                                                        </div>
+                                                    </lightning-record-edit-form>
+
+                                                </td>
+                                            </tr>
+                                        </template>
+                                    </template>
+                                </tbody>
+                            </table>
+                        </div>
+                    </template>
+
+                </template>
+
+                <!-- Empty state -->
+                <template lwc:else>
+                    <div class="empty-state slds-p-around_large slds-text-align_center">
+                        <lightning-icon icon-name="utility:rows" size="large" class="slds-m-bottom_small empty-icon"></lightning-icon>
+                        <p class="slds-text-body_regular slds-text-color_weak">No assets are linked to this case yet.</p>
+                    </div>
+                </template>
+
+                <template lwc:if={hasWireError}>
+                    <p class="slds-text-color_error slds-m-top_small">{wireErrorMessage}</p>
+                </template>
+            </div>
+
+        </div>
+    </lightning-card>
+</template>

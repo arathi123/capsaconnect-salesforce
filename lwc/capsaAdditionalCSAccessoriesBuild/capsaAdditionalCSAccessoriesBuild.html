@@ -1,0 +1,51 @@
+<template>
+
+    <lightning-card>
+
+        <!-- LOADING -->
+
+        <template if:true={isLoading}>
+
+            <div
+                class="slds-is-relative"
+                style="height:200px;">
+
+                <lightning-spinner
+                    alternative-text="Loading..."
+                    size="medium">
+                </lightning-spinner>
+
+            </div>
+
+        </template>
+
+        <!-- MAIN FLOW -->
+
+        <template if:false={isLoading}>
+
+            <!-- PARTS -->
+
+            <template if:true={isPartsStep}>
+                <c-byo-parts-selection
+                    product-type={productType}
+                    selections={selections}
+                    onnextstep={handleNextButton}>
+                </c-byo-parts-selection>
+            </template>
+
+            <!-- RESULTS -->
+
+            <template if:true={isResultStep}>
+                <c-byo-additional-c-s-accessories-result-page
+                    summary-data={summaryData}
+                    opportunity-id={opportunityId}
+                    quote-id={quoteId}
+                    is-unlisted-cart={isUnlistedCart}>
+                </c-byo-additional-c-s-accessories-result-page>
+            </template>
+
+        </template>
+
+    </lightning-card>
+
+</template>

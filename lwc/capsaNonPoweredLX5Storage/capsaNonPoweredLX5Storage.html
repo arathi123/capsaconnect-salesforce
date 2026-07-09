@@ -1,0 +1,35 @@
+<template>
+    <div class="card-step fade-in">
+        <h2 class="title">Storage</h2>
+        <hr class="slds-m-vertical_small" />
+
+        <template if:true={isLoading}>
+            <div class="spinner-container">
+                <lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+            </div>
+        </template>
+
+        <template if:false={isLoading}>
+            <div class="options-list">
+                <template for:each={options} for:item="opt">
+                    <div key={opt.Option_Key__c}>
+                        <div class={opt.rowClass} data-key={opt.Option_Key__c} onclick={handleSelect}>
+                            <div class="text-block">
+                                <div class="option-title">{opt.Option_Label__c}</div>
+                                <div class="option-code">{opt.Option_Key__c}</div>
+                            </div>
+                            <input type="radio" checked={opt.isSelected} readonly />
+                        </div>
+                        <hr>
+                    </div>
+                </template>
+            </div>
+
+            <template if:true={showNextButton}>
+                <div class="footer-area fade-in">
+                    <button class="next-btn" onclick={handleNext}>NEXT &rarr;</button>
+                </div>
+            </template>
+        </template>
+    </div>
+</template>

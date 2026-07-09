@@ -1,0 +1,78 @@
+<template>
+    <div class="results-page-container">
+        <template if:true={isLoading}>
+            <div class="full-page-loader">
+                <lightning-spinner 
+                    alternative-text="Generating Quote..." 
+                    size="large" 
+                    variant="brand">
+                </lightning-spinner>
+            </div>
+        </template>
+
+        <div class="results-layout-split">
+            <div class="left-content-column">
+                <div class="results-header">
+                    <h2 class="title">Results</h2>
+                    <hr class="header-divider" />
+                    <div class="intro-block">
+                        <p class="intro-text">
+                            Thanks! Your customized configuration is available to submit a Request For Quote, Email to Coworker,
+                            or Print/Save as PDF Document.
+                        </p>
+                        <p class="intro-text">
+                            If you were not able to precisely configure your Avalo, contact your Capsa Representative, or
+                            contact us directly at <strong>800.437.6633</strong>, 
+                            <a href="mailto:info@capsahealthcare.com">info@capsahealthcare.com</a>, 
+                            or visit <a href="https://capsahealthcare.com" target="_blank">capsahealthcare.com</a>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="summary-section">
+                    <h3 class="summary-title">YOUR SUMMARY</h3>
+                    <hr class="summary-divider" />
+
+                    <ul class="summary-list">
+                        <li class="summary-item">
+                            <strong>Package Type</strong>
+                            <ul class="summary-sub-list">
+                                <li>{useCaseLabel} - {packageSummaryData.packageSku}</li>
+                            </ul>
+                        </li>
+
+                        <li class="summary-item">
+                            <strong>Use Case</strong>
+                            <ul class="summary-sub-list">
+                                <li>{useCaseLabel}</li>
+                            </ul>
+                        </li>
+
+                        <li if:true={hasAccessories} class="summary-item">
+                            <strong>Accessories</strong>
+                            <ul class="summary-sub-list">
+                                <li>{selectedPackageLabel}</li>
+                            </ul>
+                        </li>
+                        <li if:true={hasAccessories} class="summary-item">
+                            <img src={packageImage} alt="Package Image" class="package-image" />
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="right-image-column">
+                <div class="sticky-container">
+                    <div class="cart-image-wrapper">
+                        <img src={cartImageUrl} alt="Pediatric Crash Cart" class="main-cart-img" />
+                    </div>
+                    <div class="button-wrapper slds-m-top_xx-large">
+                        <button class="btn-quote" onclick={handleQuoteRequest}>
+                            REQUEST A QUOTE
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

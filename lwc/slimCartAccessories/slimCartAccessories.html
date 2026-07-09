@@ -1,0 +1,78 @@
+<template>
+    <div class="use-case-container fade-in">
+
+        <template if:true={isLoading}>
+            <div class="spinner-container">
+                <lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+            </div>
+        </template>
+
+        <template if:false={isLoading}>
+            <div class="questions-column">
+                <h2 class="title">Select Accessories</h2>
+                <p class="slds-text-body_regular slds-m-bottom_medium">
+                    SlimCart mobile documentation cart is designed to accept a wide variety of Accessories to customize
+                    your workflow and organization.
+                </p>
+                <p class="slds-text-body_regular slds-m-bottom_medium">
+                    Select an Accessory image or name to learn more about that option.
+                </p>
+                <p class="slds-text-body_regular slds-m-bottom_medium">
+                    Add an accessory to your configuration by selecting the box next to the item.
+                </p>
+                <p class="slds-text-body_regular slds-m-bottom_medium">
+                    Once completed selecting Accessories, click NEXT.
+                </p>
+                <div class="options-list slds-m-top_medium">
+
+                    <template for:each={accessoryOptions} for:item="opt">
+                        <div key={opt.Option_Key__c} >
+                            <div class={opt.cardClass} data-key={opt.Option_Key__c} onclick={handleAccessorySelect}>
+
+                                <div class="card-content" style="display: flex; gap: 20px; align-items: flex-start;">
+                                    <input type="checkbox" checked={opt.isChecked} readonly style="margin-top: 6px;" />
+
+                                    <template if:true={opt.Image_URL__c}>
+                                        <img src={opt.Image_URL__c} alt={opt.Option_Label__c} class="acc-img" />
+                                    </template>
+
+                                    <div class="text-block">
+                                        <div class="option-title">{opt.Option_Label__c}</div>
+                                        <div class="option-desc fade-in slds-m-top_xx-small">
+                                            {opt.Description__c}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                    </template>
+
+                    <div class={noneCardClass} onclick={handleNoneSelect}>
+                        <div class="card-content" style="display: flex; gap: 15px; align-items: center;">
+                            <input type="checkbox" checked={isNoneSelected} readonly />
+                            <div class="text-block">
+                                <div class="option-title">None</div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+
+                </div>
+
+                <div class="footer-area fade-in">
+                    <button class="next-btn" onclick={handleNext}>NEXT →</button>
+                </div>
+            </div>
+
+           <div class="preview-column">
+                <div class="sticky-preview">
+                    <div class="image-box">
+                        <img src={currentPreviewImage} alt="Cart Preview" class="preview-img fade-in"/>
+                    </div>
+                </div>
+            </div>
+
+        </template>
+    </div>
+</template>

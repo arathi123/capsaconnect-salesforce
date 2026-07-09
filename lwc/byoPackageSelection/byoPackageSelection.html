@@ -1,0 +1,37 @@
+<template>
+    <div class="card-step">
+        <div class="slds-m-bottom_large">
+            <h2 class="title slds-m-bottom_small">Accessory Packages</h2>
+            <hr class="slds-l-vertical_large" />
+            <p class="instruction-text">
+                Choose one of the following convenient accessory packages to support your facility's workflow, storage and organizational requirements, or select None.
+            </p>
+        </div>
+
+        <div class="slds-grid slds-wrap slds-gutters">
+            <template for:each={packageOptions} for:item="pkg">
+                <div key={pkg.Id} class="slds-col slds-size_1-of-1 slds-m-bottom_medium">                    
+                    <div class={pkg.cardClass} onclick={handleSelect} data-key={pkg.Option_Key__c}>
+                        <img src={pkg.Image_URL__c} alt={pkg.Option_Label__c} class="main-pkg-img"/>
+                    </div>
+                </div>
+            </template>
+
+            <div class="slds-col slds-size_1-of-1 slds-m-bottom_medium">
+                <div class={noneCardClass} onclick={handleNoneSelect}>
+                    <div class="slds-p-around_large slds-text-align_center">
+                        <span class="title">None</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="slds-l-vertical_large" />
+
+        <div class="slds-m-top_xx-large footer-container">
+            <button class="btn-next" disabled={isNextDisabled} onclick={handleNext}>
+                VIEW RESULT
+            </button>
+        </div>
+    </div>
+</template>

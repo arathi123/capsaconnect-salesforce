@@ -1,0 +1,43 @@
+<template>
+    <div class="shell-container">
+
+        <template if:true={isLoading}>
+            <div class="spinner-container">
+                <lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+            </div>
+        </template>
+
+        <template if:false={isLoading}>
+
+            <div class="question-block fade-in">
+                <h3 class="question-title">Choose Your Warranty</h3>
+                <div class="option-grid">
+                    <template for:each={mappedOptions} for:item="opt">
+                        <div key={opt.Option_Key__c}
+                             class={opt.cardClass}
+                             data-key={opt.Option_Key__c}
+                             onclick={handleSelect}>
+                            <div class="card-inner">
+                                <template if:true={opt.Image_URL__c}>
+                                    <img src={opt.Image_URL__c} class="card-icon" alt={opt.Option_Label__c} />
+                                </template>
+                                <div class="radio-row">
+                                    <input type="radio" checked={opt.isSelected} readonly />
+                                    <label>{opt.Option_Label__c}</label>
+                                </div>
+                                <div if:true={opt.Description__c} class="option-code">{opt.Description__c}</div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            <template if:true={isComplete}>
+                <div class="footer-area fade-in">
+                    <button class="next-btn" onclick={handleNext}>NEXT →</button>
+                </div>
+            </template>
+
+        </template>
+    </div>
+</template>

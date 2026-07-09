@@ -1,0 +1,37 @@
+<template>
+    <nav class="sidebar" aria-label="Account navigation">
+
+        <!-- Account card -->
+        <div class="acct-card">
+            <div class="acct-avatar">{initials}</div>
+            <div class="acct-meta">
+                <div class="acct-name">{accountName}</div>
+                <div class="acct-sub">{accountSub}</div>
+            </div>
+        </div>
+
+        <!-- Nav -->
+        <ul class="nav-list">
+            <template for:each={navItems} for:item="item">
+                <li key={item.key}>
+                    <a href={item.url} class={item.cssClass}
+                        data-key={item.key} onclick={handleNavClick}>
+                        <span class="nav-ic">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                aria-hidden="true" focusable="false">
+                                <template for:each={item.icon} for:item="p">
+                                    <path key={p.k} d={p.d}></path>
+                                </template>
+                            </svg>
+                        </span>
+                        <span class="nav-label">{item.label}</span>
+                        <template lwc:if={item.badge}>
+                            <span class="nav-badge">{item.badge}</span>
+                        </template>
+                    </a>
+                </li>
+            </template>
+        </ul>
+    </nav>
+</template>

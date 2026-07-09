@@ -1,0 +1,73 @@
+<template>
+    <template if:true={showResults}>
+    <c-cart-path-bar current-step="Results" onchildevent={handlePathselection}></c-cart-path-bar>
+    <div class="container">
+        <!-- LEFT SIDE -->
+        <div class="left">
+
+            <h2 class="res"><b>Results</b></h2>
+            <hr>
+            <p class="desc">
+                Thanks! Your customized configuration is available to submit a
+                Request For Quote, Email to Coworker, or Print/Save as PDF.
+                <br/><br />
+                If you are not able to precisely configure your Avalo, contact
+                your Capsa Representative, or contact us directly at<br />
+                800.437.6633, info@capsahealthcare.com, or visit <br />
+                <a href="https://capsahealthcare.com" target="_blank">capsahealthcare.com</a>
+            </p><br>    
+
+            <!-- SUMMARY -->
+            <h3 class="res">YOUR SUMMARY</h3>
+             <hr>
+            <div class="summary-item">
+                <p class="label">Package Type</p>
+                <p class="value">{summary.packageType}</p>
+            </div>
+
+            <div class="summary-item">
+                <p class="label">Height</p>
+                <p class="value">{summary.height}</p>
+            </div>
+
+            <div class="summary-item">
+                <p class="label">Accessories</p>
+                <ul>
+                    <template for:each={summary.accessories} for:item="acc">
+                        <li key={acc}>{acc}</li>
+                    </template>
+                </ul>
+            </div>
+
+            <!-- SELECTED IMAGES (Thumbnails) -->
+            <div class="thumb-section">
+                <template for:each={selectedAccessories} for:item="pkg">
+                    <img
+                        key={pkg.id}
+                        src={pkg.image}
+                        alt="thumb"
+                        class="thumb"
+                    />
+                </template>
+            </div>
+
+            <!-- BUTTONS -->
+          
+
+        </div>
+
+        <!-- RIGHT SIDE -->
+        <div class="right">
+            <img src={summary.mainImage} class="main-image" alt="Preview" /><br>
+              <div class="btn-group">
+                <button class="btn secondary">Email a Coworker</button>
+                <button class="btn secondary">Print and Save (PDF)</button>
+                <button class="btn primary">Submit to Capsa Healthcare for Quote</button>
+            </div>
+        </div>
+    </div>
+    </template>
+    <template if:true={showTypeSelection}>
+        <c-capsa-u-i ></c-capsa-u-i>
+    </template>
+</template>

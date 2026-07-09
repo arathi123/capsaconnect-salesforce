@@ -1,0 +1,131 @@
+<template>
+    <div class="det-root">
+
+        <!-- ─── Back link ─── -->
+        <button type="button" class="back-link" onclick={handleBack}>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+            <span>Back to invoices</span>
+        </button>
+
+        <!-- ─── Loading ─── -->
+        <template lwc:if={showSpinner}>
+            <div class="spinner-wrap">
+                <lightning-spinner alternative-text="Loading invoice" size="medium"></lightning-spinner>
+            </div>
+        </template>
+
+        <!-- ─── Detail ─── -->
+        <template lwc:if={showDetail}>
+            <div class="det-card">
+
+                <!-- Header -->
+                <div class="det-header">
+                    <div class="det-header__main">
+                        <p class="det-eyebrow">{heading}</p>
+                        <h1 class="det-title">{invoice.invoiceNumber}</h1>
+                    </div>
+                    <span class={invoice.badgeClass}>
+                        <span class="qbadge__dot"></span>{invoice.status}
+                    </span>
+                </div>
+
+                <!-- Highlight: amount due -->
+                <div class="det-hero">
+                    <span class="det-hero__label">Total (incl. tax)</span>
+                    <span class="det-hero__value">
+                        <lightning-formatted-number value={invoice.totalAmountWithTax}
+                            format-style="currency" currency-code={currencyCode}>
+                        </lightning-formatted-number>
+                    </span>
+                </div>
+
+                <!-- Order / account info -->
+                <section class="det-section">
+                    <h2 class="det-section__title">Order information</h2>
+                    <dl class="det-grid">
+                        <div class="det-field">
+                            <dt>Billing account</dt>
+                            <dd>{invoice.billingAccountName}</dd>
+                        </div>
+                        <div class="det-field">
+                            <dt>Order</dt>
+                            <dd>{invoice.orderName}</dd>
+                        </div>
+                        <div class="det-field">
+                            <dt>ERP order number</dt>
+                            <dd>{invoice.erpOrderNumber}</dd>
+                        </div>
+                        <div class="det-field">
+                            <dt>Status</dt>
+                            <dd>{invoice.status}</dd>
+                        </div>
+                    </dl>
+                </section>
+
+                <!-- Amounts breakdown -->
+                <section class="det-section">
+                    <h2 class="det-section__title">Amounts</h2>
+                    <dl class="det-grid">
+                        <div class="det-field">
+                            <dt>Total price</dt>
+                            <dd>
+                                <lightning-formatted-number value={invoice.totalPrice}
+                                    format-style="currency" currency-code={currencyCode}>
+                                </lightning-formatted-number>
+                            </dd>
+                        </div>
+                        <div class="det-field">
+                            <dt>Total discount</dt>
+                            <dd>
+                                <lightning-formatted-number value={invoice.totalDiscount}
+                                    format-style="currency" currency-code={currencyCode}>
+                                </lightning-formatted-number>
+                            </dd>
+                        </div>
+                        <div class="det-field">
+                            <dt>Freight amount</dt>
+                            <dd>
+                                <lightning-formatted-number value={invoice.freightAmount}
+                                    format-style="currency" currency-code={currencyCode}>
+                                </lightning-formatted-number>
+                            </dd>
+                        </div>
+                        <div class="det-field">
+                            <dt>Total tax</dt>
+                            <dd>
+                                <lightning-formatted-number value={invoice.totalTaxAmount}
+                                    format-style="currency" currency-code={currencyCode}>
+                                </lightning-formatted-number>
+                            </dd>
+                        </div>
+                        <div class="det-field det-field--total">
+                            <dt>Total amount with tax</dt>
+                            <dd>
+                                <lightning-formatted-number value={invoice.totalAmountWithTax}
+                                    format-style="currency" currency-code={currencyCode}>
+                                </lightning-formatted-number>
+                            </dd>
+                        </div>
+                    </dl>
+                </section>
+            </div>
+        </template>
+
+        <!-- ─── Empty / not found ─── -->
+        <template lwc:if={showEmpty}>
+            <div class="det-card">
+                <div class="empty-state">
+                    <lightning-icon icon-name="standard:invoice" size="large"></lightning-icon>
+                    <p class="empty-title">Invoice not available</p>
+                    <p class="empty-text">
+                        We couldn't find this invoice, or it isn't associated with your account.
+                    </p>
+                    <button type="button" class="empty-btn" onclick={handleBack}>Back to invoices</button>
+                </div>
+            </div>
+        </template>
+    </div>
+</template>

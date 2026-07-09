@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>59.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightningCommunity__Default</target>
+        <target>lightningCommunity__Page</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="usernameLabel" type="String" label="Username Label" default="Email"/>
+            <property name="passwordLabel" type="String" label="Password Label" default="Password"/>
+            <property name="loginButtonLabel" type="String" label="Login Button Label" default="Log In"/>
+            <property name="forgotPasswordLabel" type="String" label="Forgot Password Label" default="Forget your password?"/>
+            <property name="forgotPasswordUrl" type="String" label="Forgot Password URL" default="/ForgotPassword"/>
+            <property name="requestLoginLabel" type="String" label="Request Login Label" default="Request a New Login"/>
+            <property name="requestLoginUrl" type="String" label="Request Login URL" default="/SelfRegister"/>
+            <property name="existingCustomerText" type="String" label="Existing Customer Text" default="Are you an existing customer without a login?"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

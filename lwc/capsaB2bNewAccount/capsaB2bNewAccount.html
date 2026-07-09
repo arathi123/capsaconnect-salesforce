@@ -1,0 +1,99 @@
+<template>
+    <div class="form-page-wrapper">
+        <div class="main-card">
+            <h2 class="card-title">Request to setup new business account</h2>
+
+            <!-- Step 1 -->
+            <div class="step-block">
+                <h3 class="step-heading">Step 1</h3>
+                <p class="step-desc">
+                    Complete our New Customer Setup Form and get an account setup within 24-48 hours.
+                    Download the form here, fill it out, and attach the completed form below.
+                    Please include any tax exemption or vendor forms that you may need added to your account.
+                </p>
+                <a href={downloadUrl} download class="action-btn download-btn">
+                    &#x2B07;&nbsp; Download New Customer Application
+                </a>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-block">
+                <h3 class="step-heading">Step 2</h3>
+                <p class="step-desc">Attach your completed application and any supporting documents:</p>
+
+                <div class="file-upload-row">
+                    <label class="action-btn upload-btn" for="na-file-input">
+                        &#x2B06;&nbsp; Select
+                    </label>
+                    <input
+                        id="na-file-input"
+                        type="file"
+                        class="hidden-file-input"
+                        onchange={handleFileChange}
+                        multiple
+                        accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"/>
+                    <template if:true={selectedFileName}>
+                        <span class="file-name-label">{selectedFileName}</span>
+                    </template>
+                </div>
+
+                <div class="form-field">
+                    <label class="form-label">* Your email:</label>
+                    <input
+                        type="email"
+                        class="text-input"
+                        value={email}
+                        oninput={handleEmailChange}/>
+                </div>
+
+                <div class="form-field">
+                    <label class="form-label">* Your phone number:</label>
+                    <input
+                        type="tel"
+                        class="text-input"
+                        value={phone}
+                        oninput={handlePhoneChange}/>
+                </div>
+
+                <div class="form-field">
+                    <label class="form-label">Optional Message:</label>
+                    <textarea
+                        class="textarea-input"
+                        oninput={handleMessageChange}>{message}</textarea>
+                </div>
+
+                <div class="form-field captcha-group">
+                    <label class="form-label">* Enter Security Code:</label>
+                    <div class="captcha-row">
+                        <div class="captcha-box">{captchaCode}</div>
+                        <input
+                            type="text"
+                            class="text-input captcha-input"
+                            placeholder="Enter code"
+                            value={captchaEntry}
+                            oninput={handleCaptchaEntry}/>
+                        <div class="captcha-links">
+                            <a href="javascript:void(0);" onclick={refreshCaptcha} class="captcha-link">Try Another</a>
+                            <br/>
+                            <span class="captcha-link">Listen</span>
+                        </div>
+                    </div>
+                </div>
+
+                <template if:true={errorMsg}>
+                    <p class="error-msg">{errorMsg}</p>
+                </template>
+
+                <template if:true={successMsg}>
+                    <div class="success-box">
+                        <p>{successMsg}</p>
+                    </div>
+                </template>
+
+                <button class="submit-btn" onclick={handleSubmit} disabled={isSubmitting}>
+                    {submitBtnLabel}
+                </button>
+            </div>
+        </div>
+    </div>
+</template>

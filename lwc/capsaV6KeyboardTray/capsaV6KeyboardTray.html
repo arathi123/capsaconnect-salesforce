@@ -1,0 +1,67 @@
+<template>
+    <div class="use-case-container fade-in">
+        
+        <template if:true={isLoading}>
+            <div class="spinner-container">
+                <lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+            </div>
+        </template>
+
+        <template if:false={isLoading}>
+            <div class="questions-column">
+                <h2 class="title">Select Keyboard Tray</h2>
+                <hr>
+
+                <div class="options-list">
+                    <template for:each={keyTrayOpts} for:item="opt">
+                        <div key={opt.Option_Key__c}>
+                            <div 
+                                class={opt.rowClass} 
+                                data-key={opt.Option_Key__c} 
+                                onmouseenter={handleMouseEnter} 
+                                onmouseleave={handleMouseLeave} 
+                                onclick={handleSelect}>
+                                
+                                <div class="text-block">
+                                    <div class="option-title">{opt.Option_Label__c}</div>
+                                    <div if:true={opt.isVisible} class="option-desc fade-in">
+                                        {opt.Description__c}
+                                    </div>
+                                </div>
+                                
+                                <input type="radio" checked={opt.isSelected} readonly />
+                            </div>
+                            <hr>
+                        </div>
+                    </template>
+                </div>
+
+                <template if:true={isStepComplete}>
+                    <div class="footer-area fade-in">
+                        <button class="next-btn" onclick={handleNext}>NEXT →</button>
+                    </div>
+                </template>
+            </div>
+
+            <div class="preview-column">
+                <div class="sticky-preview">
+                    <div class="image-box">YOUR SELECTION</div>
+                    <div class="preview-sublabel">Representative Image</div>
+                    <div class="canvas-container">
+                        <img src={baseImage} alt="Track" class="track-img" />
+                         <template for:each={incomingOverlays} for:item="ov">
+                            <img key={ov.key} src={ov.url} alt={ov.key} class={ov.class} />
+                        </template>
+                        <template lwc:if={currentPreviewImage}>
+                            <img src={overlayData.image} alt="keyBoardArm" class={overlayData.style} />
+                        </template>
+                    </div>
+                    <div lwc:if={localSelection} class="option-key"><strong>Track:</strong> {localSelection}</div>
+                    <div lwc:if={currentArmSelection} class="option-key"><strong>Arm:</strong> {currentArmSelection}</div>
+                    <div lwc:if={currentkeyBoardArm} class="option-key"><strong>keyboard Arm:</strong> {currentkeyBoardArm}</div>
+                    <div lwc:if={currentkeyBoardTray} class="option-key"><strong>keyboard Tray:</strong> {currentkeyBoardTray}</div>
+                </div>
+			</div>
+        </template>
+    </div>
+</template>

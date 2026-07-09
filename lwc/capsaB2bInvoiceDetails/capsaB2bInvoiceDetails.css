@@ -1,0 +1,242 @@
+:host {
+    --q-navy: #16314e;
+    --q-text: #1f2933;
+    --q-muted: #6b7682;
+    --q-border: #e3e8ee;
+    --q-link: #1b3a5b;
+    --q-blue: #1d6fd6;
+    display: block;
+}
+
+.det-root {
+    font-family: 'Salesforce Sans', -apple-system, Arial, sans-serif;
+    color: var(--q-text);
+    padding: 0.5rem 0;
+}
+
+/* ── Back link ─────────────────────────────────────────── */
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: none;
+    border: none;
+    padding: 0.35rem 0;
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--q-link);
+    cursor: pointer;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+.back-link svg {
+    width: 1rem;
+    height: 1rem;
+}
+
+/* ── Card ──────────────────────────────────────────────── */
+.det-card {
+    background: #fff;
+    border: 1px solid var(--q-border);
+    border-radius: 12px;
+    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+    overflow: hidden;
+    position: relative;
+    min-height: 8rem;
+}
+
+.spinner-wrap {
+    position: relative;
+    min-height: 12rem;
+}
+
+/* ── Header ────────────────────────────────────────────── */
+.det-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    padding: 1.5rem 1.75rem 1.25rem;
+    border-bottom: 1px solid var(--q-border);
+}
+
+.det-eyebrow {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--q-muted);
+    margin-bottom: 0.35rem;
+}
+
+.det-title {
+    font-size: 1.6rem;
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--q-text);
+}
+
+/* ── Hero (total) ──────────────────────────────────────── */
+.det-hero {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    padding: 1.25rem 1.75rem;
+    background: #f9fafb;
+    border-bottom: 1px solid var(--q-border);
+}
+
+.det-hero__label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--q-muted);
+}
+
+.det-hero__value {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--q-navy);
+    line-height: 1.1;
+}
+
+/* ── Sections ──────────────────────────────────────────── */
+.det-section {
+    padding: 1.25rem 1.75rem;
+    border-bottom: 1px solid var(--q-border);
+}
+
+.det-section:last-child {
+    border-bottom: none;
+}
+
+.det-section__title {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--q-muted);
+    margin-bottom: 1rem;
+}
+
+.det-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem 2rem;
+    margin: 0;
+}
+
+.det-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    min-width: 0;
+}
+
+.det-field dt {
+    font-size: 0.8125rem;
+    color: var(--q-muted);
+}
+
+.det-field dd {
+    margin: 0;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--q-text);
+    word-break: break-word;
+}
+
+/* Emphasised grand-total row spans the full width */
+.det-field--total {
+    grid-column: 1 / -1;
+    border-top: 1px dashed var(--q-border);
+    padding-top: 0.85rem;
+    margin-top: 0.25rem;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+.det-field--total dt {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--q-text);
+}
+
+.det-field--total dd {
+    font-size: 1.0625rem;
+    font-weight: 800;
+    color: var(--q-navy);
+}
+
+/* ── Status badges (shared with list) ──────────────────── */
+.qbadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.75rem;
+    border-radius: 999px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.qbadge__dot {
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 50%;
+    background: currentColor;
+    flex: none;
+}
+
+.qbadge--open    { background: #fbeccc; color: #92610a; }
+.qbadge--paid    { background: #e6f4ea; color: #1e7e34; }
+.qbadge--overdue { background: #fdecea; color: #b3261e; }
+
+/* ── Empty state ───────────────────────────────────────── */
+.empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--q-muted);
+}
+
+.empty-title {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    color: var(--q-text);
+    margin-top: 0.75rem;
+}
+
+.empty-text {
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+.empty-btn {
+    margin-top: 1.25rem;
+    background: var(--q-navy);
+    border: 1px solid var(--q-navy);
+    border-radius: 8px;
+    padding: 0.5rem 1.1rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+}
+
+.empty-btn:hover {
+    background: #11263c;
+}
+
+/* ── Responsive ────────────────────────────────────────── */
+@media (max-width: 640px) {
+    .det-grid {
+        grid-template-columns: 1fr;
+    }
+}

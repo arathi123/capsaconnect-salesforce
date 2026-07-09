@@ -1,0 +1,88 @@
+<template>
+    <div class="use-case-container fade-in">
+        
+        <template if:true={isLoading}>
+            <div class="spinner-container">
+                <lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+            </div>
+        </template>
+
+        <template if:false={isLoading}>
+            <div class="questions-column">
+                <h2 class="title">Step 11. Warranty & Service Options</h2>
+                <hr>
+                
+                <p class="slds-text-body_regular slds-m-bottom_large">
+                    The CareLink comes with a standard 3-Year Comprehensive Warranty. 
+                    Upgrade with your choice of optional enhanced Warranty and Service options.
+                </p>
+
+                <div class="options-list">
+                    
+                    <template for:each={baseWarrantyOptions} for:item="opt">
+                        <div key={opt.Option_Key__c}>
+                            <div class={opt.cardClass} 
+                                 data-key={opt.Option_Key__c} 
+                                 onclick={handleBaseSelect}>
+                                
+                                <div class="card-content" style="display: flex; gap: 15px; align-items: center;">
+                                    <input type="radio" name="baseWarranty" checked={opt.isSelected} readonly />
+                                    <div class="text-block">
+                                        <div class="option-title">{opt.Option_Label__c}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                    </template>
+
+                    <template if:true={batteryOption}>
+                        <div class="slds-m-top_large">
+                            <div class={batteryCardClass} onclick={handleBatterySelect}>
+                                <div class="card-content" style="display: flex; gap: 15px; align-items: center;">
+                                    <input type="checkbox" 
+                                           checked={isBatterySelected} 
+                                           disabled={isBatteryDisabled} 
+                                           readonly />
+                                    <div class="text-block">
+                                        <div class="option-title">{batteryOption.Option_Label__c}</div>
+                                        <template if:true={isBatteryDisabled}>
+                                            <div class="option-desc" style="color: #d83a52;">
+                                                Requires an Extended Warranty selection above.
+                                            </div>
+                                        </template>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                    
+                </div>
+
+                <template if:true={isStepComplete}>
+                    <div class="footer-area fade-in">
+                        <button class="next-btn" onclick={handleNext}>VIEW RESULTS →</button>
+                    </div>
+                </template>
+            </div>
+
+            <!-- PREVIEW COLUMN -->
+            <div class="preview-column">
+                <div class="sticky-preview">
+                    <div class="canvas-container">
+                        <img src={baseCartImage} alt="Configured Cart" class="base-cart-img" />
+                        <template for:each={overlays} for:item="overlay">
+                            <img 
+                                key={overlay.url} 
+                                src={overlay.url} 
+                                class="overlay-drawer fade-in"
+                                style={overlay.style}
+                                alt="Drawer Overlay" />
+                        </template>
+                    </div>
+                </div>
+            </div>
+            
+        </template>
+    </div>
+</template>

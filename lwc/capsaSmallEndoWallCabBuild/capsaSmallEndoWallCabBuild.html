@@ -1,0 +1,51 @@
+<template>
+
+    <lightning-card>
+
+        <template if:true={isLoading}>
+
+            <div
+                class="slds-is-relative"
+                style="height:200px;">
+
+                <lightning-spinner
+                    alternative-text="Loading..."
+                    size="medium">
+                </lightning-spinner>
+
+            </div>
+
+        </template>
+
+        <template if:false={isLoading}>
+
+            <!-- WALL CABINET -->
+
+            <template if:true={isWallCabinetStep}>
+
+                <c-byo-wall-cabinet-selection
+                    product-type={productType}
+                    selections={selections}
+                    onnextstep={handleNextButton}>
+                </c-byo-wall-cabinet-selection>
+
+            </template>
+
+            <!-- RESULTS -->
+
+            <template if:true={isResultStep}>
+
+                <c-byo-small-endo-wall-cab-result-page
+                    summary-data={summaryData}
+                    opportunity-id={opportunityId}
+                    quote-id={quoteId}
+                    is-unlisted-cart={isUnlistedCart}>
+                </c-byo-small-endo-wall-cab-result-page>
+
+            </template>
+
+        </template>
+
+    </lightning-card>
+
+</template>

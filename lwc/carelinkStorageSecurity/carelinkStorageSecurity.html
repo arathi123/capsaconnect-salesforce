@@ -1,0 +1,155 @@
+<template>
+    <div class="use-case-container fade-in">
+        
+        <template if:true={isLoading}>
+            <div class="spinner-container">
+                <lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+            </div>
+        </template>
+
+        <template if:false={isLoading}>
+            <div class="questions-column">
+                
+                <h2 class="title">Step 6. Storage and Security</h2>
+                <p class="slds-m-bottom_medium step-description">
+                    The CareLink offers configurable storage and organization with an array of drawer and bin options to address specific workflow needs.
+                </p>
+                <hr>
+
+                <div class="options-list">
+                    <template for:each={filteredStorageOptions} for:item="opt">
+                        <div key={opt.Option_Key__c}>
+                            <div 
+                                class={opt.rowClass} 
+                                data-key={opt.Option_Key__c} 
+                                onclick={handleStorageSelect}>
+                                
+                                <div class="text-block">
+                                    <div class="option-title">{opt.Option_Label__c}</div>
+                                    <div class="option-desc fade-in">
+                                        {opt.Description__c}
+                                    </div>
+                                </div>
+                                
+                                <input type="radio" checked={opt.isSelected} readonly />
+                            </div>
+                            <hr>
+                        </div>
+                    </template>
+                </div>
+
+                <template if:true={showBinSystemOptions}>
+                    <div class="fade-in slds-m-top_x-large">
+                        <h2 class="title">Choose Bin System</h2>
+                        <hr>
+                        
+                        <div class="options-list">
+                            <template for:each={filteredBinSystemOptions} for:item="opt">
+                                <div key={opt.Option_Key__c}>
+                                    <div 
+                                        class={opt.rowClass} 
+                                        data-key={opt.Option_Key__c} 
+                                        onclick={handleBinSystemSelect}>
+                                        
+                                        <div class="text-block">
+                                            <div class="option-title">{opt.Option_Label__c}</div>
+                                            <div class="option-desc fade-in">
+                                                {opt.Description__c}
+                                            </div>
+                                        </div>
+                                        
+                                        <input type="radio" checked={opt.isSelected} readonly />
+                                    </div>
+                                    <hr>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+
+                <template if:true={showDualLockingOptions}>
+                    <div class="fade-in slds-m-top_x-large">
+                        <h2 class="title" style="font-size: 1.1rem; line-height: 1.4;">Would you like to Add the Dual-locking option to support controlled medications and witness authentication?</h2>
+                        <hr>
+                        
+                        <div class="options-list">
+                            <template for:each={visibleDualLockingOptions} for:item="opt">
+                                <div key={opt.Option_Key__c}>
+                                    <div 
+                                        class={opt.rowClass} 
+                                        data-key={opt.Option_Key__c} 
+                                        onclick={handleDualLockingSelect}>
+                                        
+                                        <div class="text-block">
+                                            <div class="option-title">{opt.Option_Label__c}</div>
+                                        </div>
+                                        <input type="radio" checked={opt.isSelected} readonly />
+                                    </div>
+                                    <hr>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+
+                <template if:true={showBinColorOptions}>
+                    <div class="fade-in slds-m-top_x-large">
+                        <h2 class="title">Choose Bin Color</h2>
+                        <hr>
+                        
+                        <div class="options-list">
+                            <template for:each={visibleBinColorOptions} for:item="opt">
+                                <div key={opt.Option_Key__c}>
+                                    <div 
+                                        class={opt.rowClass} 
+                                        data-key={opt.Option_Key__c} 
+                                        onclick={handleBinColorSelect}>
+                                        
+                                        <div class="text-block">
+                                            <div class="option-title">{opt.Option_Label__c}</div>
+                                        </div>
+                                        <input type="radio" checked={opt.isSelected} readonly />
+                                    </div>
+                                    <hr>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+
+                <template if:true={showModuleOptions}>
+                    <div class="fade-in slds-m-top_x-large">
+                        <h2 class="title">Please choose bin type</h2>
+                        <hr>
+                        
+                        <div class="module-grid slds-m-top_medium">
+                            <template for:each={filteredModuleOptions} for:item="opt">
+                                <div key={opt.Option_Key__c} class={opt.cardClass} data-key={opt.Option_Key__c} onclick={handleModuleSelect}>
+                                    <div class="module-img-wrapper">
+                                        <img src={opt.Image_URL__c} class="module-img" alt={opt.Option_Label__c}/>
+                                    </div>
+                                    <div class="module-title">{opt.Option_Label__c}</div>
+                                    <input type="radio" class="module-radio" checked={opt.isSelected} readonly />
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+
+                <template if:true={isStepComplete}>
+                    <div class="footer-area fade-in">
+                        <button class="next-btn" onclick={handleNext}>NEXT →</button>
+                    </div>
+                </template>
+            </div>
+
+            <div class="preview-column">
+                <div class="sticky-preview">
+                    <div class="image-box">
+                        <img src={currentPreviewImage} alt="Cart Preview" class="preview-img fade-in"/>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </div>
+</template>

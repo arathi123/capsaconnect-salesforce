@@ -1,0 +1,146 @@
+<template>
+    <div class="results-page-container">
+
+        <template if:true={isLoading}>
+            <div class="full-page-loader">
+                <lightning-spinner alternative-text="Generating Quote..." size="large" variant="brand"></lightning-spinner>
+            </div>
+        </template>
+
+        <div class="results-header">
+            <h2 class="title">T7 MedLink Configuration Summary</h2>
+            <hr class="header-divider" />
+        </div>
+
+        <div class="results-main-content">
+
+            <template if:true={hasUseCases}>
+                <div class="summary-section">
+                    <h3 class="summary-title">Use Case</h3>
+                    <ul class="summary-list">
+                        <template for:each={summaryData.useCases} for:item="item">
+                            <li key={item.key} class="summary-item">
+                                <span class="bullet">•</span> {item.label}
+                            </li>
+                        </template>
+                    </ul>
+                </div>
+            </template>
+
+            <template if:true={hasPower}>
+                <div class="summary-section slds-m-top_medium">
+                    <h3 class="summary-title">Power</h3>
+                    <ul class="summary-list">
+                        <template for:each={summaryData.power} for:item="item">
+                            <li key={item.key} class="summary-item">
+                                <span class="bullet">•</span> {item.label}
+                            </li>
+                        </template>
+                    </ul>
+                </div>
+            </template>
+
+            <template if:true={hasBatteryType}>
+                <div class="summary-section slds-m-top_medium">
+                    <h3 class="summary-title">Battery Type</h3>
+                    <ul class="summary-list">
+                        <template for:each={summaryData.batteryType} for:item="item">
+                            <li key={item.key} class="summary-item">
+                                <span class="bullet">•</span> {item.label}
+                            </li>
+                        </template>
+                    </ul>
+                </div>
+            </template>
+
+            <template if:true={hasPowerTrack}>
+                <div class="summary-section slds-m-top_medium">
+                    <h3 class="summary-title">Power Track</h3>
+                    <ul class="summary-list">
+                        <template for:each={summaryData.powerTrack} for:item="item">
+                            <li key={item.key} class="summary-item">
+                                <span class="bullet">•</span> {item.label}
+                            </li>
+                        </template>
+                    </ul>
+                </div>
+            </template>
+
+            <template if:true={hasGantry}>
+                <div class="summary-section slds-m-top_medium">
+                    <h3 class="summary-title">Gantry &amp; Monitor Arm Type</h3>
+                    <ul class="summary-list">
+                        <template for:each={summaryData.gantry} for:item="item">
+                            <li key={item.key} class="summary-item">
+                                <span class="bullet">•</span> {item.label}
+                            </li>
+                        </template>
+                    </ul>
+                </div>
+            </template>
+
+            <template if:true={hasHeadAssembly}>
+                <div class="summary-section slds-m-top_medium">
+                    <h3 class="summary-title">Head Assembly Type</h3>
+                    <ul class="summary-list">
+                        <template for:each={summaryData.headAssembly} for:item="item">
+                            <li key={item.key} class="summary-item">
+                                <span class="bullet">•</span> {item.label}
+                            </li>
+                        </template>
+                    </ul>
+                </div>
+            </template>
+
+            <template if:true={hasMedDrawers}>
+                <div class="summary-section slds-m-top_medium">
+                    <h3 class="summary-title">Medication Drawers</h3>
+                    <ul class="summary-list">
+                        <template for:each={summaryData.medDrawers} for:item="item">
+                            <li key={item.key} class="summary-item">
+                                <span class="bullet">•</span> {item.label}
+                            </li>
+                        </template>
+                    </ul>
+                </div>
+            </template>
+
+            <template if:true={hasDrawerKits}>
+                <div class="summary-section slds-m-top_medium">
+                    <h3 class="summary-title">Medlink Drawer Kits</h3>
+                    <ul class="summary-list">
+                        <template for:each={summaryData.drawerKits} for:item="item">
+                            <li key={item.key} class="summary-item">
+                                <span class="bullet">•</span> {item.label}
+                            </li>
+                        </template>
+                    </ul>
+                </div>
+            </template>
+
+            <template if:true={hasAccessories}>
+                <div class="summary-section slds-m-top_medium">
+                    <h3 class="summary-title">Accessories</h3>
+                    <ul class="summary-list">
+                        <template for:each={summaryData.accessories} for:item="acc">
+                            <li key={acc.optionKey} class="summary-item">
+                                <span class="bullet">•</span> {acc.optionLabel}
+                                <span class="qty-badge">Qty: {acc.quantity}</span>
+                            </li>
+                        </template>
+                    </ul>
+                </div>
+            </template>
+
+            <div class="action-section slds-m-top_xx-large">
+                <template if:true={isReconfigureMode}>
+                    <button class="quote-btn" onclick={handleUpdateQuote}>UPDATE QUOTE</button>
+                </template>
+                <template if:false={isReconfigureMode}>
+                    <button class="quote-btn" onclick={handleQuoteRequest}>REQUEST A QUOTE</button>
+                </template>
+            </div>
+
+        </div>
+    </div>
+</template>

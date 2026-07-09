@@ -1,0 +1,161 @@
+<template>
+
+    <lightning-card>
+
+        <!-- LOADER -->
+        <template if:true={isLoading}>
+
+            <div class="slds-is-relative"
+                 style="height:200px;">
+
+                <lightning-spinner
+                    alternative-text="Loading Configuration"
+                    size="medium">
+                </lightning-spinner>
+
+            </div>
+
+        </template>
+
+        <template if:false={isLoading}>
+
+            <!-- TYPE OF CART -->
+            <template if:true={isUseCaseStep}>
+
+                <c-byo-cart-type-selection
+                    product-type={productType}
+                    selections={selections}
+                    ontypeselected={handleCartTypeSelection}
+                    onnextstep={handleNextButton}>
+                </c-byo-cart-type-selection>
+
+            </template>
+
+            <!-- WIDTH -->
+            <template if:true={isWidthStep}>
+
+                <c-byo-width-selection
+                    product-type={productType}
+                    selections={selections}
+                    onwidthselected={handleWidthSelection}
+                    onnextstep={handleNextButton}>
+                </c-byo-width-selection>
+
+            </template>
+
+            <!-- HEIGHT -->
+            <template if:true={isHeightStep}>
+
+                <c-byo-height-selection
+                    product-type={productType}
+                    selections={selections}
+                    onheightselected={handleHeightSelection}
+                    onnextstep={handleNextButton}>
+                </c-byo-height-selection>
+
+            </template>
+
+            <!-- LOCK -->
+            <template if:true={isLockStep}>
+
+                <c-byo-lock-selection
+                    product-type={productType}
+                    selections={selections}
+                    onlockselected={handleLockSelection}
+                    onnextstep={handleNextButton}>
+                </c-byo-lock-selection>
+
+            </template>
+
+            <!-- HANDLE COLOR -->
+            <template if:true={isColorStep}>
+
+                <c-byo-color-selection
+                    product-type={productType}
+                    selections={selections}
+                    oncolorselected={handleColorSelection}
+                    onnextstep={handleNextButton}>
+                </c-byo-color-selection>
+
+            </template>
+
+            <!-- STORAGE -->
+            <template if:true={isStorageStep}>
+
+                <c-byo-storage-selection
+                    product-type={productType}
+                    selections={selections}
+                    selected-height={selections.height.key}
+                    selected-color={selections.color.key}
+                    onstorageselected={handleStorageSelection}
+                    onnextstep={handleNextButton}>
+                </c-byo-storage-selection>
+
+            </template>
+
+            <!-- EXTRA STORAGE TYPE -->
+            <template if:true={isExtraStorageTypeStep}>
+
+                <c-byo-extra-storage-type-selection
+                    product-type={productType}
+                    selections={selections}
+                    onextrastoragetypeselected={handleExtraStorageTypeSelection}
+                    onnextstep={handleNextButton}>
+                </c-byo-extra-storage-type-selection>
+
+            </template>
+
+            <!-- EXTENDED STORAGE -->
+            <template if:true={isExtendedStorageStep}>
+
+                <c-byo-storage-selection
+                    product-type={productType}
+                    selections={selections}
+                    selected-height={selections.height.key}
+                    selected-color={selections.color.key}
+                    is-extended="true"
+                    onextendedstorageselected={handleExtendedStorageSelection}
+                    onnextstep={handleNextButton}>
+                </c-byo-storage-selection>
+
+            </template>
+
+            <!-- ACCESSORIES -->
+            <template if:true={isAccessoryStep}>
+
+                <c-byo-accessory-selection
+                    product-type={productType}
+                    selections={selections}
+                    onnextstep={handleNextButton}>
+                </c-byo-accessory-selection>
+
+            </template>
+
+            <!-- ACCESSORY KIT -->
+            <template if:true={isKitStep}>
+
+                <c-byo-kit-selection
+                    product-type={productType}
+                    selections={selections}
+                    onnextstep={handleNextButton}>
+                </c-byo-kit-selection>
+
+            </template>
+
+            <!-- RESULT -->
+            <template if:true={isResultStep}>
+
+            <c-byo-mseries-result-page
+                summary-data={summaryData}
+                opportunity-id={opportunityId}
+                quote-id={quoteId}
+                 is-unlisted-cart={isUnlistedCart}>
+            </c-byo-mseries-result-page>
+
+            </template>
+
+        </template>
+
+    </lightning-card>
+
+</template>

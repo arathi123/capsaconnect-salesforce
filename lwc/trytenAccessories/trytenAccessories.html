@@ -1,0 +1,72 @@
+<template>
+    <div class="card-step fade-in">
+        
+        <template if:true={isLoading}>
+            <div class="spinner-container">
+                <lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+            </div>
+        </template>
+
+        <template if:false={isLoading}>
+            <div class="slds-m-bottom_large">
+                <h2 class="title slds-m-bottom_small">Accessories</h2>
+                <p class="subtitle">Select any additional accessories for your configuration. (Check all that apply)</p>
+                <hr class="slds-m-vertical_small" />
+            </div>
+
+            <div class="accessory-list">
+                
+                <template for:each={accessories} for:item="opt">
+                    <div key={opt.Option_Key__c} class={opt.wrapperClass}>
+                        <label class="slds-grid slds-grid_vertical-align-center pointer-label">
+                            
+                            <div class="slds-col slds-size_1-of-12 slds-text-align_center">
+                                <input 
+                                    type="checkbox" 
+                                    class="large-checkbox"
+                                    data-key={opt.Option_Key__c} 
+                                    checked={opt.isSelected} 
+                                    onchange={handleSelect} />
+                            </div>
+
+                            <div class="slds-col slds-size_9-of-12 slds-p-horizontal_medium text-column">
+                                <p class="acc-name">{opt.Option_Label__c}</p>
+                                <p class="acc-desc">{opt.Description__c}</p>
+                            </div>
+
+                            <div class="slds-col slds-size_2-of-12 image-column">
+                                <template if:true={opt.Image_URL__c}>
+                                    <img src={opt.Image_URL__c} 
+                                         alt={opt.Option_Label__c} 
+                                         class="acc-img" />
+                                </template>
+                            </div>
+
+                        </label>
+                    </div>
+                </template>
+
+                <div class={noneWrapperClass}>
+                    <label class="slds-grid slds-grid_vertical-align-center pointer-label none-label">
+                        <div class="slds-col slds-size_1-of-12 slds-text-align_center">
+                            <input 
+                                type="checkbox" 
+                                class="large-checkbox"
+                                data-key="NONE"
+                                checked={isNoneSelected} 
+                                onchange={handleSelect} />
+                        </div>
+                        <div class="slds-col slds-size_11-of-12 slds-p-horizontal_medium">
+                            <span class="acc-name">None</span>
+                        </div>
+                    </label>
+                </div>
+
+            </div>
+
+            <div class="footer-area slds-m-top_xx-large">
+                <button class="next-btn" onclick={handleNext}>VIEW RESULTS →</button>
+            </div>
+        </template>
+    </div>
+</template>

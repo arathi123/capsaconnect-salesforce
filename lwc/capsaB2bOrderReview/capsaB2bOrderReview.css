@@ -1,0 +1,174 @@
+/* ── Order Review wrapper ─────────────────────────────────── */
+.review-root {
+    padding: 1rem 1.25rem;
+    font-family: 'Salesforce Sans', Arial, sans-serif;
+    font-size: 0.8125rem;
+    color: #3e3e3c;
+}
+
+/* ── Order email ──────────────────────────────────────────── */
+.review-email {
+    margin-bottom: 1.25rem;
+    font-size: 0.8125rem;
+}
+
+/* ── Info-box grid ────────────────────────────────────────── */
+.review-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.875rem;
+    margin-bottom: 0.875rem;
+}
+
+/* ── Individual bordered info box ────────────────────────── */
+.info-box {
+    border: 1px solid #c9c7c5;
+    border-radius: 3px;
+    padding: 0.75rem 1rem 0.875rem;
+    background: #fff;
+    min-height: 120px;
+}
+
+.info-box__title {
+    color: #005587;
+    font-weight: 700;
+    font-size: 0.8125rem;
+    margin: 0 0 0.5rem;
+    padding: 0;
+}
+
+.info-box p {
+    margin: 0;
+    line-height: 1.55;
+    font-size: 0.8125rem;
+}
+
+/* ── Line items table ─────────────────────────────────────── */
+.review-table-wrap {
+    margin-bottom: 0;
+}
+
+.review-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8125rem;
+    table-layout: auto;
+}
+
+.review-table thead tr {
+    background: #f3f2f2;
+}
+
+.review-table th {
+    border: 1px solid #c9c7c5;
+    padding: 0.45rem 0.6rem;
+    font-weight: 700;
+    text-align: left;
+    white-space: nowrap;
+    color: #3e3e3c;
+}
+
+.review-table td {
+    border: 1px solid #c9c7c5;
+    padding: 0.45rem 0.6rem;
+    vertical-align: top;
+    color: #3e3e3c;
+}
+
+.review-table th.right,
+.review-table td.right {
+    text-align: right;
+}
+
+.review-table th.center,
+.review-table td.center {
+    text-align: center;
+}
+
+/* ── Totals block ─────────────────────────────────────────── */
+.totals-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+}
+
+.totals-table {
+    width: 320px;
+    font-size: 0.8125rem;
+    border-collapse: collapse;
+}
+
+.totals-table td {
+    padding: 0.2rem 0.4rem;
+}
+
+.totals-table td:last-child {
+    text-align: right;
+    white-space: nowrap;
+}
+
+.totals-total td {
+    font-weight: 700;
+    border-top: 1px solid #c9c7c5;
+    padding-top: 0.35rem;
+}
+
+.review-price-note {
+    font-size: 0.75rem;
+    color: #3e3e3c;
+    margin-top: 0.25rem;
+    margin-bottom: 1rem;
+}
+
+/* ── T&C ──────────────────────────────────────────────────── */
+.review-tnc {
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.review-tnc-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    line-height: 1;
+}
+
+.review-tnc-checkbox {
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    flex: 0 0 auto;
+    cursor: pointer;
+    accent-color: #005587;
+}
+
+.review-tnc-text {
+    font-family: 'Salesforce Sans', Arial, sans-serif;
+    font-size: 0.8125rem;
+    line-height: 1.55;
+    color: #3e3e3c;
+}
+
+.review-tnc-link {
+    font-family: 'Salesforce Sans', Arial, sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #0176d3;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    cursor: pointer;
+}
+
+.review-tnc-link:hover,
+.review-tnc-link:focus {
+    color: #014486;
+    text-decoration: underline;
+}
+
+.review-tnc-error {
+    color: #c23934;
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+}

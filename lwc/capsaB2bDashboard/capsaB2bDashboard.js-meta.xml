@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>59.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Capsa Account Dashboard</masterLabel>
+    <description>Account dashboard with summary stat cards and recent activity for the B2B Connect My Account area.</description>
+    <targets>
+        <target>lightningCommunity__Default</target>
+        <target>lightningCommunity__Page</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="activeOrders" type="String" label="Active Orders" default="2"/>
+            <property name="activeOrdersSub" type="String" label="Active Orders Subtext" default="In fulfillment"/>
+            <property name="outstandingBalance" type="String" label="Outstanding Balance" default="$51,840"/>
+            <property name="outstandingSub" type="String" label="Outstanding Balance Subtext" default="2 open invoices"/>
+            <property name="openQuotes" type="String" label="Open Quotes" default="2"/>
+            <property name="openQuotesSub" type="String" label="Open Quotes Subtext" default="$68,740 in pipeline"/>
+            <property name="openCases" type="String" label="Open Cases" default="2"/>
+            <property name="openCasesSub" type="String" label="Open Cases Subtext" default="Avg. resolve 2.4 days"/>
+            <property name="allOrdersUrl" type="String" label="All Orders URL (legacy — leave as-is)" default="/OrderSummary/OrderSummary/Default"/>
+            <property name="allOrdersPage" type="String" label="All Orders Page (API name, optional)" description="Leave blank: the link opens the standard Order Summary list. Set a custom route API name only to override that destination."/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

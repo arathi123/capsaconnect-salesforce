@@ -1,0 +1,40 @@
+<template>
+    <div class="card-step fade-in">
+        <h2 class="title">Service</h2>
+        <hr class="slds-m-vertical_small" />
+
+        <template if:true={isLoading}>
+            <div class="spinner-container">
+                <lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+            </div>
+        </template>
+
+        <template if:false={isLoading}>
+            <div class="options-list">
+                <template for:each={_options} for:item="opt">
+                    <div key={opt.uiKey}>
+                        <label class={opt.wrapperClass}>
+                            <div class="text-block">
+                                <div class="option-title">{opt.Option_Label__c}</div>
+                                <div class="option-code">{opt.Option_Key__c}</div>
+                            </div>
+                            <input
+                                type="checkbox"
+                                class="large-checkbox"
+                                data-id={opt.uiKey}
+                                checked={opt.isSelected}
+                                onchange={handleToggle} />
+                        </label>
+                        <hr>
+                    </div>
+                </template>
+            </div>
+
+            <template if:true={showNextButton}>
+                <div class="footer-area fade-in">
+                    <button class="next-btn" onclick={handleNext}>NEXT →</button>
+                </div>
+            </template>
+        </template>
+    </div>
+</template>

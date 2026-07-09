@@ -1,0 +1,181 @@
+<template>
+    <div class="quotes-root">
+
+        <!-- ─── Header: breadcrumb + title + segmented filter ─── -->
+        <div class="quotes-header">
+            <div class="quotes-heading">
+                <p class="breadcrumb">{breadcrumbLabel}</p>
+                <h1 class="quotes-title">{heading}</h1>
+            </div>
+
+            <div class="filter-group" role="group" aria-label="Filter quotes">
+                <button type="button" class={allBtnClass} data-filter="all"
+                    onclick={handleFilter} aria-pressed={isAllActive}>All</button>
+                <button type="button" class={openBtnClass} data-filter="open"
+                    onclick={handleFilter} aria-pressed={isOpenActive}>Open</button>
+                <button type="button" class={closedBtnClass} data-filter="closed"
+                    onclick={handleFilter} aria-pressed={isClosedActive}>Closed</button>
+            </div>
+        </div>
+
+        <!-- ─── Reorder result banner ─── -->
+        <template lwc:if={reorderMsg}>
+            <div class={reorderBannerClass} role="status" aria-live="polite">
+                <p class="reorder-text">{reorderMsg}</p>
+                <template lwc:if={hasSkipped}>
+                    <ul class="reorder-skips">
+                        <template for:each={skippedLines} for:item="line">
+                            <li key={line.key}>
+                                <span class="skip-name">{line.productName}</span>
+                                <span class="skip-reason">{line.reason}</span>
+                            </li>
+                        </template>
+                    </ul>
+                </template>
+                <div class="reorder-actions">
+                    <button type="button" class="reorder-dismiss" onclick={dismissReorder}>Dismiss</button>
+                </div>
+            </div>
+        </template>
+
+        <!-- ─── Card ─── -->
+        <div class="quotes-card">
+
+            <!-- Search toolbar: stays mounted while a query is in flight so the
+                 input keeps focus, and remains reachable when a search returns
+                 nothing (otherwise there'd be no way to clear it). -->
+            <template lwc:if={showToolbar}>
+                <div class="list-toolbar">
+                    <div class="search-box">
+                        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <circle cx="11" cy="11" r="7"></circle>
+                            <line x1="20" y1="20" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        <input type="text" class="search-input" autocomplete="off"
+                            placeholder="Search by quote number or description" aria-label="Search quotes"
+                            oninput={handleSearchInput} onkeydown={handleSearchKeydown} />
+                        <template lwc:if={hasSearchText}>
+                            <button type="button" class="search-clear" title="Clear search"
+                                aria-label="Clear search" onclick={handleClearSearch}>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                </svg>
+                            </button>
+                        </template>
+                    </div>
+                    <template lwc:if={isSearching}>
+                        <span class="search-meta" aria-live="polite">{searchResultLabel}</span>
+                    </template>
+                </div>
+            </template>
+
+            <div class="table-area">
+
+            <template lwc:if={showSpinner}>
+                <div class="spinner-overlay">
+                    <lightning-spinner alternative-text="Loading quotes" size="medium"></lightning-spinner>
+                </div>
+            </template>
+
+            <template lwc:if={showTable}>
+                <div class="table-scroll">
+                    <table class="quotes-table" aria-label="Quotes">
+                        <thead>
+                            <tr>
+                                <th scope="col" data-column="quoteNumber" onclick={handleSort} class="sortable">
+                                    <span class="th-inner">Quote <span class="sort-ic">{sortIconQuote}</span></span>
+                                </th>
+                                <th scope="col" data-column="name" onclick={handleSort} class="sortable">
+                                    <span class="th-inner">Description <span class="sort-ic">{sortIconName}</span></span>
+                                </th>
+                                <th scope="col" data-column="createdDate" onclick={handleSort} class="sortable">
+                                    <span class="th-inner">Created <span class="sort-ic">{sortIconCreated}</span></span>
+                                </th>
+                                <th scope="col" data-column="validUntil" onclick={handleSort} class="sortable">
+                                    <span class="th-inner">Valid Until <span class="sort-ic">{sortIconValid}</span></span>
+                                </th>
+                                <th scope="col" data-column="amount" onclick={handleSort} class="sortable num-col">
+                                    <span class="th-inner">Amount <span class="sort-ic">{sortIconAmount}</span></span>
+                                </th>
+                                <th scope="col" data-column="status" onclick={handleSort} class="sortable">
+                                    <span class="th-inner">Status <span class="sort-ic">{sortIconStatus}</span></span>
+                                </th>
+                                <th scope="col" class="col-action"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template for:each={displayRows} for:item="row">
+                                <tr key={row.id} class="data-row">
+                                    <td data-label="Quote">
+                                        <a href="javascript:void(0);" class="quote-link"
+                                            data-id={row.id} onclick={handleQuoteClick}>{row.quoteNumber}</a>
+                                    </td>
+                                    <td data-label="Description" class="desc-cell">{row.name}</td>
+                                    <td data-label="Created" class="muted-cell">
+                                        <lightning-formatted-date-time value={row.createdDate}
+                                            year="numeric" month="short" day="numeric">
+                                        </lightning-formatted-date-time>
+                                    </td>
+                                    <td data-label="Valid Until" class="muted-cell">
+                                        <lightning-formatted-date-time value={row.validUntil}
+                                            year="numeric" month="short" day="numeric">
+                                        </lightning-formatted-date-time>
+                                    </td>
+                                    <td data-label="Amount" class="num-col amount-cell">
+                                        <lightning-formatted-number value={row.amount}
+                                            format-style="currency" currency-code={currencyCode}
+                                            maximum-fraction-digits="0">
+                                        </lightning-formatted-number>
+                                    </td>
+                                    <td data-label="Status">
+                                        <span class={row.badgeClass}>
+                                            <span class="qbadge__dot"></span>{row.status}
+                                        </span>
+                                    </td>
+                                    <td data-label="" class="col-action">
+                                        <button type="button" class="add-cart-btn"
+                                            data-id={row.id} onclick={handleAddToCart}
+                                            disabled={row.adding}>{row.addBtnLabel}</button>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+
+                <template lwc:if={showPagination}>
+                    <div class="pagination-bar">
+                        <span class="page-summary">{pageSummary}</span>
+                        <div class="page-nav">
+                            <button class="pg-btn" onclick={handlePrev} disabled={isFirstPage}>Previous</button>
+                            <span class="page-status">Page {pageNumber} of {totalPages}</span>
+                            <button class="pg-btn" onclick={handleNext} disabled={isLastPage}>Next</button>
+                        </div>
+                    </div>
+                </template>
+            </template>
+
+            <!-- Empty state -->
+            <template lwc:if={showEmptyState}>
+                <div class="empty-state">
+                    <lightning-icon icon-name="standard:quotes" size="large"></lightning-icon>
+                    <p class="empty-title">{emptyTitle}</p>
+                    <p class="empty-text">{emptyText}</p>
+                </div>
+            </template>
+
+            <!-- Guest state -->
+            <template lwc:if={showGuestState}>
+                <div class="empty-state">
+                    <lightning-icon icon-name="utility:lock" size="large"></lightning-icon>
+                    <p class="empty-title">Please log in</p>
+                    <p class="empty-text">Sign in to your account to view your quotes.</p>
+                </div>
+            </template>
+            </div>
+        </div>
+    </div>
+</template>

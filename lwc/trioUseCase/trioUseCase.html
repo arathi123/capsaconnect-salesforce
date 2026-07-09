@@ -1,0 +1,112 @@
+<template>
+
+    <div class="use-case-container">
+
+        <template if:true={isLoading}>
+            <div class="spinner-container">
+                <lightning-spinner
+                    alternative-text="Loading..."
+                    size="medium">
+                </lightning-spinner>
+            </div>
+        </template>
+
+        <template if:false={isLoading}>
+
+            <!-- LEFT SIDE -->
+
+            <div class="questions-column">
+
+                <h2 class="title">
+                    Select Use Case and Application
+                </h2>
+
+                <hr>
+
+                <div class="options-list">
+
+                    <template
+                        for:each={useCaseOptions}
+                        for:item="opt">
+
+                        <div key={opt.Option_Key__c}>
+
+                            <div
+                                class={opt.rowClass}
+                                data-key={opt.Option_Key__c}
+                                onclick={handleSelect}
+                                onmouseenter={handleMouseEnter}
+                                onmouseleave={handleMouseLeave}>
+
+                                <div class="text-block">
+
+                                    <div class="option-title">
+                                        {opt.Option_Label__c}
+                                    </div>
+
+                                    <template if:true={opt.isVisible}>
+                                        <div class="option-desc">
+                                            {opt.Description__c}
+                                        </div>
+                                    </template>
+
+                                </div>
+
+                                <input
+                                    type="radio"
+                                    checked={opt.isSelected}
+                                    readonly />
+                            </div>
+
+                            <hr>
+
+                        </div>
+
+                    </template>
+
+                </div>
+
+                <template if:true={isStepComplete}>
+                    <div class="footer-area">
+                        <button
+                            class="next-btn"
+                            onclick={handleNext}>
+                            NEXT →
+                        </button>
+                    </div>
+                </template>
+
+            </div>
+
+            <!-- RIGHT SIDE -->
+
+            <div class="preview-column">
+
+                <div class="sticky-preview">
+
+                    <div class="preview-heading">
+                        YOUR SELECTION
+                    </div>
+
+                    <div class="preview-subheading">
+                        Representative Image
+                    </div>
+
+                    <div class="image-box">
+
+                        <img
+                            src={currentPreviewImage}
+                            alt="Trio Preview"
+                            class="preview-img" />
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </template>
+
+    </div>
+
+</template>

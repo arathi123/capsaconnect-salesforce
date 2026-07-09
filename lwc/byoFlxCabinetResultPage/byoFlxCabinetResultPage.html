@@ -1,0 +1,190 @@
+<template>
+
+    <div class="page-wrapper">
+
+        <div class="card-step fade-in">
+
+            <!-- LOADER -->
+
+            <template if:true={isLoading}>
+
+                <div class="spinner-container">
+
+                    <lightning-spinner
+                        alternative-text="Generating Quote..."
+                        size="large">
+                    </lightning-spinner>
+
+                </div>
+
+            </template>
+
+            <!-- MAIN -->
+
+            <template if:false={isLoading}>
+
+                <div class="results-layout">
+
+                    <!-- LEFT -->
+
+                    <div class="left-panel">
+
+                        <h1 class="title">
+
+                            FLX Cabinet Configuration Results
+
+                        </h1>
+
+                        <template if:true={isUnlistedCart}>
+
+                            <div class="slds-notify slds-notify_alert slds-theme_warning slds-m-bottom_medium">
+
+                                ⚠️ <b>Unlisted Cart:</b>
+
+                                We dont have product against this
+                                configuration. Quote line item will
+                                not be created for this cabinet.
+
+                            </div>
+
+                        </template>
+
+                        <p class="grey">
+
+                            Review all generated configuration codes before creating the quote.
+
+                        </p>
+
+                        <hr>
+
+                        <!-- GENERATED CODES -->
+
+                        <div class="summary-section">
+
+                            <h2 class="summary-title">
+
+                                Generated Configuration Codes
+
+                            </h2>
+
+                            <ul class="summary-list">
+
+                                <template
+                                    for:each={configurationCodes}
+                                    for:item="item">
+
+                                    <li
+                                        key={item.label}
+                                        class="summary-category">
+
+                                        <strong>
+
+                                            {item.label}
+
+                                        </strong>
+
+                                        <ul class="summary-value">
+
+                                            <li>
+
+                                                {item.code}
+
+                                            </li>
+
+                                        </ul>
+
+                                    </li>
+
+                                </template>
+
+                            </ul>
+
+                        </div>
+
+                        <!-- ACCESSORIES -->
+
+                        <template if:true={hasAccessories}>
+
+                            <div class="summary-section">
+
+                                <h2 class="summary-title">
+
+                                    Accessories
+
+                                </h2>
+
+                                <ul class="summary-list">
+
+                                    <template
+                                        for:each={selections.accessories}
+                                        for:item="acc">
+
+                                        <li
+                                            key={acc.optionKey}
+                                            class="summary-category">
+
+                                            <strong>
+
+                                                {acc.displayValue}
+
+                                            </strong>
+
+                                        </li>
+
+                                    </template>
+
+                                </ul>
+
+                            </div>
+
+                        </template>
+
+                    </div>
+
+                    <!-- RIGHT -->
+
+                    <div class="right-panel">
+
+                        <div class="image-container">
+
+                            <img
+                                src="/resource/capsaUI2/Medical_Cart_Packages2/Medical_Cart_Packages_2/Procedure_Cart/Standard.jpg"
+                                class="final-img"
+                                alt="FLX Cabinet" />
+
+                        </div>
+                            <template if:true={isReconfigureMode}>
+
+                                <button
+                                    class="quote-btn slds-m-top_large"
+                                    onclick={handleUpdateQuote}>
+
+                                    UPDATE QUOTE
+
+                                </button>
+
+                            </template>
+
+                            <template if:false={isReconfigureMode}>
+
+                                <button
+                                    class="quote-btn slds-m-top_large"
+                                    onclick={handleQuoteRequest}>
+
+                                    REQUEST A QUOTE
+
+                                </button>
+
+                            </template>
+
+                    </div>
+
+                </div>
+
+            </template>
+
+        </div>
+
+    </div>
+
+</template>

@@ -1,0 +1,109 @@
+<template>
+    <div class="dashboard">
+
+        <!-- ── Stat cards ── -->
+        <div class="stat-grid">
+
+            <!-- Active orders -->
+            <div class="stat-card">
+                <span class="stat-icon stat-icon--blue">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+                        <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+                        <line x1="3" y1="6" x2="21" y2="6"/>
+                        <path d="M16 10a4 4 0 0 1-8 0"/>
+                    </svg>
+                </span>
+                <span class="stat-label">Active orders</span>
+                <span class="stat-value">{displayActiveOrders}</span>
+                <span class="stat-sub">{activeOrdersSub}</span>
+            </div>
+
+            <!-- Outstanding balance -->
+            <div class="stat-card">
+                <span class="stat-icon stat-icon--amber">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                        <line x1="16" y1="13" x2="8" y2="13"/>
+                        <line x1="16" y1="17" x2="8" y2="17"/>
+                    </svg>
+                </span>
+                <span class="stat-label">Outstanding balance</span>
+                <span class="stat-value">{outstandingBalance}</span>
+                <span class="stat-sub">{outstandingSub}</span>
+            </div>
+
+            <!-- Open quotes -->
+            <div class="stat-card">
+                <span class="stat-icon stat-icon--blue">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                    </svg>
+                </span>
+                <span class="stat-label">Open quotes</span>
+                <span class="stat-value">{openQuotes}</span>
+                <span class="stat-sub">{openQuotesSub}</span>
+            </div>
+
+            <!-- Open cases -->
+            <div class="stat-card">
+                <span class="stat-icon stat-icon--red">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+                        <circle cx="12" cy="12" r="10"/>
+                        <circle cx="12" cy="12" r="4"/>
+                        <line x1="4.93" y1="4.93" x2="9.17" y2="9.17"/>
+                        <line x1="14.83" y1="14.83" x2="19.07" y2="19.07"/>
+                        <line x1="14.83" y1="9.17" x2="19.07" y2="4.93"/>
+                        <line x1="4.93" y1="19.07" x2="9.17" y2="14.83"/>
+                    </svg>
+                </span>
+                <span class="stat-label">Open cases</span>
+                <span class="stat-value">{openCases}</span>
+                <span class="stat-sub">{openCasesSub}</span>
+            </div>
+
+        </div>
+
+        <!-- ── Open orders ── -->
+        <div class="activity-card">
+            <div class="activity-head">
+                <h2 class="activity-title">Open orders</h2>
+                <a href={allOrdersHref} class="activity-allbtn" onclick={navigateToAllOrders}>All orders &#8594;</a>
+            </div>
+            <div class="activity-list">
+
+                <!-- Real open orders for the logged-in user -->
+                <template lwc:if={hasOrders}>
+                    <template for:each={openOrders} for:item="o">
+                        <div key={o.id} class="activity-row" data-id={o.id} onclick={navigateToOrder} role="button" tabindex="0">
+                            <span class="activity-main">
+                                <span class="activity-ref">{o.orderNumber}</span>
+                                <span class="activity-type">Order</span>
+                            </span>
+                            <span class="activity-date">{o.orderedDate}</span>
+                            <span class="activity-total">{o.totalFormatted}</span>
+                            <span class="activity-status">
+                                <span class={o.badgeClass}>
+                                    <i class="badge-dot"></i>{o.status}
+                                </span>
+                            </span>
+                            <span class="activity-chevron" aria-hidden="true">&#8250;</span>
+                        </div>
+                    </template>
+                </template>
+
+                <!-- Loading -->
+                <template lwc:if={isLoading}>
+                    <div class="activity-msg">Loading your orders&hellip;</div>
+                </template>
+
+                <!-- Empty -->
+                <template lwc:if={showEmpty}>
+                    <div class="activity-msg">You have no open orders right now.</div>
+                </template>
+
+            </div>
+        </div>
+
+    </div>
+</template>

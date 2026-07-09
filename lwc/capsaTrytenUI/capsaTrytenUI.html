@@ -1,0 +1,62 @@
+<template>
+    <div class="path-wrapper">
+        <c-cart-path-bar 
+            product-family={productType}
+            current-step={currentStep} 
+            enabled-steps={allowedSteps}
+            onchildevent={handlePathSelection}
+            onbacktoproducts={handleResetFlow}>
+        </c-cart-path-bar>
+    </div>
+
+    <template if:true={showLandingPage}>
+        <div class="build-container">
+            <div class="page-container">
+                <h1 class="title">Tryten Carts</h1>
+                <h4 class="subtitle">Configure a Tryten cart based on your workflow requirements.</h4>
+                <hr>
+
+                <template if:true={packageConfigs}>
+                    <div class="cart-grid">
+                        <template for:each={packageConfigs} for:item="pkg">
+                            <div key={pkg.Id} class="cart-card">
+                                <p class="cart-title">{pkg.Option_Label__c}</p>
+                                <img src={pkg.Image_URL__c} class="cart-img" alt={pkg.Option_Label__c}/>
+                                <button class="select-btn" data-id={pkg.Unique_Identifier__c} onclick={handleSelect}>
+                                    SELECT
+                                </button>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+
+                <p class="description slds-m-top_large">
+                    Use this interactive tool to custom configure a Tryten cart, selecting from various mounts, footprints, and accessories.
+                </p>
+
+                <button class="build-btn" onclick={handleBuildClick}>
+                    START CONFIGURATION →
+                </button>
+            </div>
+        </div>
+    </template>
+
+    <template if:true={isLoading}>
+        <div class="spinner-container">
+            <lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+        </div>
+    </template>
+
+    <template if:false={isLoading}>
+        <template if:true={showBuildYourOwn}>
+            <c-capsa-tryten-build
+                opportunity-id={opportunityId} 
+                product-type={productType} 
+                quote-id={quoteId}
+                onstepchange={handleStepChange} 
+                onresetflow={handleResetFlow}>
+            </c-capsa-tryten-build>
+        </template>
+        
+    </template>
+</template>

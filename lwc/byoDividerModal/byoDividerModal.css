@@ -1,0 +1,122 @@
+/* Modal Sizing & Centering */
+.custom-modal-container {
+    max-width: 1200px !important;
+    width: 90% !important;
+}
+
+.title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.divider-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Centers the cards in each row */
+    gap: 25px;
+}
+
+.divider-card {
+    border: 2px solid #e5e5e5;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: #fff;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Row 1: First 2 options (set to ~40% width to stay on one line) */
+.divider-card:nth-child(-n+2) {
+    flex: 0 1 calc(42% - 25px);
+}
+
+/* Row 2: Next 3 options (set to ~30% width) */
+.divider-card:nth-child(n+3) {
+    flex: 0 1 calc(30% - 25px);
+}
+
+.divider-card:hover {
+    border-color: #2cb195;
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.divider-card.selected {
+    border-color: #2cb195;
+    background-color: #f0fdfa;
+}
+
+.divider-img {
+    width: 100%;
+    margin-bottom: 15px;
+    object-fit: contain;
+}
+
+.radio-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.divider-name {
+    font-weight: 700;
+    font-size: 17px;
+    color: #333;
+}
+
+.description-container {
+    min-height: 80px;
+    display: flex;
+    align-items: flex-start;
+}
+
+.divider-subtext {
+    font-size: 0.95rem;
+    color: #555;
+    text-align: center;
+    line-height: 1.4;
+}
+
+/* Footer Positioning */
+.footer-area {
+    display: flex;
+    justify-content: space-between;
+    padding: 1.5rem 2.5rem;
+}
+
+.btn-cancel {
+    background: white;
+    color: #444;
+    border: 1px solid #ccc;
+    padding: 10px 35px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-save {
+    background-color: #2cb195;
+    color: white;
+    border: none;
+    padding: 10px 35px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-save:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.close-icon {
+    font-size: 24px;
+    color: black;
+}

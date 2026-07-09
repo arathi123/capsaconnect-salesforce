@@ -1,0 +1,44 @@
+/* Space the heart from its neighbours (search on the left, profile on the
+   right) so the boxes don't touch / look overlapped. */
+:host {
+    display: inline-flex;
+    align-items: center;
+    margin: 0 0.5rem;
+}
+
+/* Match the cart / profile pill: outlined rounded box, icon colour
+   inherited from the header. On hover it fills white with a navy icon —
+   the same treatment used for the Cart button. */
+.wishlist-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 2.5rem;
+    min-width: 2.5rem;
+    padding: 0 0.75rem;
+    background: transparent;
+    border: 1px solid currentColor;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    color: inherit;
+    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.wishlist-btn:hover,
+.wishlist-btn:focus {
+    background: #ffffff;
+    color: #16314e;
+    border-color: #ffffff;
+    outline: none;
+}
+
+.wishlist-btn:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
+}
+
+.heart-icon {
+    width: 1.4rem;
+    height: 1.4rem;
+    display: block;
+}

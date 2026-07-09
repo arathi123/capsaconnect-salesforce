@@ -1,0 +1,73 @@
+<template>
+    <div class="card-step">
+        <div class="slds-m-bottom_large">
+            <h2 class="title slds-m-bottom_small">Accessories</h2>
+            <hr class="slds-m-vertical_small" />
+        </div>
+
+        <template if:true={isLoading}>
+            <div style="display:flex;justify-content:center;align-items:center;height:300px;">
+                <lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+            </div>
+        </template>
+
+        <template if:false={isLoading}>
+
+            <template for:each={sectionedAccessories} for:item="section">
+                <div key={section.sectionName} class="section-block">
+                    <div class="section-title"
+                         data-section={section.sectionName}
+                         onclick={handleToggleSection}>
+                        {section.sectionName} ({section.selectedCount}/{section.totalCount})
+                        <span>{section.icon}</span>
+                    </div>
+
+                    <template if:true={section.isOpen}>
+                        <div class="accessory-list">
+                            <template for:each={section.options} for:item="opt">
+                                <div key={opt.uiKey} class={opt.wrapperClass}>
+                                    <label class="slds-grid slds-grid_vertical-align-center">
+                                        <div class="slds-col slds-size_1-of-12 slds-text-align_center">
+                                            <input
+                                                type="checkbox"
+                                                class="large-checkbox"
+                                                data-id={opt.uiKey}
+                                                checked={opt.isSelected}
+                                                onchange={handleToggle} />
+                                        </div>
+                                        <div class="slds-col slds-size_11-of-12 slds-p-horizontal_medium">
+                                            <p class="acc-name">{opt.Option_Key__c}</p>
+                                        </div>
+                                    </label>
+                                </div>
+                            </template>
+                        </div>
+                    </template>
+                </div>
+            </template>
+
+            <!-- NONE OPTION -->
+            <div class="accessory-item none-option">
+                <div class="slds-grid slds-grid_vertical-align-center">
+                    <div class="slds-col slds-size_1-of-12 slds-text-align_center">
+                        <input
+                            type="checkbox"
+                            class="large-checkbox"
+                            checked={accessoryNone}
+                            onchange={handleNoneToggle} />
+                    </div>
+                    <div class="slds-col slds-size_11-of-12">
+                        <span class="acc-name">None</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-area slds-m-top_xx-large">
+                <template if:true={showNextButton}>
+                    <button class="next-btn" onclick={handleNext}>NEXT</button>
+                </template>
+            </div>
+
+        </template>
+    </div>
+</template>

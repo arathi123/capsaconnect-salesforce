@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <isExposed>true</isExposed>
+    <apiVersion>59.0</apiVersion>
+    <masterLabel>Capsa B2B Quote Details</masterLabel>
+    <description>B2B Commerce storefront quote detail: header, totals, and line items with image, code, unit price, editable quantity and live line total, plus a validated Add all to cart.</description>
+    <targets>
+        <target>lightningCommunity__Default</target>
+        <target>lightningCommunity__Page</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="heading" type="String" label="Heading" default="Quote Details"
+                description="Eyebrow label shown above the quote number."/>
+            <property name="currencyCode" type="String" label="Currency code" default="USD"
+                description="ISO currency code used to format prices."/>
+            <property name="backPageApiName" type="String" label="Quote list page API name"
+                description="API name of the community page hosting the quote list. Used by the 'Back to quotes' link. Leave blank to use browser back."/>
+            <property name="cartPageApiName" type="String" label="Cart page API name" default="Current_Cart"
+                description="API name of the cart page to open after items are added."/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

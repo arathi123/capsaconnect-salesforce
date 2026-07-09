@@ -1,0 +1,45 @@
+<template>
+    <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_medium">
+        <div class="slds-modal__container custom-modal-container">
+            <header class="slds-modal__header">
+                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                    <span class="close-icon">×</span>
+                </button>
+                <h2 class="title">Select a Drawer Divider or Removable Tray Option</h2>
+            </header>
+
+            <div class="slds-modal__content slds-p-around_large">
+                <div class="divider-grid">
+                    <template for:each={processedOptions} for:item="item">
+                        <div key={item.uiKey} 
+                             class={item.cardClass}
+                             data-key={item.uiKey}
+                             onclick={handleSelect}>
+                            
+                            <div class="card-content">
+                                <img src={item.Image_URL__c} alt={item.Option_Label__c} class="divider-img" />
+                                
+                                <div class="radio-row">
+                                    <input type="radio" name="divider" value={item.uiKey} checked={item.isSelected} />
+                                    <label class="divider-name">{item.Option_Label__c}</label>
+                                </div>
+
+                                <div class="description-container">
+                                    <p class="divider-subtext">
+                                        {item.Description__c}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            <footer class="slds-modal__footer footer-area">
+                <button class="btn-cancel" onclick={closeModal}>Cancel</button>
+                <button class="btn-save" onclick={saveSelection} disabled={isSaveDisabled}>Save Choice</button>
+            </footer>
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+</template>

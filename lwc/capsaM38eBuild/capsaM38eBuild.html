@@ -1,0 +1,102 @@
+<template>
+    <div class="m38e-engine-container">
+
+        <template if:true={isUseCase}>
+            <c-m38e-use-case 
+                product-type={productType} 
+                selections={selections} 
+                onstepcomplete={handleStepComplete}>
+            </c-m38e-use-case>
+        </template>
+
+        <template if:true={isPower}>
+            <c-m38e-power 
+                product-type={productType} 
+                selections={selections} 
+                onstepcomplete={handleStepComplete}>
+            </c-m38e-power>
+        </template>
+
+        <template if:true={isLift}>
+            <c-m38e-lift 
+                product-type={productType} 
+                selections={selections} 
+                onstepcomplete={handleStepComplete}>
+            </c-m38e-lift>
+        </template>
+
+        <template if:true={isMonitor}>
+            <c-m38e-monitor
+                product-type={productType} 
+                selections={selections} 
+                onstepcomplete={handleStepComplete}>
+            </c-m38e-monitor>
+        </template>
+
+        <template if:true={isKeyboard}>
+            <c-m38e-keyboard-tray
+                product-type={productType} 
+                selections={selections} 
+                onstepcomplete={handleStepComplete}>
+            </c-m38e-keyboard-tray>
+        </template>
+        
+        <template if:true={isCasters}>
+            <c-m38e-casters
+                product-type={productType} 
+                selections={selections} 
+                onstepcomplete={handleStepComplete}>
+            </c-m38e-casters>
+        </template>
+
+        <template if:true={isStorageAndSecurity}>
+            <c-m38e-storage-security
+                product-type={productType} 
+                selections={selections} 
+                onstepcomplete={handleStepComplete}>
+            </c-m38e-storage-security>
+        </template>
+
+        <template if:true={isBuilder}>
+            <c-m38e-storage-builder
+                product-type={productType} 
+                selections={selections} 
+                onstepcomplete={handleStepComplete}>
+            </c-m38e-storage-builder>
+        </template>
+
+        <template if:true={isTeleAccessories}>
+            <c-m38e-tele-accessories
+                product-type={productType} 
+                selections={selections} 
+                onstepcomplete={handleStepComplete}>
+            </c-m38e-tele-accessories>
+        </template>
+
+        <template if:true={isAccessories}>
+            <c-m38e-accessories
+                product-type={productType} 
+                selections={selections} 
+                onstepcomplete={handleStepComplete}>
+            </c-m38e-accessories>
+        </template>
+
+        <template if:true={isWarranty}>
+            <c-m38e-warranty
+                product-type={productType} 
+                selections={selections} 
+                onstepcomplete={handleStepComplete}>
+            </c-m38e-warranty>
+        </template>
+
+        <template if:true={isResults}>
+            <c-m38e-results
+                opportunity-id={opportunityId}
+                quote-id={quoteId}
+                product-type={productType} 
+                selections={selections}>
+            </c-m38e-results>
+        </template>
+
+    </div>
+</template>

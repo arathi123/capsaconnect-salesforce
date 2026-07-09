@@ -1,0 +1,30 @@
+<template>
+    <div class="tryten-engine-container">
+        
+        <template if:true={isUseCase}>
+            <c-tryten-use-case-selection 
+                product-type={productType}
+                selections={selections}
+                onusestepcomplete={handleUseCaseNext}>
+            </c-tryten-use-case-selection>
+        </template>
+
+        <template if:true={isAccessories}>
+            <c-tryten-accessories 
+                product-type={productType}
+                selections={selections}
+                onaccessorystepcomplete={handleAccessoryNext}>
+            </c-tryten-accessories>
+        </template>
+
+        <template if:true={isResults}>
+            <c-tryten-results
+                opportunity-id={opportunityId} 
+                quote-id={quoteId}
+                product-type={productType}
+                selections={selections}>
+            </c-tryten-results>
+        </template>
+
+    </div>
+</template>

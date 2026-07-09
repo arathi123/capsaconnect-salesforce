@@ -1,0 +1,30 @@
+<template>
+    <section class="section">
+        <h2 class="section__title">{heading}</h2>
+        <p class="section__subtitle">{subheading}</p>
+        <div class="grid">
+            <template for:each={cards} for:item="card">
+                <a
+                    key={card.key}
+                    class="card"
+                    href={card.url}
+                    data-key={card.key}
+                    onclick={handleCardClick}
+                >
+                    <div class="card__media">
+                        <template lwc:if={card.imageUrl}>
+                            <img src={card.imageUrl} alt={card.title} loading="lazy" />
+                        </template>
+                        <template lwc:else>
+                            <span class="card__media-fallback" aria-hidden="true">&#9638;</span>
+                        </template>
+                    </div>
+                    <div class="card__body">
+                        <span class="card__title">{card.title}</span>
+                        <span class="card__arrow" aria-hidden="true">&#8594;</span>
+                    </div>
+                </a>
+            </template>
+        </div>
+    </section>
+</template>

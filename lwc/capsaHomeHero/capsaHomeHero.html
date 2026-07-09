@@ -1,0 +1,57 @@
+<template>
+    <section class="hero">
+        <div class="hero__inner">
+            <h1 class="hero__title">{headline}</h1>
+            <p class="hero__subtitle">{subheadline}</p>
+
+            <template if:true={isGuest}>
+                <div class="hero__actions">
+                    <a
+                        class="btn btn--primary"
+                        href={registerHref}
+                        onclick={handleRegister}
+                    >
+                        <span class="btn__label">{primaryLabel}</span>
+                        <span class="btn__icon" aria-hidden="true">&#8594;</span>
+                    </a>
+                    <a
+                        class="btn btn--outline"
+                        href={loginHref}
+                        onclick={handleLogin}
+                    >
+                        <span class="btn__label">{secondaryLabel}</span>
+                        <span class="btn__icon" aria-hidden="true">&#8599;</span>
+                    </a>
+                </div>
+            </template>
+        </div>
+
+        <div class="hero__cards" role="list">
+            <template for:each={cards} for:item="card">
+                <button
+                    key={card.key}
+                    type="button"
+                    class="acard"
+                    role="listitem"
+                    data-key={card.key}
+                    aria-label={card.label}
+                    onclick={handleCardClick}
+                >
+                    <span class="acard__icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24">
+                            <path d={card.icon}></path>
+                        </svg>
+                    </span>
+                    <span class="acard__title">{card.label}</span>
+                    <span class="acard__desc">{card.description}</span>
+                </button>
+            </template>
+        </div>
+
+        <div class="hero__curve" aria-hidden="true">
+            <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
+                <path d="M0,80 L1440,80 L1440,28 C1080,82 360,-6 0,28 Z"></path>
+            </svg>
+        </div>
+    </section>
+</template>

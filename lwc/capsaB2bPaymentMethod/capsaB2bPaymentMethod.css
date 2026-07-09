@@ -1,0 +1,90 @@
+/* Match the typeface used by capsaB2bOrderReview for visual consistency */
+:host {
+    font-family: 'Salesforce Sans', Arial, sans-serif;
+    font-size: 0.8125rem;
+}
+
+/* Summary "Purchase Order" header — match Order Review section headers */
+.po-summary-title {
+    color: #005587;
+    font-weight: 700;
+    font-size: 0.8125rem;
+    margin: 0 0 0.5rem;
+}
+
+/* ---- Credit-card (BridgePay) additions ---- */
+.bp-iframe-wrap {
+    width: 100%;
+    border: 0;
+    overflow: hidden;
+}
+
+.bp-iframe {
+    width: 100%;
+    height: 480px;
+    border: 0;
+    display: block;
+}
+
+/* Clean confirmation tile */
+.bp-tile {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 0.85rem;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    color: #14532d;
+}
+
+.bp-tile-check {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.15rem;
+    height: 1.15rem;
+    border-radius: 50%;
+    background: #16a34a;
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.bp-error {
+    margin-top: 0.75rem;
+    padding: 0.65rem 0.85rem;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    color: #991b1b;
+}
+
+.bp-inline {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+    position: relative;
+    min-height: 1.75rem;
+}
+
+.bp-inline lightning-spinner {
+    position: relative;
+    display: inline-block;
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.bp-muted {
+    font-size: 0.8rem;
+    color: #6b7280;
+    margin-left: 2rem;
+}
+
+.bp-m-top {
+    margin-top: 0.75rem;
+}

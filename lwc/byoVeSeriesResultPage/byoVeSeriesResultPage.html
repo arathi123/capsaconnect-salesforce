@@ -1,0 +1,277 @@
+<template>
+
+    <div class="results-page-container">
+
+        <template if:true={isLoading}>
+
+            <div class="full-page-loader">
+
+                <lightning-spinner
+                    alternative-text="Generating Quote..."
+                    size="large"
+                    variant="brand">
+                </lightning-spinner>
+
+            </div>
+
+        </template>
+
+        <div class="results-header">
+
+            <h2 class="title">
+                VE-Series Configuration Results
+            </h2>
+
+            <hr class="header-divider" />
+
+        </div>
+
+        <div class="results-main-content">
+
+            <div class="summary-section">
+
+                <h3 class="summary-title">
+                    Generated Cart Code
+                </h3>
+
+                <div class="code-box">
+
+                    <p class="cart-code">
+                        {packageSku}
+                    </p>
+
+                </div>
+
+            </div>
+
+            <template if:true={isUnlistedCart}>
+
+                <div class="slds-notify slds-notify_alert slds-theme_warning slds-m-bottom_medium">
+
+                    ⚠️ <b>Unlisted Cart:</b>
+
+                    We dont have product against this
+                    configuration. Quote line item will
+                    not be created for this cart.
+
+                </div>
+
+            </template>
+
+            <div class="summary-section slds-m-top_large">
+
+                <h3 class="summary-title">
+                    Configuration Summary
+                </h3>
+
+                <ul class="summary-list">
+
+                    <li class="summary-item">
+
+                        <span class="bullet">•</span>
+
+                        <strong>Type:</strong>
+
+                        {selections.cartType.label}
+
+                    </li>
+
+                    <template if:true={selections.width.label}>
+
+                        <li class="summary-item">
+
+                            <span class="bullet">•</span>
+
+                            <strong>Width:</strong>
+
+                            {selections.width.label}
+
+                        </li>
+
+                    </template>
+
+                    <template if:true={selections.height.label}>
+
+                        <li class="summary-item">
+
+                            <span class="bullet">•</span>
+
+                            <strong>Height:</strong>
+
+                            {selections.height.label}
+
+                        </li>
+
+                    </template>
+
+                    <template if:true={selections.lock.label}>
+
+                        <li class="summary-item">
+
+                            <span class="bullet">•</span>
+
+                            <strong>Lock:</strong>
+
+                            {selections.lock.label}
+
+                        </li>
+
+                    </template>
+
+                    <template if:true={selections.color.label}>
+
+                        <li class="summary-item">
+
+                            <span class="bullet">•</span>
+
+                            <strong>Panel Color:</strong>
+
+                            {selections.color.label}
+
+                        </li>
+
+                    </template>
+
+                    <template if:true={hasStorage}>
+
+                        <li class="summary-item">
+
+                            <span class="bullet">•</span>
+
+                            <strong>Storage Code:</strong>
+
+                            {storageCode}
+
+                        </li>
+
+                    </template>
+
+                    <template if:true={selections.extraStorageType.label}>
+
+                        <li class="summary-item">
+
+                            <span class="bullet">•</span>
+
+                            <strong>Extra Storage Type:</strong>
+
+                            {selections.extraStorageType.label}
+
+                        </li>
+
+                    </template>
+
+                    <template if:true={selections.extendedStorage.configCode}>
+
+                        <li class="summary-item">
+
+                            <span class="bullet">•</span>
+
+                            <strong>Extended Storage:</strong>
+
+                            {selections.extendedStorage.configCode}
+
+                        </li>
+
+                    </template>
+
+                </ul>
+
+            </div>
+
+            <template if:true={hasAccessories}>
+
+                <div class="summary-section slds-m-top_large">
+
+                    <h3 class="summary-title">
+                        Selected Accessories
+                    </h3>
+
+                    <ul class="summary-list">
+
+                        <template
+                            for:each={selections.accessories}
+                            for:item="acc">
+
+                            <li
+                                key={acc.optionKey}
+                                class="summary-item">
+
+                                <span class="bullet">•</span>
+
+                                {acc.displayValue}
+
+                            </li>
+
+                        </template>
+
+                    </ul>
+
+                </div>
+
+            </template>
+
+            <template if:true={hasAccessoryKit}>
+
+                <div class="summary-section slds-m-top_large">
+
+                    <h3 class="summary-title">
+                        Accessory Kit
+                    </h3>
+
+                    <ul class="summary-list">
+
+                        <template
+                            for:each={selections.accessoryKit}
+                            for:item="kit">
+
+                            <li
+                                key={kit.key}
+                                class="summary-item">
+
+                                <span class="bullet">•</span>
+
+                                {kit.label}
+
+                            </li>
+
+                        </template>
+
+                    </ul>
+
+                </div>
+
+            </template>
+
+            <div class="action-section slds-m-top_xx-large">
+
+            <template if:true={isReconfigureMode}>
+
+                <button
+                    class="quote-btn"
+                    onclick={handleUpdateQuote}>
+
+                    UPDATE QUOTE
+
+                </button>
+
+            </template>
+
+            <template if:false={isReconfigureMode}>
+
+                <button
+                    class="quote-btn"
+                    onclick={handleQuoteRequest}>
+
+                    REQUEST A QUOTE
+
+                </button>
+
+            </template>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</template>

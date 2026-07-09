@@ -1,0 +1,48 @@
+<template>
+    <div class="path-wrapper">
+        <c-cart-path-bar product-family={productType} current-step={currentStep} enabled-steps={allowedSteps}
+            onchildevent={handlePathSelection}
+            onbacktoproducts={handleResetFlow}>
+        </c-cart-path-bar>
+    </div>
+    <template if:true={showLandingPage}>
+        <div class="slds-grid slds-wrap">
+            <!-- Left: Text Content -->
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_7-of-12">
+                <div class="page-container">
+                    <h1 class="title">Configure Your Own V6 Wall Arm Workstation</h1>
+                    <hr>
+                    <p class="description">
+                        Use this guided and interactive configuration tool to walk through the process of selecting the
+                        right product to best meet your exact clinical and health IT requirements.
+                    </p>
+
+                    <button class="build-btn" onclick={handleBuildClick}>
+                        START CONFIGURATION →
+                    </button>
+                </div>
+            </div>
+            <!-- Right: Image Preview -->
+            <div class="slds-grid slds-wrap slds-grid_vertical-align-start"></div>
+            <div class="preview-block">
+                <div class="preview-header">YOUR SELECTION</div>
+                <div class="preview-subheader">Representative Image</div>
+                <div class="image-container">
+                    <img src={currentPreviewImage} alt="V6 Cart" class="cart-image" />
+                </div>
+            </div>
+        </div>
+    </template>
+    <template if:true={isLoading}>
+        <div class="spinner-container">
+            <lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+        </div>
+    </template>
+    <template if:false={isLoading}>
+        <template if:true={showBuildYourOwn}>
+            <c-capsa-v-6-build opportunity-id={opportunityId} product-type={productType} quote-id={quoteId}
+                onstepchange={handleStepChange} onresetflow={handleResetFlow}>
+            </c-capsa-v-6-build>
+        </template>
+    </template>
+</template>

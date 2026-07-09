@@ -1,0 +1,156 @@
+/* MAIN TITLE AREA */
+.page-container {
+    text-align: center;
+    padding: 40px 20px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.build-container {
+    text-align: center;
+    padding: 20px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.progress-bar {
+    width: 90%;
+    height: 6px;
+    background: #e3e7ea;
+    border-radius: 20px;
+    margin: 0 auto 30px auto;
+}
+
+.tabs {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.title {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 25px;
+}
+
+.subtitle {
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+.cart-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);  
+    gap: 40px;                              
+    width: 90%;
+    margin: auto;
+}
+
+.cart-card {
+    text-align: center;
+    padding: 20px;
+}
+
+.cart-title {
+    font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+
+.cart-img {
+    width: 250px;
+    height: 320px;
+    margin: 0 auto;
+    display: block;
+}
+
+.select-btn {
+    margin-top: 20px;
+    padding: 15px 60px;
+    background-color: #48b9b0;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.select-btn:hover {
+    background-color: #3aa59d;
+}
+
+.build-btn {
+    font-size: 22px;
+    padding: 15px 40px;
+    background-color: #48b9b0;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.description {
+    width: 75%;
+    margin: 0 auto 50px auto;
+    font-size: 20px;
+    color: #444;
+    line-height: 1.6;
+}
+.subtitle{
+     font-size: 22px;
+    font-weight: 400;
+    margin-bottom: 25px;
+    color: #333;
+     text-align: center;
+}
+     
+.title {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 25px;
+    color: #333;
+     text-align: center;
+}
+
+.cart-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);  
+    gap: 20px;  
+}
+
+.custom-path {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 20px 0 40px 0;
+}
+
+.path-step {
+    padding: 10px 20px;
+    border-radius: 30px;
+    background: #e5e5e5;
+    color: #555;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+    border: 1px solid #d8d8d8;
+}
+
+.path-step.active {
+    background: #0176d3;
+    color: white;
+    border-color: #015fb5;
+}
+
+.path-step:hover {
+    background: #dcdcdc;
+}
+
+.spinner-container {
+    height: 100px;             
+    display: flex;             
+    justify-content: center;    
+    align-items: center;       
+    position: relative;        
+}

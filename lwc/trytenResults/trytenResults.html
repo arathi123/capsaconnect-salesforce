@@ -1,0 +1,74 @@
+<template>
+    <div class="card-step fade-in">
+        
+        <template if:true={isLoading}>
+            <div class="spinner-container">
+                <lightning-spinner alternative-text="Loading summary..." size="medium"></lightning-spinner>
+            </div>
+        </template>
+
+        <template if:false={isLoading}>
+            <div class="slds-grid slds-wrap slds-gutters slds-m-top_large">
+                
+                <div class="slds-col slds-size_1-of-1 slds-large-size_7-of-12">
+                    <div class="results-header slds-m-bottom_large">
+                        <h3 class="title slds-m-bottom_small">YOUR CUSTOMIZED TRYTEN CART IS CONFIGURED!</h3>
+                        <p class="grey">Your customized configuration is ready to be added to your Quote.</p>
+                        <p class="grey">Please review your selections below before proceeding.</p>
+                    </div>
+
+                    <h3 class="summary-title">YOUR SUMMARY</h3>
+                    <hr/>
+
+                    <ul class="summary-list">
+                        
+                        <template for:each={summaryItems} for:item="item">
+                            <div key={item.label}>
+                                <li class="summary-category"><strong>{item.label}</strong></li>
+                                <ul class="summary-value">
+                                    <li>{item.value}</li>
+                                </ul>
+                                <hr/>
+                            </div>
+                        </template>
+
+                        <template if:true={hasAccessories}>
+                            <div>
+                                <li class="summary-category"><strong>Accessories</strong></li>
+                                <ul class="summary-value">
+                                    <template for:each={selections.accessories} for:item="acc">
+                                        <template if:true={acc.label}>
+                                            <li key={acc.key}>{acc.label} - {acc.key}</li>
+                                        </template>
+                                    </template>
+                                </ul>
+                                <hr/>
+                            </div>
+                        </template>
+                    </ul>
+                </div>
+
+                <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12 right-panel">
+                    <div class="image-container slds-m-bottom_large">
+                        <img src={selections.previewImage} alt="Final Cart Configuration" class="final-img"/>
+                    </div>
+                    
+                    <template if:true={isReconfigureMode}>
+                        <button class="quote-btn" onclick={handleUpdateQuote} disabled={isSubmitting}>
+                            <template if:false={isSubmitting}>UPDATE QUOTE</template>
+                            <template if:true={isSubmitting}>PROCESSING...</template>
+                        </button>
+                    </template>
+
+                    <template if:false={isReconfigureMode}>
+                        <button class="quote-btn" onclick={handleQuoteRequest} disabled={isSubmitting}>
+                            <template if:false={isSubmitting}>REQUEST A QUOTE</template>
+                            <template if:true={isSubmitting}>PROCESSING...</template>
+                        </button>
+                    </template>
+                </div>
+
+            </div>
+        </template>
+    </div>
+</template>

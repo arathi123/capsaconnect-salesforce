@@ -1,0 +1,47 @@
+<template>
+    <div class="path-wrapper">
+        <c-cart-path-bar 
+            product-family={productType}
+            current-step={currentStep} 
+            enabled-steps={allowedSteps}
+            onchildevent={handlePathSelection}
+            onbacktoproducts={handleResetFlow}>
+        </c-cart-path-bar>
+    </div>
+
+    <template if:true={showLandingPage}>
+        <div class="build-container">
+            <div class="page-container fade-in">
+                <h1 class="title">CareLink Mobile Computing Carts</h1>
+                <h4 class="subtitle">Configure a CareLink cart based on your specific workflow requirements.</h4>
+                <hr class="divider">
+
+                <p class="description slds-m-top_large">
+                    Use this interactive tool to custom configure a CareLink cart, selecting from advanced power options, dynamic storage tiers, and intelligent telehealth accessories.
+                </p>
+
+                <button class="build-btn slds-m-top_medium" onclick={handleBuildClick}>
+                    START CONFIGURATION →
+                </button>
+            </div>
+        </div>
+    </template>
+
+    <template if:true={isLoading}>
+        <div class="spinner-container">
+            <lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+        </div>
+    </template>
+
+    <template if:false={isLoading}>
+        <template if:true={showBuildYourOwn}>
+            <c-capsa-carelink-build
+                opportunity-id={opportunityId} 
+                product-type={productType} 
+                quote-id={quoteId}
+                onstepchange={handleStepChange} 
+                onresetflow={handleResetFlow}>
+            </c-capsa-carelink-build>
+        </template>
+    </template>
+</template>

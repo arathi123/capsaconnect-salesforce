@@ -1,0 +1,31 @@
+<template>
+    <div class="container">
+        <h2 class="title">Color Palette</h2>
+        <hr>
+        <p class="subtitle">Select the primary color for your cart. Custom colors are available upon request.</p>
+
+        <div class="color-grid">
+            <template for:each={colorOptions} for:item="item">
+                <div key={item.Option_Key__c} 
+                     class={item.cardClass}
+                     data-key={item.Option_Key__c}
+                     onclick={handleSelect}>
+                    
+                    <div class="card-content">
+                        <img src={item.Image_URL__c} alt={item.Option_Label__c} class="color-img" />
+                        
+                        <div class="radio-row">
+                            <input type="radio" name="color" value={item.Option_Key__c} checked={item.isSelected} />
+                            <label class="color-name">{item.Option_Label__c}</label>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </div>
+
+        <hr>
+        <div if:true={showNextButton} class="footer-area">
+            <button class="next-btn" onclick={handleNext}>NEXT</button>
+        </div>
+    </div>
+</template>

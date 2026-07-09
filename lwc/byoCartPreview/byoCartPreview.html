@@ -1,0 +1,49 @@
+<template>
+    <div class="preview-wrapper">
+        <div class="cart-preview-box">
+            <div class="cart-frame">
+                <img src={baseCartImage} class="base-cart-img" alt="Base Cart" />
+                <template for:each={previewDrawers} for:item="drawer">
+                    <div key={drawer.id} class="drawer-layer" style={drawer.topStyle}>
+                        <img src={drawer.imgUrl} class="drawer-img" alt={drawer.label} />
+                    </div>
+                </template>
+            </div>
+        </div>
+
+        <div class="action-container slds-m-top_large">
+            <template if:true={isReconfigureMode}>
+
+                <button
+                    class="quote-btn"
+                    onclick={handleUpdateClick}>
+
+                    <span class="btn-text">
+                        UPDATE QUOTE
+                    </span>
+
+                    <span class="btn-arrow">→</span>
+
+                </button>
+
+            </template>
+
+            <template if:false={isReconfigureMode}>
+
+                <button
+                    class="quote-btn"
+                    onclick={handleQuoteClick}>
+
+                    <span class="btn-text">
+                        REQUEST FOR QUOTE
+                    </span>
+
+                    <span class="btn-arrow">→</span>
+
+                </button>
+
+            </template>
+            <p class="helper-text">Final configuration will be generated for review.</p>
+        </div>
+    </div>
+</template>

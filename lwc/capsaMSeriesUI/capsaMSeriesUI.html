@@ -1,0 +1,129 @@
+<template>
+
+    <div class="path-wrapper">
+        <c-cart-path-bar 
+            product-family={productType}
+            current-step={currentStep} 
+            enabled-steps={allowedSteps}
+            onchildevent={handlePathSelection}
+            onbacktoproducts={handleResetFlow}>
+        </c-cart-path-bar>
+    </div>
+
+    <!-- LANDING -->
+    <template if:true={showLandingPage}>
+
+        <div class="page-container">
+
+            <h1 class="title">
+                M-Series Convenient Packages
+            </h1>
+
+            <hr>
+
+            <!-- PACKAGE GRID -->
+            <template if:true={packageConfigs}>
+
+                <div class="cart-grid">
+
+                    <template
+                        for:each={packageConfigs}
+                        for:item="pkg">
+
+                        <div
+                            key={pkg.Id}
+                            class="cart-card">
+
+                            <p class="cart-title">
+                                {pkg.Option_Label__c}
+                            </p>
+
+                            <img
+                                src={pkg.Image_URL__c}
+                                class="cart-img"
+                                alt={pkg.Option_Label__c}
+                            />
+
+                            <button
+                                class="select-btn"
+                                data-id={pkg.Unique_Identifier__c}
+                                onclick={handleSelect}>
+
+                                SELECT
+
+                            </button>
+
+                        </div>
+
+                    </template>
+
+                </div>
+
+            </template>
+
+        </div>
+
+        <!-- BUILD YOUR OWN -->
+        <div class="build-container">
+
+            <h2 class="title">
+                M-Series Carts
+            </h2>
+
+            <hr>
+
+            <p class="description">
+                Configure M-Series carts based on your workflow and requirements.
+            </p>
+
+            <button
+                class="build-btn"
+                onclick={handleBuildClick}>
+
+                START CONFIGURATION →
+
+            </button>
+
+        </div>
+
+    </template>
+
+    <!-- LOADER -->
+    <template if:true={isLoading}>
+        <lightning-spinner
+            alternative-text="Loading">
+        </lightning-spinner>
+    </template>
+
+    <!-- BUILD YOUR OWN -->
+    <template if:true={showBuildYourOwn}>
+
+        <c-capsa-mseries-build
+            opportunity-id={opportunityId} 
+            product-type={productType} 
+            onstepchange={handleStepChange} 
+            onresetflow={handleResetFlow}
+            quote-id={quoteId}>
+        </c-capsa-mseries-build>
+
+    </template>
+
+    <!-- PACKAGE FLOW -->
+    <template if:true={showPackageFlow}>
+
+        <c-capsa-mseries-package-flow
+
+            cart-label={selectedCartLabel}
+            cart-id={selectedCartId}
+            cart-unique-id={selectedCartUniqueId}
+            path-json={selectedCartPath}
+            opportunity-id={opportunityId}
+            quote-id={quoteId}
+
+            onstepchange={handleStepChange}
+            onresetflow={handleResetFlow}>
+        </c-capsa-mseries-package-flow>
+
+    </template>
+
+</template>

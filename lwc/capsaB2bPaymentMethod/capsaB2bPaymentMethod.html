@@ -1,0 +1,190 @@
+<template>
+
+    <template if:true={isPreview}>
+        <div class="slds-box slds-p-around_medium">
+            <p>Payment Method — Purchase Order / Credit Card (Preview State)</p>
+        </div>
+    </template>
+
+    <template if:false={isPreview}>
+        <!-- Processing skeleton while async checkout work is in flight -->
+        <template lwc:if={isProcessing}>
+            <div class="slds-box slds-theme_shade">
+                <lightning-spinner alternative-text="Loading checkout" size="small"></lightning-spinner>
+            </div>
+        </template>
+
+        <!-- ================= Edit view ================= -->
+        <template lwc:if={isReady}>
+            <div class="slds-box slds-theme_default">
+                <legend class="slds-text-heading_small slds-m-bottom_small">
+                    Payment Method
+                </legend>
+
+                <!-- Method choice: locks after a payment is applied to the checkout -->
+                <lightning-radio-group
+                    name="paymentType"
+                    label="How would you like to pay?"
+                    options={methodOptions}
+                    value={paymentType}
+                    onchange={handleMethodChange}
+                    disabled={isMethodLocked}
+                    type="radio">
+                </lightning-radio-group>
+                <template lwc:if={isMethodLocked}>
+                    <p class="slds-text-body_small slds-text-color_weak slds-m-top_xx-small">
+                        Payment method is locked for this checkout because it has already been applied.
+                    </p>
+                </template>
+
+                <!-- ============ CC: hosted card entry ============ -->
+                <template lwc:if={isCcSelected}>
+                    <div class="slds-m-top_small">
+                        <template lwc:if={isLoadingSession}>
+                            <div class="slds-align_absolute-center slds-p-vertical_large">
+                                <lightning-spinner alternative-text="Loading secure payment" size="small"></lightning-spinner>
+                                <span class="slds-m-left_small slds-text-body_small">Loading secure payment…</span>
+                            </div>
+                        </template>
+
+                        <template lwc:if={iframeUrl}>
+                            <div class="bp-iframe-wrap">
+                                <!-- No sandbox attr: it would cascade onto BridgePay's nested
+                                     hosted-fields iframe (TokenPay) and break it; the framed page
+                                     is always our own static resource. -->
+                                <iframe
+                                    title="Secure Card Entry"
+                                    src={iframeUrl}
+                                    class="bp-iframe"></iframe>
+                            </div>
+                            <template lwc:if={hasToken}>
+                                <div class="bp-tile bp-m-top" role="status">
+                                    <span class="bp-tile-check" aria-hidden="true">✓</span>
+                                    <span>{ccTileLabel}</span>
+                                </div>
+                            </template>
+                        </template>
+
+                        <template lwc:if={isAuthorizing}>
+                            <div class="bp-inline">
+                                <lightning-spinner alternative-text="Authorizing payment" size="small"></lightning-spinner>
+                                <span class="bp-muted">Authorizing payment…</span>
+                            </div>
+                        </template>
+
+                        <p class="slds-text-body_small slds-text-color_weak slds-m-top_x-small">
+                            Card details are entered on BridgePay's secure page and never stored in Salesforce.
+                        </p>
+                    </div>
+                </template>
+
+                <!-- ============ PO number: required in PO mode, optional in CC mode ============ -->
+                <div class="slds-m-top_small">
+                    <lightning-input
+                        data-id="po-input"
+                        type="text"
+                        label={poFieldLabel}
+                        required={isPoSelected}
+                        max-length="40"
+                        value={poNumber}
+                        onchange={handlePoChange}>
+                    </lightning-input>
+                    <p class="slds-text-body_small slds-text-color_weak slds-m-top_x-small">
+                        The PO number will be used downstream for invoicing.
+                    </p>
+                </div>
+
+                <!-- Upload PO Document (optional in both modes) -->
+                <div class="slds-m-top_small">
+                    <label class="slds-form-element__label">Upload PO Document (optional)</label>
+                    <input type="file"
+                           accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"
+                           onchange={handleFileSelect}
+                           class="slds-input"/>
+                    <template lwc:if={hasSelectedFile}>
+                        <div class="slds-m-top_x-small slds-grid slds-grid_vertical-align-center">
+                            <span class="slds-text-body_small slds-m-right_small">
+                                {poFileName} ({fileSizeDisplay})
+                            </span>
+                            <lightning-button
+                                label="Remove"
+                                variant="neutral"
+                                onclick={handleClearFile}>
+                            </lightning-button>
+                        </div>
+                    </template>
+                </div>
+
+                <!-- Shared error -->
+                <template lwc:if={showError}>
+                    <div class="bp-error" role="alert">{errorMessage}</div>
+                </template>
+
+                <!-- ============ Billing address — Credit Card only ============ -->
+                <!-- PO orders bill to the shipping address (unchanged behavior). -->
+                <template lwc:if={isCcSelected}>
+                    <div class="slds-m-top_medium billing-section">
+                        <legend class="slds-text-heading_small slds-m-bottom_small">
+                            Billing Address
+                        </legend>
+                        <c-capsa-b2b-billing-address
+                            onbillingselect={handleBillingSelect}>
+                        </c-capsa-b2b-billing-address>
+                        <template lwc:if={isBillingSameAsShipping}>
+                            <p class="slds-text-body_small slds-text-color_error slds-m-top_x-small">
+                                A billing address is required for card payments — please select one above.
+                            </p>
+                        </template>
+                    </div>
+                </template>
+            </div>
+        </template>
+
+        <!-- ================= Summary view ================= -->
+        <template lwc:if={showSummary}>
+            <div class="slds-box slds-theme_default">
+                <p class="po-summary-title">Payment</p>
+
+                <template lwc:if={isCcSelected}>
+                    <div class="bp-tile">
+                        <span class="bp-tile-check" aria-hidden="true">✓</span>
+                        <span>{ccTileLabel}</span>
+                    </div>
+                    <template lwc:if={poNumber}>
+                        <p class="slds-text-body_small slds-text-color_weak slds-m-top_x-small">
+                            PO # (reference): {poNumber}
+                        </p>
+                    </template>
+                    <!-- Billing address applied to the card order -->
+                    <template lwc:if={billingDisplay}>
+                        <div class="billing-summary slds-m-top_small">
+                            <p class="po-summary-title">Billing Address</p>
+                            <template lwc:if={billingDisplay.name}>
+                                <p class="slds-text-body_regular">{billingDisplay.name}</p>
+                            </template>
+                            <p class="slds-text-body_regular">{billingDisplay.street}</p>
+                            <p class="slds-text-body_regular">{billingDisplay.cityLine}</p>
+                            <p class="slds-text-body_regular">{billingDisplay.country}</p>
+                        </div>
+                    </template>
+                </template>
+                <template lwc:if={isPoSelected}>
+                    <p class="slds-text-body_regular slds-text-color_default">PO #: {poNumber}</p>
+                </template>
+
+                <template lwc:if={isAuthorizing}>
+                    <div class="bp-inline">
+                        <lightning-spinner alternative-text="Authorizing payment" size="small"></lightning-spinner>
+                        <span class="bp-muted">Authorizing payment…</span>
+                    </div>
+                </template>
+                <template lwc:if={showError}>
+                    <div class="bp-error" role="alert">
+                        {errorMessage} Please reopen the payment section to try again.
+                    </div>
+                </template>
+            </div>
+        </template>
+    </template>
+
+</template>

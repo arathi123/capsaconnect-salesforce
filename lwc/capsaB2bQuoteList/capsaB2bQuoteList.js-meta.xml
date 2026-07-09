@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <isExposed>true</isExposed>
+    <apiVersion>59.0</apiVersion>
+    <masterLabel>Capsa B2B Quote List</masterLabel>
+    <description>B2B Commerce storefront list of the logged-in account's Quotes with All/Open/Closed filter, server-side sorting and pagination, and status badges.</description>
+    <targets>
+        <target>lightningCommunity__Default</target>
+        <target>lightningCommunity__Page</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="heading" type="String" label="Heading" default="Quotes"
+                description="Main page heading."/>
+            <property name="breadcrumbRoot" type="String" label="Breadcrumb root" default="Capsa Connect"
+                description="First breadcrumb segment."/>
+            <property name="breadcrumbParent" type="String" label="Breadcrumb parent" default="Account"
+                description="Second breadcrumb segment."/>
+            <property name="currencyCode" type="String" label="Currency code" default="USD"
+                description="ISO currency code used to format the Amount column."/>
+            <property name="pageSize" type="Integer" label="Rows per page" default="10"
+                description="Number of quotes per page (max 100)."/>
+            <property name="detailPageApiName" type="String" label="Quote details page API name"
+                default="Quote_Details__c"
+                description="API name of the Experience Builder page (URL /quote-details) that hosts the Capsa B2B Quote Details component. The quote number links here."/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

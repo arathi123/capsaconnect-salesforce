@@ -1,0 +1,535 @@
+<template>
+
+    <div class="use-case-container">
+
+        <template if:true={isLoading}>
+
+            <div class="spinner-container">
+
+                <lightning-spinner
+                    alternative-text="Loading..."
+                    size="medium">
+                </lightning-spinner>
+
+            </div>
+
+        </template>
+
+        <template if:false={isLoading}>
+
+            <!-- LEFT SIDE -->
+
+            <div class="questions-column">
+
+                <h2 class="title">
+                    Select Power Option
+                </h2>
+
+                <p class="option-desc">
+                    Select the power option and power cord that best meets your
+                    Mobile Computing Workstation requirement.
+                </p>
+
+                <hr>
+
+                <div class="options-list">
+
+                    <template
+                        for:each={powerOptions}
+                        for:item="opt">
+
+                        <div key={opt.Option_Key__c}>
+
+                            <div
+                                class={opt.rowClass}
+                                data-key={opt.Option_Key__c}
+                                onclick={handlePowerSelect}
+                                onmouseenter={handlePowerMouseEnter}
+                                onmouseleave={handlePowerMouseLeave}>
+
+                                <div class="text-block">
+
+                                    <div class="option-title">
+                                        {opt.Option_Label__c}
+                                    </div>
+
+                                    <template if:true={opt.isVisible}>
+
+                                        <div class="option-desc">
+
+                                            {opt.Description__c}
+
+                                        </div>
+
+                                    </template>
+
+                                </div>
+
+                                <input
+                                    type="radio"
+                                    checked={opt.isSelected}
+                                    readonly />
+
+                            </div>
+
+                            <hr>
+
+                        </div>
+
+                    </template>
+
+                </div>
+
+                <!-- POWER CORD -->
+
+            <template if:true={showCordSection}>
+
+                <div class="slds-m-top_x-large">
+
+                    <h2 class="section-title">
+                        {powerCordTitle}
+                    </h2>
+
+                    <hr>
+
+                    <div class="options-list">
+
+                        <template
+                            for:each={visibleCordOptions}
+                            for:item="opt">
+
+                            <div key={opt.Option_Key__c}>
+
+                                <div
+                                    class={opt.rowClass}
+                                    data-key={opt.Option_Key__c}
+                                    onclick={handleCordSelect}
+                                    onmouseenter={handleCordMouseEnter}
+                                    onmouseleave={handleCordMouseLeave}>
+
+                                    <div
+                                        class="text-block">
+
+                                        <div
+                                            style="display:flex;align-items:center;gap:10px;">
+
+                                            <div
+                                                class="option-title">
+
+                                                {opt.Option_Label__c}
+
+                                            </div>
+
+                                            <template
+                                                if:true={opt.Image_URL__c}>
+
+                                                <img
+                                                    src={opt.Image_URL__c}
+                                                    class="tiny-image"/>
+
+                                            </template>
+
+                                        </div>
+
+                                        <template if:true={opt.isVisible}>
+
+                                            <div class="option-desc">
+
+                                                {opt.Description__c}
+
+                                            </div>
+
+                                        </template>
+
+                                    </div>
+
+                                    <input
+                                        type="radio"
+                                        checked={opt.isSelected}
+                                        readonly />
+
+                                </div>
+
+                                <hr>
+
+                            </div>
+
+                        </template>
+
+                    </div>
+
+                </div>
+
+            </template>
+
+            <template if:true={showBatterySection}>
+
+                <div class="slds-m-top_x-large">
+
+                    <h2 class="section-title">
+                        Select In-Base Battery Power Option
+                    </h2>
+
+                    <p class="option-desc">
+                        The NEW GoLife™ power platform offers a choice of stand-alone
+                        in-base power in three amp hour options.
+                    </p>
+
+                    <hr>
+
+                    <div class="options-list">
+
+                        <template
+                            for:each={batteryOptions}
+                            for:item="opt">
+
+                            <div key={opt.Option_Key__c}>
+
+                                <div
+                                    class={opt.rowClass}
+                                    data-key={opt.Option_Key__c}
+                                    onclick={handleBatterySelect}>
+
+                                    <div class="text-block">
+
+                                        <div class="option-title">
+                                            {opt.Option_Label__c}
+                                        </div>
+
+                                        <template if:true={opt.isVisible}>
+
+                                            <div class="option-desc">
+                                                {opt.Description__c}
+                                            </div>
+
+                                        </template>
+
+                                    </div>
+
+                                    <input
+                                        type="radio"
+                                        checked={opt.isSelected}
+                                        readonly />
+
+                                </div>
+
+                                <hr>
+
+                            </div>
+
+                        </template>
+
+                    </div>
+
+                </div>
+
+            </template>
+
+            <template if:true={showExternalBatterySection}>
+
+                <div class="slds-m-top_x-large">
+
+                    <h2 class="section-title">
+                        Would you like to add the GoLife External Battery System?
+                    </h2>
+
+                    <p class="option-desc">
+                        In-base power can be combined with an easy-swap external battery
+                        for extended runtime. The external battery adds 20 Amp hours
+                        to the in-base power.
+                    </p>
+
+                    <hr>
+
+                    <div class="options-list">
+
+                        <template
+                            for:each={externalBatteryOptions}
+                            for:item="opt">
+
+                            <div key={opt.Option_Key__c}>
+
+                                <div
+                                    class={opt.rowClass}
+                                    data-key={opt.Option_Key__c}
+                                    onclick={handleExternalBatterySelect}>
+
+                                    <div class="text-block">
+
+                                        <div style="display:flex;align-items:center;gap:10px;">
+
+                                            <div class="option-title">
+                                                {opt.Option_Label__c}
+                                            </div>
+
+                                            <template if:true={opt.Image_URL__c}>
+                                                <img
+                                                    src={opt.Image_URL__c}
+                                                    class="tiny-image"/>
+                                            </template>
+
+                                        </div>
+
+                                    </div>
+
+                                    <input
+                                        type="radio"
+                                        checked={opt.isSelected}
+                                        readonly />
+
+                                </div>
+
+                                <hr>
+
+                            </div>
+
+                        </template>
+
+                    </div>
+
+                </div>
+
+            </template>
+
+            <template if:true={showExternalBatteryComponentsSection}>
+
+                <div class="slds-m-top_x-large">
+
+                    <h2 class="section-title">
+                        Select External Battery Components
+                    </h2>
+
+                    <hr>
+
+                    <div class="options-list">
+
+                        <template
+                            for:each={externalBatteryComponentOptions}
+                            for:item="opt">
+
+                            <div key={opt.Option_Key__c}>
+
+                                <div
+                                    class={opt.rowClass}
+                                    data-key={opt.Option_Key__c}
+                                    onclick={handleExternalBatteryComponentSelect}>
+
+                                    <div class="text-block">
+
+                                            <div style="display:flex;align-items:center;gap:10px;">
+
+                                                <div class="option-title">
+                                                    {opt.Option_Label__c}
+                                                </div>
+
+                                                <template if:true={opt.Image_URL__c}>
+                                                    <img
+                                                        src={opt.Image_URL__c}
+                                                        class="tiny-image"/>
+                                                </template>
+
+                                            </div>
+
+                                        <template if:true={opt.isSelected}>
+
+                                            <template if:true={opt.isBattery}>
+
+                                                    <div class="slds-m-top_small">
+
+                                                        <lightning-combobox
+                                                            label="Number of Batteries"
+                                                            value={batteryCount}
+                                                            options={batteryCountOptions}
+                                                            onchange={handleBatteryCountChange}>
+                                                        </lightning-combobox>
+
+                                                    </div>
+
+                                            </template>
+
+                                        </template>
+
+                                        <template if:true={opt.Description__c}>
+
+                                            <div class="option-desc">
+                                                {opt.Description__c}
+                                            </div>
+
+                                        </template>
+
+                                    </div>
+
+                                    <input
+                                        type="radio"
+                                        checked={opt.isSelected}
+                                        readonly />
+
+                                </div>
+
+                                <hr>
+
+                            </div>
+
+                        </template>
+
+                    </div>
+
+                </div>
+
+            </template>
+
+            <template if:true={showElectronicLockSection}>
+
+                <div class="slds-m-top_x-large">
+
+                    <h2 class="section-title">
+                        Do you require electronic locking storage?
+                    </h2>
+
+                    <hr/>
+
+                    <div class="options-list">
+
+                        <template
+                            for:each={electronicLockOptions}
+                            for:item="opt">
+
+                            <div key={opt.Option_Key__c}>
+
+                                <div
+                                    class={opt.rowClass}
+                                    data-key={opt.Option_Key__c}
+                                    onclick={handleElectronicLockSelect}>
+
+                                    <div class="text-block">
+
+                                        <div class="option-title">
+                                            {opt.Option_Label__c}
+                                        </div>
+
+                                    </div>
+
+                                    <input
+                                        type="radio"
+                                        checked={opt.isSelected}
+                                        readonly />
+
+                                </div>
+
+                                <hr/>
+
+                            </div>
+
+                        </template>
+
+                    </div>
+
+                </div>
+
+            </template>
+
+            <template if:true={showFleetSection}>
+
+                <div class="slds-m-top_x-large">
+
+                    <h2 class="section-title">
+                        Would you like your cart to include N-Sight Fleet Management Software?
+                    </h2>
+
+                    <p class="option-desc">
+                        The cloud-based N-Sight software features enhanced analytics and simplified user management tools.
+                    </p>
+
+                    <hr/>
+
+                    <div class="options-list">
+
+                        <template
+                            for:each={fleetOptions}
+                            for:item="opt">
+
+                            <div key={opt.Option_Key__c}>
+
+                                <div
+                                    class={opt.rowClass}
+                                    data-key={opt.Option_Key__c}
+                                    onclick={handleFleetSelect}>
+
+                                    <div class="text-block">
+
+                                        <div class="option-title">
+                                            {opt.Option_Label__c}
+                                        </div>
+
+                                    </div>
+
+                                    <input
+                                        type="radio"
+                                        checked={opt.isSelected}
+                                        readonly />
+
+                                </div>
+
+                                <hr/>
+
+                            </div>
+
+                        </template>
+
+                    </div>
+
+                </div>
+
+            </template> 
+
+                <template if:true={isStepComplete}>
+
+                    <div class="footer-area">
+
+                        <button
+                            class="next-btn"
+                            onclick={handleNext}>
+
+                            NEXT →
+
+                        </button>
+
+                    </div>
+
+                </template>
+
+            </div>
+
+
+            <!-- RIGHT SIDE -->
+
+            <div class="preview-column">
+
+                <div class="sticky-preview">
+
+                    <div class="preview-heading">
+                        YOUR SELECTION
+                    </div>
+
+                    <div class="preview-subheading">
+                        Representative Image
+                    </div>
+
+                    <div class="image-box">
+
+                        <img
+                            src={currentPreviewImage}
+                            alt="Trio Preview"
+                            class="preview-img"/>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </template>
+
+    </div>
+
+</template>

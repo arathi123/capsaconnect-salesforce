@@ -1,0 +1,69 @@
+<template>
+    <lightning-modal-header label={label}></lightning-modal-header>
+
+    <lightning-modal-body>
+        <div class="form-grid">
+
+            <div class="field full">
+                <label class="form-label">Name <span class="req">*</span></label>
+                <input type="text" class="form-input"
+                    value={name} data-field="name" oninput={handleChange}/>
+            </div>
+
+            <div class="field full">
+                <label class="form-label">Country</label>
+                <input type="text" class="form-input" value="United States" disabled/>
+            </div>
+
+            <div class="field full">
+                <label class="form-label">Address <span class="req">*</span></label>
+                <input type="text" class="form-input"
+                    value={street} data-field="street" oninput={handleChange}/>
+            </div>
+
+            <div class="field half">
+                <label class="form-label">City <span class="req">*</span></label>
+                <input type="text" class="form-input"
+                    value={city} data-field="city" oninput={handleChange}/>
+            </div>
+
+            <div class="field half">
+                <label class="form-label">State <span class="req">*</span></label>
+                <select class="form-select"
+                    data-field="region" onchange={handleChange}>
+                    <template for:each={stateOptions} for:item="opt">
+                        <option key={opt.value} value={opt.value} selected={opt.selected}>{opt.label}</option>
+                    </template>
+                </select>
+            </div>
+
+            <div class="field half">
+                <label class="form-label">Zip <span class="req">*</span></label>
+                <input type="text" class="form-input"
+                    value={postalCode} data-field="postalCode" oninput={handleChange}/>
+            </div>
+
+            <div class="field full checkbox-field">
+                <label class="checkbox-label">
+                    <input type="checkbox" checked={isDefault} onchange={handleDefaultChange}/>
+                    Make this my default address
+                </label>
+            </div>
+
+        </div>
+    </lightning-modal-body>
+
+    <lightning-modal-footer>
+        <lightning-button
+            label="Cancel"
+            onclick={handleCancel}>
+        </lightning-button>
+        <lightning-button
+            variant="brand"
+            label="Save Address"
+            disabled={isSaveDisabled}
+            onclick={handleSave}
+            class="slds-m-left_x-small">
+        </lightning-button>
+    </lightning-modal-footer>
+</template>

@@ -1,0 +1,252 @@
+<template>
+	<div class="use-case-container fade-in">
+
+		<template if:true={isLoading}>
+			<div class="spinner-container">
+				<lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+			</div>
+		</template>
+
+		<template if:false={isLoading}>
+			<div class="questions-column">
+				<template if:false={showWallArm}>
+					<h2 class="title">Select Wall Arm Option</h2>
+				</template>
+				<!-- <hr> -->
+				<div class="options-list">
+					<template if:false={selectedV612}>
+						<template for:each={armOptions} for:item="opt">
+							<div key={opt.Option_Key__c}>
+								<div class={opt.rowClass} data-key={opt.Option_Key__c} onmouseenter={handleMouseEnter}
+									onmouseleave={handleMouseLeave} onclick={handleSelect}>
+									<div class="text-block"
+										style="display: flex; justify-content: space-between; align-items: center;">
+										<div>
+											<div class="option-title">{opt.Option_Label__c}</div>
+											<div if:true={opt.isVisible} class="option-desc fade-in">
+												{opt.Description__c}
+											</div>
+										</div>
+										<template if:true={opt.Image_URL__c}>
+											<img src={opt.Image_URL__c}
+												style="width: 80px; height: 80px; object-fit: contain; border: 1px solid #ccc; border-radius: 4px;"
+												alt={opt.Option_Label__c} />
+										</template>
+									</div>
+									<div class="radio-container">
+										<input type="radio" checked={opt.isSelected} readonly />
+									</div>
+								</div>
+								<hr>
+							</div>
+						</template>
+					</template>
+					<template if:true={selV612ArmMount}>
+						<template for:each={filteredArmOptions} for:item="opt">
+							<div key={opt.Option_Key__c}>
+								<div class={opt.rowClass} data-key={opt.Option_Key__c} onmouseenter={handleMouseEnter}
+									onmouseleave={handleMouseLeave} onclick={handleSelect}>
+									<div class="text-block"
+										style="display: flex; justify-content: space-between; align-items: center;">
+										<div>
+											<div class="option-title">{opt.Option_Label__c}</div>
+											<div if:true={opt.isVisible} class="option-desc fade-in">
+												{opt.Description__c}
+											</div>
+										</div>
+										<template if:true={opt.Image_URL__c}>
+											<img src={opt.Image_URL__c}
+												style="width: 80px; height: 80px; object-fit: contain; border: 1px solid #ccc; border-radius: 4px;"
+												alt={opt.Option_Label__c} />
+										</template>
+										<div class="radio-container">
+											<input type="radio" checked={opt.isSelected} readonly />
+										</div>
+									</div>
+									<hr>
+								</div>
+							</div>
+						</template>
+					</template>
+					<template if:true={selectedSolo}>
+						<div class="fade-in slds-m-top_x-large">
+							<!-- <div> -->
+							<h2 class="title">Select Solo Arm</h2>
+							<template for:each={soloArmOptions} for:item="opt">
+								<div key={opt.Option_Key__c}>
+									<div class={opt.rowClass} data-key={opt.Option_Key__c}
+										onmouseenter={handleMouseEnter} onmouseleave={handleMouseLeave}
+										onclick={handleSoloEvent}>
+										<div class="text-block">
+											<div class="option-title">{opt.Option_Label__c}</div>
+											<div if:true={opt.isVisible} class="option-desc fade-in">
+												{opt.Description__c}
+											</div>
+										</div>
+										<div class="radio-container">
+											<input type="radio" checked={opt.isSelected} readonly />
+										</div>
+									</div>
+									<hr>
+								</div>
+							</template>
+						</div>
+					</template>
+					<template if:true={showArmOptions}>
+						<!-- <div class="fade-in slds-m-top_x-large"> -->
+						<div>
+							<h2 class="title">Select Monitor Arm</h2>
+							<template for:each={independentOpts} for:item="opt">
+								<div key={opt.Option_Key__c}>
+									<div class={opt.rowClass} data-key={opt.Option_Key__c}
+										onmouseenter={handleMouseEnter} onmouseleave={handleMouseLeave}
+										onclick={handleIndEvent}>
+										<div class="text-block">
+											<div class="option-title">{opt.Option_Label__c}</div>
+											<div if:true={opt.isVisible} class="option-desc fade-in">
+												{opt.Description__c}
+											</div>
+										</div>
+										<div class="radio-container">
+											<input type="radio" checked={opt.isSelected} readonly />
+										</div>
+									</div>
+									<hr>
+								</div>
+							</template>
+						</div>
+						<template if:true={selectedFixHgt}>
+							<!-- <div class="fade-in slds-m-top_x-large"> -->
+							<div>
+								<h2 class="title">Select Fixed Height Monitor Arm</h2>
+								<template for:each={fixedHgtOptions} for:item="opt">
+									<div key={opt.Option_Key__c}>
+										<div class={opt.rowClass} data-key={opt.Option_Key__c}
+											onmouseenter={handleMouseEnter} onmouseleave={handleMouseLeave}
+											onclick={handleFixEvent}>
+											<div class="text-block">
+												<div class="option-title">{opt.Option_Label__c}</div>
+												<div if:true={opt.isVisible} class="option-desc fade-in">
+													{opt.Description__c}
+												</div>
+											</div>
+											<div class="radio-container">
+												<input type="radio" checked={opt.isSelected} readonly />
+											</div>
+										</div>
+										<hr>
+									</div>
+								</template>
+							</div>
+						</template>
+						<template if:true={selectedhgtAdj}>
+							<!-- <div class="fade-in slds-m-top_x-large"> -->
+							<div>
+								<h2 class="title">Select Number of Monitors</h2>
+								<template for:each={heightAdjOpts} for:item="opt">
+									<div key={opt.Option_Key__c}>
+										<div class={opt.rowClass} data-key={opt.Option_Key__c}
+											onmouseenter={handleMouseEnter} onmouseleave={handleMouseLeave}
+											onclick={handleHeightEvent}>
+											<div class="text-block">
+												<div class="option-title">{opt.Option_Label__c}</div>
+												<div if:true={opt.isVisible} class="option-desc fade-in">
+													{opt.Description__c}
+												</div>
+											</div>
+											<div class="radio-container">
+												<input type="radio" checked={opt.isSelected} readonly />
+											</div>
+										</div>
+										<hr>
+									</div>
+								</template>
+							</div>
+							<template if:true={selSingleMonitor}>
+								<!-- <div class="fade-in slds-m-top_x-large"> -->
+								<div>
+									<h2 class="title">Select Height Adjustable Monitor Arm</h2>
+									<template for:each={singleMonitorOpts} for:item="opt">
+										<div key={opt.Option_Key__c}>
+											<div class={opt.rowClass} data-key={opt.Option_Key__c}
+												onmouseenter={handleMouseEnter} onmouseleave={handleMouseLeave}
+												onclick={handleSingleEvent}>
+												<div class="text-block">
+													<div class="option-title">{opt.Option_Label__c}</div>
+													<div if:true={opt.isVisible} class="option-desc fade-in">
+														{opt.Description__c}
+													</div>
+												</div>
+												<div class="radio-container">
+													<input type="radio" checked={opt.isSelected} readonly />
+												</div>
+											</div>
+											<hr>
+										</div>
+									</template>
+								</div>
+							</template>
+							<template if:true={selDualMonitor}>
+								<!-- <div class="fade-in slds-m-top_x-large"> -->
+								<div>
+									<h2 class="title">Select Height Adjustable Dual Monitor Arm Option</h2>
+									<template for:each={dualMonitorOpts} for:item="opt">
+										<div key={opt.Option_Key__c}>
+											<div class={opt.rowClass} data-key={opt.Option_Key__c}
+												onmouseenter={handleMouseEnter} onmouseleave={handleMouseLeave}
+												onclick={handleDualEvent}>
+												<div class="text-block">
+													<div class="option-title">{opt.Option_Label__c}</div>
+													<div if:true={opt.isVisible} class="option-desc fade-in">
+														{opt.Description__c}
+													</div>
+												</div>
+												<div class="radio-container">
+													<input type="radio" checked={opt.isSelected} readonly />
+												</div>
+											</div>
+											<hr>
+										</div>
+									</template>
+								</div>
+							</template>
+						</template>
+					</template>
+				</div>
+
+				<template if:true={isStepComplete}>
+					<div class="footer-area fade-in">
+						<button class="next-btn" onclick={handleNext}>NEXT →</button>
+					</div>
+				</template>
+			</div>
+
+			<div class="preview-column">
+				<div class="sticky-preview">
+					<div class="preview-label">YOUR SELECTION</div>
+					<div class="preview-sublabel">Representative Image</div>
+			
+					<div class="canvas-container">
+						<!-- Track image on left -->
+						<img src={baseImage} alt="Track" class="track-img" />
+			
+						<!-- Arm image on right — only shown once arm is selected -->
+						<template lwc:if={currentPreviewImage}>
+							<img src={overlayData.image} alt="Arm" class={overlayData.style} />
+						</template>
+					</div>
+			
+					<!-- Captions below the composited image -->
+					<div class="captions">
+						<div lwc:if={localSelection} class="caption-line">
+							<strong>Track:</strong> {localSelection}
+						</div>
+						<div lwc:if={currentArmSelection} class="caption-line">
+							<strong>Arm:</strong> {currentArmSelection}
+						</div>
+					</div>
+				</div>
+			</div>
+		</template>
+	</div>
+</template>

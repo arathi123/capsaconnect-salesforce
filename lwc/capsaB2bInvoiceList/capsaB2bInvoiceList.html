@@ -1,0 +1,282 @@
+<template>
+    <div class="inv-root">
+
+        <!-- ─── Header: title + segmented filter ─── -->
+        <div class="inv-header">
+            <h1 class="inv-title">{heading}</h1>
+            <div class="filter-group" role="group" aria-label="Filter invoices">
+                <button type="button" class={allBtnClass} data-filter="all" onclick={handleFilter}>All</button>
+                <button type="button" class={openBtnClass} data-filter="open" onclick={handleFilter}>Open</button>
+                <button type="button" class={paidBtnClass} data-filter="paid" onclick={handleFilter}>Paid</button>
+            </div>
+        </div>
+
+        <!-- ─── Summary cards ─── -->
+        <div class="summary-cards">
+            <div class="scard">
+                <span class="scard__icon scard__icon--amber">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M6 2h7l5 5v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z"></path>
+                        <path d="M13 2v5h5"></path>
+                    </svg>
+                </span>
+                <p class="scard__label">Open balance</p>
+                <p class="scard__value">
+                    <lightning-formatted-number value={summary.openBalance}
+                        format-style="currency" currency-code={currencyCode}
+                        maximum-fraction-digits="0"></lightning-formatted-number>
+                </p>
+                <p class="scard__sub">{openCountLabel}</p>
+            </div>
+
+            <div class="scard">
+                <span class="scard__icon scard__icon--red">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <line x1="12" y1="7" x2="12" y2="13"></line>
+                        <line x1="12" y1="17" x2="12" y2="17"></line>
+                    </svg>
+                </span>
+                <p class="scard__label">Past due</p>
+                <p class="scard__value">
+                    <lightning-formatted-number value={summary.pastDue}
+                        format-style="currency" currency-code={currencyCode}
+                        maximum-fraction-digits="0"></lightning-formatted-number>
+                </p>
+                <p class="scard__sub">Action needed</p>
+            </div>
+
+            <div class="scard">
+                <span class="scard__icon scard__icon--green">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <polyline points="4 12 10 18 20 6"></polyline>
+                    </svg>
+                </span>
+                <p class="scard__label">Paid (90 days)</p>
+                <p class="scard__value">
+                    <lightning-formatted-number value={summary.paid90}
+                        format-style="currency" currency-code={currencyCode}
+                        maximum-fraction-digits="0"></lightning-formatted-number>
+                </p>
+                <p class="scard__sub">Thank you</p>
+            </div>
+        </div>
+
+        <!-- ─── Card / table ─── -->
+        <div class="inv-card">
+
+            <!-- Search toolbar: stays mounted while a query is in flight so the
+                 input keeps focus, and remains reachable when a search returns
+                 nothing (otherwise there'd be no way to clear it). -->
+            <template lwc:if={showToolbar}>
+                <div class="list-toolbar">
+                    <div class="search-box">
+                        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <circle cx="11" cy="11" r="7"></circle>
+                            <line x1="20" y1="20" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        <input type="text" class="search-input" autocomplete="off"
+                            placeholder="Search by invoice or order number" aria-label="Search invoices"
+                            oninput={handleSearchInput} onkeydown={handleSearchKeydown} />
+                        <template lwc:if={hasSearchText}>
+                            <button type="button" class="search-clear" title="Clear search"
+                                aria-label="Clear search" onclick={handleClearSearch}>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                </svg>
+                            </button>
+                        </template>
+                    </div>
+                    <template lwc:if={isSearching}>
+                        <span class="search-meta" aria-live="polite">{searchResultLabel}</span>
+                    </template>
+                </div>
+            </template>
+
+            <div class="table-area">
+
+            <template lwc:if={showSpinner}>
+                <div class="spinner-overlay">
+                    <lightning-spinner alternative-text="Loading invoices" size="medium"></lightning-spinner>
+                </div>
+            </template>
+
+            <template lwc:if={showTable}>
+                <div class="table-scroll">
+                    <table class="inv-table" aria-label="Invoices">
+                        <thead>
+                            <tr>
+                                <th scope="col" data-column="invoiceNumber" onclick={handleSort} class="sortable">
+                                    <span class="th-inner">Invoice <span class="sort-ic">{sortIconNumber}</span></span>
+                                </th>
+                                <th scope="col" data-column="orderNumber" onclick={handleSort} class="sortable">
+                                    <span class="th-inner">Order <span class="sort-ic">{sortIconOrder}</span></span>
+                                </th>
+                                <th scope="col" data-column="invoiceDate" onclick={handleSort} class="sortable">
+                                    <span class="th-inner">Issued <span class="sort-ic">{sortIconInvDate}</span></span>
+                                </th>
+                                <th scope="col" data-column="amount" onclick={handleSort} class="sortable num-col">
+                                    <span class="th-inner">Amount <span class="sort-ic">{sortIconAmount}</span></span>
+                                </th>
+                                <th scope="col" data-column="status" onclick={handleSort} class="sortable">
+                                    <span class="th-inner">Status <span class="sort-ic">{sortIconStatus}</span></span>
+                                </th>
+                                <th scope="col" class="col-items">Items</th>
+                                <th scope="col" class="col-action"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template for:each={rows} for:item="row">
+                                <tr key={row.id} class="data-row">
+                                    <td data-label="Invoice">
+                                        <a href="javascript:void(0);" class="inv-link"
+                                            data-id={row.id} onclick={handleInvoiceClick}>{row.invoiceNumber}</a>
+                                    </td>
+                                    <td data-label="Order" class="muted-cell">{row.orderNumber}</td>
+                                    <td data-label="Issued" class="muted-cell">
+                                        <lightning-formatted-date-time value={row.invoiceDate}
+                                            year="numeric" month="short" day="numeric">
+                                        </lightning-formatted-date-time>
+                                    </td>
+                                    <td data-label="Amount" class="num-col amount-cell">
+                                        <lightning-formatted-number value={row.amount}
+                                            format-style="currency" currency-code={currencyCode}
+                                            maximum-fraction-digits="0">
+                                        </lightning-formatted-number>
+                                    </td>
+                                    <td data-label="Status">
+                                        <span class={row.badgeClass}>
+                                            <span class="qbadge__dot"></span>{row.status}
+                                        </span>
+                                    </td>
+                                    <td data-label="Items" class="col-items">
+                                        <template lwc:if={row.hasItems}>
+                                            <button type="button" class={row.itemsBtnClass}
+                                                data-id={row.id} onclick={handleToggleItems}
+                                                aria-expanded={row.itemsAriaExpanded}
+                                                title="Show line items">
+                                                <span class="items-count">{row.itemsLabel}</span>
+                                                <svg class="items-chevron" viewBox="0 0 24 24" fill="none"
+                                                    stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+                                                    stroke-linejoin="round" aria-hidden="true">
+                                                    <polyline points="6 9 12 15 18 9"></polyline>
+                                                </svg>
+                                            </button>
+                                        </template>
+                                        <template lwc:else>
+                                            <span class="items-empty">—</span>
+                                        </template>
+                                    </td>
+                                    <td data-label="" class="col-action">
+                                        <div class="row-actions">
+                                            <template lwc:if={row.showPay}>
+                                                <button type="button" class="btn-pay"
+                                                    data-id={row.id} onclick={handlePay}>Pay</button>
+                                            </template>
+                                            <button type="button" class="btn-pdf"
+                                                data-id={row.id} onclick={handleDownloadPdf}>PDF</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <template lwc:if={row.expanded}>
+                                    <tr key={row.detailKey} class="detail-row">
+                                        <td colspan="7" class="detail-cell">
+                                            <div class="detail-panel">
+                                                <p class="detail-title">Item Details</p>
+                                                <div class="detail-scroll">
+                                                    <table class="detail-table" aria-label="Invoice line items">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="dt-num">Line#</th>
+                                                                <th>Item</th>
+                                                                <th>Description</th>
+                                                                <th class="dt-num">Qty</th>
+                                                                <th class="dt-num">Unit Price</th>
+                                                                <th class="dt-num">Discount</th>
+                                                                <th class="dt-num">Tax</th>
+                                                                <th class="dt-num">Total</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <template for:each={row.lineItems} for:item="li">
+                                                                <tr key={li.id} class="detail-item-row">
+                                                                    <td data-label="Line#" class="dt-num">{li.lineNumber}</td>
+                                                                    <td data-label="Item" class="dt-item">{li.itemNumber}</td>
+                                                                    <td data-label="Description">{li.description}</td>
+                                                                    <td data-label="Qty" class="dt-num">
+                                                                        <lightning-formatted-number value={li.quantity}
+                                                                            maximum-fraction-digits="0">
+                                                                        </lightning-formatted-number>
+                                                                    </td>
+                                                                    <td data-label="Unit Price" class="dt-num">
+                                                                        <lightning-formatted-number value={li.unitPrice}
+                                                                            format-style="currency" currency-code={currencyCode}>
+                                                                        </lightning-formatted-number>
+                                                                    </td>
+                                                                    <td data-label="Discount" class="dt-num">
+                                                                        <lightning-formatted-number value={li.discount}
+                                                                            format-style="currency" currency-code={currencyCode}>
+                                                                        </lightning-formatted-number>
+                                                                    </td>
+                                                                    <td data-label="Tax" class="dt-num">
+                                                                        <lightning-formatted-number value={li.tax}
+                                                                            format-style="currency" currency-code={currencyCode}>
+                                                                        </lightning-formatted-number>
+                                                                    </td>
+                                                                    <td data-label="Total" class="dt-num dt-total">
+                                                                        <lightning-formatted-number value={li.totalAmount}
+                                                                            format-style="currency" currency-code={currencyCode}>
+                                                                        </lightning-formatted-number>
+                                                                    </td>
+                                                                </tr>
+                                                            </template>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </template>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+
+                <template lwc:if={showPagination}>
+                    <div class="pagination-bar">
+                        <span class="page-summary">{pageSummary}</span>
+                        <div class="page-nav">
+                            <button class="pg-btn" onclick={handlePrev} disabled={isFirstPage}>Previous</button>
+                            <span class="page-status">Page {pageNumber} of {totalPages}</span>
+                            <button class="pg-btn" onclick={handleNext} disabled={isLastPage}>Next</button>
+                        </div>
+                    </div>
+                </template>
+            </template>
+
+            <!-- Empty state -->
+            <template lwc:if={showEmptyState}>
+                <div class="empty-state">
+                    <lightning-icon icon-name="standard:invoice" size="large"></lightning-icon>
+                    <p class="empty-title">{emptyTitle}</p>
+                    <p class="empty-text">{emptyText}</p>
+                </div>
+            </template>
+
+            <!-- Guest state -->
+            <template lwc:if={showGuestState}>
+                <div class="empty-state">
+                    <lightning-icon icon-name="utility:lock" size="large"></lightning-icon>
+                    <p class="empty-title">Please log in</p>
+                    <p class="empty-text">Sign in to your account to view your invoices.</p>
+                </div>
+            </template>
+            </div>
+        </div>
+    </div>
+</template>

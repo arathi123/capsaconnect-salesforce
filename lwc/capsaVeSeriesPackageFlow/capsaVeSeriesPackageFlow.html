@@ -1,0 +1,20 @@
+<template>
+    <div class="package-engine-container">
+
+        <template if:true={isAccessoryKit}>
+            <c-byo-kit-selection
+                product-type="VE-Series"
+                options={currentOptions} 
+                onnextstep={handleNext}>
+            </c-byo-kit-selection>
+        </template>
+
+        <template if:true={isResults}>
+            <c-byo-ve-series-result-page
+                summary-data={summaryData}
+                opportunity-id={opportunityId}>
+            </c-byo-ve-series-result-page>
+        </template>
+
+    </div>
+</template>

@@ -1,0 +1,95 @@
+<template>
+
+    <div class="flx-engine-container">
+
+        <!-- SHELL -->
+
+        <template if:true={isShell}>
+
+            <c-byo-shell-selection
+                product-type={productType}
+                step-key="Shell"
+                title="Choose Shell"
+                onnextstep={handleNext}>
+            </c-byo-shell-selection>
+
+        </template>
+
+        <!-- BASE -->
+        <template if:true={isBase}>
+
+            <c-byo-base-selection
+                product-type={productType}
+                step-key="Base"
+                title="Choose Base"
+                onnextstep={handleNext}>
+            </c-byo-base-selection>
+
+        </template> 
+
+
+        <!-- TOP -->
+        <template if:true={isTop}>
+
+            <c-byo-flx-top-selection
+                product-type={productType}
+                step-key="Top"
+                title="Choose Top"
+                onnextstep={handleNext}>
+            </c-byo-flx-top-selection>
+
+        </template> 
+
+
+        <!-- LOCK -->
+        <template if:true={isLock}>
+
+            <c-byo-lock-selection
+                product-type={productType}
+                step-key="Lock"
+                title="Choose Lock"
+                onnextstep={handleNext}>
+            </c-byo-lock-selection>
+
+        </template> 
+
+
+        <!-- DIVIDER -->
+
+        <template if:true={isDivider}>
+
+            <c-byo-divider-selection
+                product-type={productType}
+                step-key="Divider"
+                title="Choose Divider"
+                onnextstep={handleNext}>
+            </c-byo-divider-selection>
+
+        </template> 
+
+        <!-- ACCESSORIES -->
+
+        <template if:true={isAccessories}>
+            <c-byo-flx-accessory-selection 
+                product-type={productType}
+                selections={selections}
+                 onnextstep={handleNext}>
+            </c-byo-flx-accessory-selection >
+        </template>
+
+        <!-- RESULTS -->
+
+        <template if:true={isResults}>
+
+            <c-byo-flx-cabinet-result-page
+                opportunity-id={opportunityId}
+                quote-id={quoteId}
+                selections={selections}
+                is-unlisted-cart={isUnlistedCart}>
+            </c-byo-flx-cabinet-result-page>
+            
+        </template>
+
+    </div>
+
+</template>

@@ -1,0 +1,98 @@
+.card-step {
+    margin-top: 3.5rem;
+    padding-left: 8%;
+    padding-right: 8%;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.title { font-size: 24px; font-weight: 700; color: #333; }
+.subtitle { font-size: 18px; color: #666; }
+
+.section-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #000;
+}
+
+.required {
+    color: red;
+    margin-left: 2px;
+    vertical-align: super;
+}
+
+/* Handle Grid Cards */
+.option-wrapper {
+    border: 2px solid #e5e5e5;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.option-wrapper.selected {
+    border-color: #2cb195;
+    background-color: #f0fdfa;
+}
+
+.option-img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    margin-bottom: 10px;
+}
+
+.radio-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+}
+
+/* Inputs & Selects */
+.custom-select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.info-text { font-size: 16px; color: #444; margin-bottom: 8px; }
+.question-text { font-weight: 700; font-size: 16px; }
+
+.radio-inline {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.example-img {
+    max-width: 100%;
+    max-height: 150px;
+    border-radius: 4px;
+}
+.footer-area {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 3rem;
+}
+
+.next-btn {
+    background-color: #2cb195;
+    color: white;
+    padding: 12px 40px;
+    border-radius: 6px;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    letter-spacing: 1px;
+}
+
+.next-btn:hover {
+    background-color: #1aac9d;
+}

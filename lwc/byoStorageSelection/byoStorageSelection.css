@@ -1,0 +1,158 @@
+/* Layout Containers */
+.card-step {
+    margin-top: 3.5rem;
+    padding-left: 8%;
+    padding-right: 8%;
+}
+
+:host {
+    display: block;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.title { font-size: 24px; font-weight: 600; color: #333; }
+.instruction-text p { font-size: 18px; margin-bottom: 12px; line-height: 1.4; color: #444; }
+
+/* LEFT COLUMN: Cart Layout */
+.storage-image-container {
+    position: relative;
+    width: 350px;
+    margin: 0 auto;
+}
+
+.base-cart-img { width: 350px; display: block; }
+
+/* Drawer Stacking (Precise values from storage.js) */
+.drawer-overlay {
+    position: absolute;
+    left: 43px;   /* Precise alignment from storage.js */
+    width: 243px; /* Precise width from storage.js */
+    z-index: 5;
+}
+
+.drawer-face-img { width: 100%; display: block; }
+
+/* ACTION BUTTONS (Pencil & X) */
+.action-btn {
+    position: absolute;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Base styles for the pencil button */
+.edit-btn {
+    position: absolute;
+    right: -70px;
+    top: 0px;
+    width: 32px;
+    height: 32px;
+    color: white; /* Text stays white for both */
+    border-radius: 4px;
+    border: 1px solid;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+}
+
+/* State: Not Selected (Grey) */
+.pencil-grey {
+    background-color: #2cb195;
+    border-color: #666;
+}
+
+/* State: Selected (Red) */
+.pencil-red {
+    background-color: #e74c3c;
+    border-color: #d9534f;
+}
+
+.pencil-red:hover {
+    background-color: #c9302c;
+}
+
+.edit-btn:hover {
+    background-color: #c9302c;
+    border-color: #ac2925;
+}
+
+.pop-btn {
+    left: 360px; /* Matches Storage.popButton.style.left */
+    background-color: white;
+    color: #e74c3c;
+    border-color: #e74c3c;
+    width: 32px;
+    height: 32px;
+    z-index: 10;
+}
+
+/* RIGHT COLUMN: Controls */
+.controls-wrapper { padding: 60px 20px 20px; }
+
+.btn-reset {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 4px;
+    width: 100%;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.option-row {
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.btn-add {
+    background-color: #2cb195;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-add:disabled { 
+    background-color: #ccc; 
+    cursor: not-allowed; 
+}
+
+.thumb-img { width: 100%; object-fit: contain; }
+.label-text { font-size: 13px; font-weight: 600; }
+
+.error-box {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 15px;
+    border-radius: 4px;
+    text-align: center;
+    border: 1px solid #f5c6cb;
+}
+
+/* Footer Button */
+.btn-next {
+    background-color: #ccc;
+    color: #fff;
+    border: none;
+    width: 100%;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.btn-next:not(:disabled) { 
+    background-color: #2cb195; 
+    cursor: pointer; 
+}

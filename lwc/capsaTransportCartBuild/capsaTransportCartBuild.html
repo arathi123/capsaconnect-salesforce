@@ -1,0 +1,63 @@
+<template>
+
+    <lightning-card>
+
+        <template if:true={isLoading}>
+
+            <div
+                class="slds-is-relative"
+                style="height:200px;">
+
+                <lightning-spinner
+                    alternative-text="Loading..."
+                    size="medium">
+                </lightning-spinner>
+
+            </div>
+
+        </template>
+
+        <template if:false={isLoading}>
+
+            <!-- TYPE OF CART -->
+
+            <template if:true={isUseCaseStep}>
+
+                <c-byo-cart-type-selection
+                    product-type={productType}
+                    selections={selections}
+                    onnextstep={handleNextButton}>
+                </c-byo-cart-type-selection>
+
+            </template>
+
+            <!-- ACCESSORIES -->
+
+            <template if:true={isAccessoryStep}>
+
+                <c-byo-accessory-selection
+                    product-type={productType}
+                    selections={selections}
+                    onnextstep={handleNextButton}>
+                </c-byo-accessory-selection>
+
+            </template>
+
+            <!-- RESULTS -->
+
+            <template if:true={isResultStep}>
+
+                <c-byo-transport-cart-result-page
+                    summary-data={summaryData}
+                    opportunity-id={opportunityId}
+                    quote-id={quoteId}
+                    is-unlisted-cart={isUnlistedCart}>
+                </c-byo-transport-cart-result-page>
+
+            </template>
+
+        </template>
+
+    </lightning-card>
+
+</template>

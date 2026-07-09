@@ -1,0 +1,793 @@
+<template>
+
+    <template if:true={hasError}>
+
+        <div class="error-container">
+
+            <lightning-icon
+                icon-name="utility:error"
+                alternative-text="Error"
+                variant="error"
+                size="large">
+
+            </lightning-icon>
+
+            <h2 class="error-title">
+                Configuration Unavailable
+            </h2>
+
+            <p class="error-message">
+
+                We couldn't find an Opportunity ID linked to this session.
+
+            </p>
+
+            <p class="error-suggestion">
+
+                Please navigate to this configurator directly from a valid
+                Opportunity record so your quote can be saved correctly.
+
+            </p>
+
+        </div>
+
+    </template>
+
+    <template if:false={hasError}>
+
+        <!-- MAIN SELECTOR -->
+
+        <template if:true={showSelector}>
+
+            <div class="page-container">
+
+                <h1 class="main-title">
+
+                    Capsa Healthcare Product Configurator
+
+                </h1>
+
+                <p class="header-text">
+
+                    Use the guided interactive tool to walk through the
+                    process of selecting a product configuration that best
+                    meets your requirements.
+
+                </p>
+
+                <hr class="divider">
+
+                <div class="product-grid">
+
+                    <!-- MEDICAL -->
+
+                    <div class="product-card">
+
+                        <img
+                            src="/resource/AvaloLineItem/AvaloLineItem/AvaloMedical.png"
+                            class="product-img"
+                            alt="Avalo Medical">
+
+                        <h2 class="product-title">
+                            Avalo Medical
+                        </h2>
+
+                        <button
+                            class="select-btn"
+                            data-type="Medical"
+                            onclick={handleSelect}>
+
+                            CONFIGURE
+
+                        </button>
+
+                    </div>
+
+                    <!-- MEDICATION -->
+
+                    <div class="product-card">
+
+                        <img
+                            src="/resource/AvaloLineItem/AvaloLineItem/AvaloMedication.png"
+                            class="product-img"
+                            alt="Avalo Medication">
+
+                        <h2 class="product-title">
+                            Avalo Medication
+                        </h2>
+
+                        <button
+                            class="select-btn"
+                            data-type="Medication"
+                            onclick={handleSelect}>
+
+                            CONFIGURE
+
+                        </button>
+
+                    </div>
+
+                    <!-- WOODBLEND -->
+
+                    <div class="product-card">
+
+                        <img
+                            src="/resource/AvaloLineItem/AvaloLineItem/AvaloWoodblend.png"
+                            class="product-img"
+                            alt="Avalo Woodblend">
+
+                        <h2 class="product-title">
+                            Avalo Woodblend
+                        </h2>
+
+                        <button
+                            class="select-btn"
+                            data-type="WoodBlendTreatment"
+                            onclick={handleSelect}>
+
+                            CONFIGURE
+
+                        </button>
+
+                    </div>
+
+                    <!-- M SERIES -->
+
+                    <div class="product-card">
+
+                        <img
+                            src="/resource/AvaloLineItem/AvaloLineItem/AvaloMedical.png"
+                            class="product-img"
+                            alt="M-Series">
+
+                        <h2 class="product-title">
+                            M-Series
+                        </h2>
+
+                        <button
+                            class="select-btn"
+                            data-type="MSeries"
+                            onclick={handleSelect}>
+
+                            CONFIGURE
+
+                        </button>
+
+                    </div>
+
+                    <!-- VE SERIES -->
+
+                    <div class="product-card">
+
+                        <img
+                            src="/resource/AvaloLineItem/AvaloLineItem/AvaloMedical.png"
+                            class="product-img"
+                            alt="VE-Series">
+
+                        <h2 class="product-title">
+                            VE-Series
+                        </h2>
+
+                        <button
+                            class="select-btn"
+                            data-type="VESeries"
+                            onclick={handleSelect}>
+
+                            CONFIGURE
+
+                        </button>
+
+                    </div>
+
+                    <!-- STANDARD TALL -->
+
+                    <!-- <div class="product-card">
+                        <img
+                            src="/resource/AvaloLineItem/AvaloLineItem/StandardTallBroncEndoCab.png"
+                            class="product-img"
+                            alt="Standard Tall Bronc Endo Cab">
+                        <h2 class="product-title">Standard Tall Bronc Endo Cab</h2>
+                        <button
+                            class="select-btn"
+                            data-type="StandardTallBroncEndoCab"
+                            onclick={handleSelect}>
+                            CONFIGURE
+                        </button>
+                    </div> -->
+
+                    <!-- MASS SERIES -->
+
+                    <div class="product-card">
+
+                        <img
+                            src="/resource/AvaloLineItem/AvaloLineItem/AvaloMedical.png"
+                            class="product-img"
+                            alt="Mass Series">
+
+                        <h2 class="product-title">
+                           Medical Equipment & Supply Cabinets
+                        </h2>
+
+                        <button
+                            class="select-btn"
+                            data-type="MassSeriesMenu"
+                            onclick={handleSelect}>
+
+                            CONFIGURE
+
+                        </button>
+
+                    </div>
+
+                    <div class="product-card">
+                        <img
+                            src="/resource/TrytenBaseImages/images/cart.png"
+                            class="product-img"
+                            alt="Tryten">
+                        <h2 class="product-title">
+                            Tryten
+                        </h2>
+                        <button
+                            class="select-btn"
+                            data-type="Tryten"
+                            onclick={handleSelect}>
+                            CONFIGURE
+                        </button>
+                    </div>
+
+                    <div class="product-card">
+                        <img
+                            src="/resource/m38eImagesPart1/m38eImagesPart1/documentation.jpg"
+                            class="product-img"
+                            alt="M38e">
+                        <h2 class="product-title">
+                            M38e
+                        </h2>
+                        <button
+                            class="select-btn"
+                            data-type="M38e"
+                            onclick={handleSelect}>
+                            CONFIGURE
+                        </button>
+                    </div>
+
+                     <div class="product-card">
+                            <img
+                                src="/resource/trioImagePart1/trioImagePart1/documentation.jpg"
+                                class="product-img"
+                                alt="Trio">
+
+                            <h2 class="product-title">
+                                Trio
+                            </h2>
+
+                            <button
+                                class="select-btn"
+                                data-type="Trio"
+                                onclick={handleSelect}>
+
+                                CONFIGURE
+
+                            </button>
+                        </div>
+                        
+                     <div class="product-card">
+                            <img
+                                src="/resource/T7MedLink/T7MedLink2/T7MedLink4.png"
+                                class="product-img"
+                                alt="T7MedLink">
+
+                            <h2 class="product-title">
+                                T7 with Medlink
+                            </h2>
+
+                            <button
+                                class="select-btn"
+                                data-type="T7MedLink"
+                                onclick={handleSelect}>
+
+                                CONFIGURE
+
+                            </button>
+                        </div>
+                    <div class="product-card">
+                        <img
+                            src="/resource/carelinkImagesPart1/carelinkImagesPart1/carelink.jpg"
+                            class="product-img"
+                            alt="CareLink">
+                        <h2 class="product-title">
+                            CareLink
+                        </h2>
+                        <button
+                            class="select-btn"
+                            data-type="CareLink"
+                            onclick={handleSelect}>
+                            CONFIGURE
+                        </button>
+                    </div>
+ <div class="product-card">
+
+                        <img src="" class="product-img"  alt="PA">
+                            
+                            <h2 class="product-title">   PA </h2>
+                         <button  class="select-btn"  data-type="PA"  onclick={handleSelect}>  CONFIGURE  </button>
+
+                     </div>
+                    <div class="product-card">
+                        <img
+                            src="/resource/AvaloLineItem/AvaloLineItem/AvaloMedical.png"
+                            class="product-img"
+                            alt="Avalo Tech Ready">
+                        <h2 class="product-title">
+                            Avalo Tech Ready
+                        </h2>
+                        <button
+                            class="select-btn"
+                            data-type="AvaloTechReady"
+                            onclick={handleSelect}>
+                            CONFIGURE
+                        </button>
+                    </div>
+                     <div class="product-card">
+
+                        <img src="/resource/slimcartrep/laptop.jpg" class="product-img" alt="SlimCart">
+                            
+                            <h2 class="product-title"> SlimCart </h2>
+                         <button  class="select-btn"  data-type="SlimCart"  onclick={handleSelect}>  CONFIGURE  </button>
+
+                     </div>
+             <div class="product-card">
+
+                        <img src="" class="product-img" alt="Robots">
+
+                            <h2 class="product-title"> Robots </h2>
+                         <button  class="select-btn"  data-type="Robots"  onclick={handleSelect}>  CONFIGURE  </button>
+
+                     </div>
+              <div class="product-card">
+
+                        <img src="" class="product-img" alt="Non - Powered LX5">
+
+                            <h2 class="product-title"> Non - Powered LX5 </h2>
+                         <button  class="select-btn"  data-type="NonPoweredLX5"  onclick={handleSelect}>  CONFIGURE  </button>
+
+                     </div>
+                 <div class="product-card">
+
+                        <img src="" class="product-img" alt="Non - Powered M40">
+
+                            <h2 class="product-title"> Non - Powered M40 </h2>
+                         <button  class="select-btn"  data-type="NonPoweredM40"  onclick={handleSelect}>  CONFIGURE  </button>
+
+                     </div>
+                    <div class="product-card">
+                    
+                        <img src="/resource/v6_main_ind/V6_WallArm_With_V-Desk2(Right)2.png" class="product-img" alt="V6">
+                    
+                        <h2 class="product-title"> V6 </h2>
+                        <button class="select-btn" data-type="V6" onclick={handleSelect}> CONFIGURE </button>
+                    
+                    </div>
+                </div>
+
+            </div>
+
+        </template>
+
+        <!-- MASS SERIES MENU -->
+
+        <template if:true={isMassSeriesMenu}>
+
+            <div class="page-container">
+
+                <h1 class="main-title">
+
+                    Medical Equipment & Supply Cabinets Configurator
+
+                </h1>
+
+                <p class="header-text">
+
+                    Use the guided interactive tool to walk through the process
+                    of selecting a product configuration that best meets your
+                    requirements.
+
+                </p>
+
+                <hr class="divider">
+
+                <div class="product-grid">
+
+                    <!-- SAS -->
+
+                    <div class="product-card">
+
+                        <img
+                            src="/resource/AvaloLineItem/AvaloLineItem/AvaloMedical.png"
+                            class="product-img"
+                            alt="SAS Cabinets">
+
+                        <h2 class="product-title">
+                            SAS Cabinets
+                        </h2>
+
+                        <button
+                            class="select-btn"
+                            data-type="SASCabinets"
+                            onclick={handleSelect}>
+
+                            CONFIGURE
+
+                        </button>
+
+                    </div>
+
+                    <!-- OLYMPUS -->
+
+                    <div class="product-card">
+
+                        <img
+                            src="/resource/AvaloLineItem/AvaloLineItem/AvaloMedical.png"
+                            class="product-img"
+                            alt="Olympus">
+
+                        <h2 class="product-title">
+                            Olympus Cab_Accessories
+                        </h2>
+
+                        <button
+                            class="select-btn"
+                            data-type="OlympusCabAccessories"
+                            onclick={handleSelect}>
+
+                            CONFIGURE
+
+                        </button>
+
+                    </div>
+
+                    <!-- FLX -->
+
+                    <div class="product-card">
+
+                        <img
+                            src="/resource/AvaloLineItem/AvaloLineItem/AvaloMedical.png"
+                            class="product-img"
+                            alt="FLX Cabinet">
+
+                        <h2 class="product-title">
+                            FLX Cabinet
+                        </h2>
+
+                        <button
+                            class="select-btn"
+                            data-type="FLXCabinet"
+                            onclick={handleSelect}>
+
+                            CONFIGURE
+
+                        </button>
+
+                    </div>
+
+                    <!-- SMALL ENDO -->
+
+                    <div class="product-card">
+
+                        <img
+                            src="/resource/AvaloLineItem/AvaloLineItem/AvaloMedical.png"
+                            class="product-img"
+                            alt="Small Endo">
+
+                        <h2 class="product-title">
+                            Small Endo Wall Cab
+                        </h2>
+
+                        <button
+                            class="select-btn"
+                            data-type="SmallEndoWallCab"
+                            onclick={handleSelect}>
+
+                            CONFIGURE
+
+                        </button>
+
+                    </div>
+
+                    <!-- TRANSPORT -->
+
+                    <div class="product-card">
+
+                        <img
+                            src="/resource/AvaloLineItem/AvaloLineItem/AvaloMedical.png"
+                            class="product-img"
+                            alt="Transport">
+
+                        <h2 class="product-title">
+                            Transport Cart
+                        </h2>
+
+                        <button
+                            class="select-btn"
+                            data-type="TransportCart"
+                            onclick={handleSelect}>
+
+                            CONFIGURE
+
+                        </button>
+
+                    </div>
+
+                    <!-- ADDITIONAL 
+                    <div class="product-card">
+
+                        <img
+                            src="/resource/AvaloLineItem/AvaloLineItem/AvaloMedical.png"
+                            class="product-img"
+                            alt="Additional">
+
+                        <h2 class="product-title">
+                            ADDITIONAL CS ACCESSORIES
+                        </h2>
+
+                        <button
+                            class="select-btn"
+                            data-type="AdditionalCSAccessories"
+                            onclick={handleSelect}>
+
+                            CONFIGURE
+
+                        </button>
+
+                    </div>
+                           -->
+                </div>
+                  
+
+                <div class="slds-m-top_x-large slds-align_absolute-center">
+
+                    <button
+                        class="select-btn"
+                        onclick={handleBack}>
+
+                        ← BACK
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </template>
+
+        <!-- EXISTING PRODUCTS -->
+
+        <template if:true={isMedical}>
+
+            <c-capsa-u-i
+                opportunity-id={opportunityId}
+                product-type="Medical"
+                onresetflow={handleResetFlow}>
+
+            </c-capsa-u-i>
+
+        </template>
+
+        <template if:true={isMedication}>
+
+            <c-capsa-medication-u-i
+                opportunity-id={opportunityId}
+                product-type="Medication"
+                onresetflow={handleResetFlow}>
+
+            </c-capsa-medication-u-i>
+
+        </template>
+
+        <template if:true={isWoodBlendTreatment}>
+
+            <c-capsa-wood-blend-treatment-u-i
+                opportunity-id={opportunityId}
+                product-type="WoodBlendTreatment"
+                onresetflow={handleResetFlow}>
+
+            </c-capsa-wood-blend-treatment-u-i>
+
+        </template>
+
+        <template if:true={isMSeries}>
+
+            <c-capsa-m-series-u-i
+                opportunity-id={opportunityId}
+                product-type="M-Series"
+                onresetflow={handleResetFlow}>
+
+            </c-capsa-m-series-u-i>
+
+        </template>
+
+        <template if:true={isVESeries}>
+
+            <c-capsa-ve-series-u-i
+                opportunity-id={opportunityId}
+                product-type="VE-Series"
+                onresetflow={handleResetFlow}>
+
+            </c-capsa-ve-series-u-i>
+
+        </template>
+
+        <!-- <template if:true={isStandardTallBroncEndoCab}>
+
+            <c-capsa-standard-tall-bronc-endo-cab-u-i
+                opportunity-id={opportunityId}
+                product-type="Standard Tall Bronc Endo Cab"
+                onresetflow={handleResetFlow}>
+
+            </c-capsa-standard-tall-bronc-endo-cab-u-i>
+
+        </template> -->
+
+        <template if:true={isSASCabinets}>
+
+            <c-capsa-sas-cabinets-u-i
+                opportunity-id={opportunityId}
+                product-type="SAS Cabinets"
+                onresetflow={handleResetFlow}>
+            </c-capsa-sas-cabinets-u-i>
+
+        </template>
+
+        <!-- OLYMPUS CAB ACCESSORIES -->
+
+        <template if:true={isOlympusCabAccessories}>
+
+            <c-capsa-olympus-cab-accessories-u-i
+                opportunity-id={opportunityId}
+                product-type="Olympus Cab_Accessories"
+                onresetflow={handleResetFlow}>
+            </c-capsa-olympus-cab-accessories-u-i>
+
+        </template>
+
+        <!-- TRANSPORT CART -->
+
+        <template if:true={isTransportCart}>
+
+            <c-capsa-transport-cart-u-i
+                opportunity-id={opportunityId}
+                product-type="Transport Cart"
+                onresetflow={handleResetFlow}>
+
+            </c-capsa-transport-cart-u-i>
+
+        </template>
+
+                <!-- SMALL ENDO WALL CAB -->
+
+        <template if:true={isSmallEndoWallCab}>
+
+            <c-capsa-small-endo-wall-cab-u-i
+                opportunity-id={opportunityId}
+                product-type="Small Endo Wall Cab"
+                onresetflow={handleResetFlow}>
+
+            </c-capsa-small-endo-wall-cab-u-i>
+
+        </template>
+
+        <!-- ADDITIONAL CS ACCESSORIES -->
+
+        <template if:true={isAdditionalCSAccessories}>
+
+            <c-capsa-additional-c-s-accessories-u-i
+                opportunity-id={opportunityId}
+                product-type="ADDITIONAL CS ACCESSORIES"
+                onresetflow={handleResetFlow}>
+
+            </c-capsa-additional-c-s-accessories-u-i>
+
+        </template>
+
+        <!-- FLX CABINET -->
+
+        <template if:true={isFLXCabinet}>
+
+            <c-capsa-f-l-x-cabinet-u-i
+                opportunity-id={opportunityId}
+                product-type="FLX Cabinet"
+                onresetflow={handleResetFlow}>
+
+            </c-capsa-f-l-x-cabinet-u-i>
+
+        </template>
+
+        <template if:true={isTryten}>
+            <c-capsa-tryten-u-i
+                opportunity-id={opportunityId}
+                product-type="Tryten"
+                onresetflow={handleResetFlow}>
+            </c-capsa-tryten-u-i>
+        </template>
+
+        <template if:true={isM38e}>
+            <c-capsa-m38e-u-i
+                opportunity-id={opportunityId}
+                product-type="M38e"
+                onresetflow={handleResetFlow}>
+            </c-capsa-m38e-u-i>
+
+        </template>
+       <template if:true={isTrio}>
+            <c-capsa-trio-u-i
+                opportunity-id={opportunityId}
+                product-type="Trio"
+                onresetflow={handleResetFlow}>
+            </c-capsa-trio-u-i>
+        </template> 
+
+  <template if:true={isT7MedLink}>
+            <c-capsa-t7-medlink-u-i
+                opportunity-id={opportunityId}
+                product-type="T7MedLink"
+                onresetflow={handleResetFlow}>
+            </c-capsa-t7-medlink-u-i>
+        </template>
+        <template if:true={isCareLink}>
+            <c-capsa-carelink-u-i
+                opportunity-id={opportunityId}
+                product-type="CareLink"
+                onresetflow={handleResetFlow}>
+            </c-capsa-carelink-u-i>
+        </template>
+<template if:true={isPA}>
+            <c-capsa-p-a-u-i
+                opportunity-id={opportunityId}
+                product-type="PA"
+                onresetflow={handleResetFlow}>
+            </c-capsa-p-a-u-i>
+        </template>
+        <template if:true={isAvaloTechReady}>
+            <c-capsa-avalo-tech-ready-u-i
+                opportunity-id={opportunityId}
+                product-type="Avalo Tech Ready"
+                onresetflow={handleResetFlow}>
+            </c-capsa-avalo-tech-ready-u-i>
+        </template>
+
+        <template if:true={isSlimCart}>
+            <c-capsa-slim-cart-u-i
+                opportunity-id={opportunityId}
+                product-type="SlimCart"
+                onresetflow={handleResetFlow}>
+            </c-capsa-slim-cart-u-i>
+        </template>
+ <template if:true={isRobots}>
+            <c-capsa-robots-u-i
+                opportunity-id={opportunityId}
+                product-type="NexSysADC"
+                onresetflow={handleResetFlow}>
+            </c-capsa-robots-u-i>
+        </template>
+         <template if:true={isNonPoweredLX5}>
+            <c-capsa-non-powered-l-x5-u-i
+                opportunity-id={opportunityId}
+                onresetflow={handleResetFlow}>
+            </c-capsa-non-powered-l-x5-u-i>
+        </template>
+         <template if:true={isNonPoweredM40}>
+            <c-capsa-non-powered-m40-u-i
+                opportunity-id={opportunityId}
+                onresetflow={handleResetFlow}>
+            </c-capsa-non-powered-m40-u-i>
+        </template>
+        <template if:true={isV6}>
+            <c-capsa-v-6-u-i
+                opportunity-id={opportunityId}
+                product-type="V6"
+                onresetflow={handleResetFlow}>
+            </c-capsa-v-6-u-i>
+        </template>
+    </template>
+
+</template>

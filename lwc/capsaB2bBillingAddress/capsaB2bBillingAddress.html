@@ -1,0 +1,150 @@
+<template>
+
+    <template if:true={isPreview}>
+        <div class="slds-box slds-p-around_medium">
+            <p>Custom Billing Address Component (Preview)</p>
+        </div>
+    </template>
+
+    <template if:false={isPreview}>
+        <div class="billing-root">
+
+            <p class="billing-instruction">
+                Select an address from your address book or create a new billing address.
+            </p>
+
+            <div class="addr-table-wrap">
+
+                <!-- Dark blue header -->
+                <div class="addr-table-header">
+                    <button class="btn-new-address" onclick={handleAddNew}>
+                        <span class="plus">+</span> New Billing Address
+                    </button>
+                </div>
+
+                <!-- Search bar -->
+                <div class="search-bar">
+                    <select class="search-select" onchange={handleSearchColumnChange}>
+                        <option value="name">Name</option>
+                        <option value="street">Address</option>
+                        <option value="city">City</option>
+                        <option value="region">State Region</option>
+                        <option value="postalCode">Postal Code</option>
+                        <option value="country">Country</option>
+                    </select>
+                    <div class="search-input-wrap">
+                        <input type="text" class="search-input" placeholder="Search…"
+                            value={searchTerm} oninput={handleSearchTermChange}/>
+                        <template lwc:if={hasSearchTerm}>
+                            <button class="btn-clear-search" onclick={handleClearSearch}
+                                title="Clear search">✕</button>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- Address table -->
+                <table class="addr-table">
+                    <thead>
+                        <tr>
+                            <th class="col-check"></th>
+                            <th>Name</th>
+                            <th>Address</th>
+                            <th>City</th>
+                            <th>State Region</th>
+                            <th>Postal Code</th>
+                            <th>Country</th>
+                            <th class="col-actions"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={pagedAddresses} for:item="addr">
+                            <tr key={addr.addressId}
+                                class={addr.rowClass}
+                                onclick={handleRowClick}
+                                data-id={addr.addressId}>
+                                <td class="col-check">
+                                    <input
+                                        type="checkbox"
+                                        class="addr-checkbox"
+                                        checked={addr.isSelected}
+                                        data-id={addr.addressId}
+                                        onchange={handleCheckboxChange}/>
+                                </td>
+                                <td>{addr.name}</td>
+                                <td>{addr.street}</td>
+                                <td>{addr.city}</td>
+                                <td>{addr.region}</td>
+                                <td>{addr.postalCode}</td>
+                                <td>{addr.country}</td>
+                                <td class="col-actions">
+                                    <button class="btn-edit"
+                                        data-id={addr.addressId}
+                                        onclick={handleEditClick}>Edit</button>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+
+                <!-- Pagination bar -->
+                <div class="pagination-bar">
+
+                    <div class="pagination-nav">
+                        <button class="pg-btn" onclick={handleFirst} disabled={isFirstPage}>|◀</button>
+                        <button class="pg-btn" onclick={handlePrev} disabled={isFirstPage}>◀</button>
+
+                        <template for:each={pageButtons} for:item="pg">
+                            <template lwc:if={pg.isEllipsis} key={pg.key}>
+                                <span class="pg-ellipsis" key={pg.key}>...</span>
+                            </template>
+                            <template lwc:else key={pg.key}>
+                                <button
+                                    key={pg.key}
+                                    class={pg.btnClass}
+                                    data-page={pg.page}
+                                    onclick={handlePageClick}>
+                                    {pg.page}
+                                </button>
+                            </template>
+                        </template>
+
+                        <button class="pg-btn" onclick={handleNext} disabled={isLastPage}>▶</button>
+                        <button class="pg-btn" onclick={handleLast} disabled={isLastPage}>▶|</button>
+                    </div>
+
+                    <div class="pagination-goto">
+                        <span>Page:</span>
+                        <input
+                            type="number"
+                            class="pg-input"
+                            value={currentPage}
+                            min="1"
+                            max={totalPages}
+                            onchange={handleGotoChange}/>
+                        <span>of {totalPages}</span>
+                        <button class="pg-btn" onclick={handleGoto}>Go</button>
+                        <span>Page size:</span>
+                        <input
+                            type="number"
+                            class="pg-size-input"
+                            value={pageSize}
+                            min="5"
+                            max="100"
+                            onchange={handlePageSizeChange}/>
+                        <button class="btn-change" onclick={handlePageSizeApply}>Change</button>
+                    </div>
+
+                    <div class="pagination-info">
+                        Item {itemRangeStart} to {itemRangeEnd} of {totalCount}
+                    </div>
+                </div>
+            </div>
+
+            <template lwc:if={showError}>
+                <p class="addr-error">{errorMessage}</p>
+            </template>
+
+        </div>
+    </template>
+
+</template>

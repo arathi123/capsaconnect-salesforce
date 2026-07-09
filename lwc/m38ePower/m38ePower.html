@@ -1,0 +1,97 @@
+<template>
+    <div class="use-case-container fade-in">
+        
+        <template if:true={isLoading}>
+            <div class="spinner-container">
+                <lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+            </div>
+        </template>
+
+        <template if:false={isLoading}>
+            <!-- LEFT COLUMN: Vertical Stack Options -->
+            <div class="questions-column">
+                
+                <!-- QUESTION 1: POWER OPTION -->
+                <h2 class="title">Step 2. Select Cart Power</h2>
+                <hr>
+
+                <div class="options-list">
+                    <template for:each={filteredPowerOptions} for:item="opt">
+                        <div key={opt.Option_Key__c}>
+                            <div 
+                                class={opt.rowClass} 
+                                data-key={opt.Option_Key__c} 
+                                onmouseenter={handlePowerMouseEnter} 
+                                onmouseleave={handlePowerMouseLeave} 
+                                onclick={handlePowerSelect}>
+                                
+                                <div class="text-block">
+                                    <div class="option-title">{opt.Option_Label__c}</div>
+                                    <div if:true={opt.isVisible} class="option-desc fade-in">
+                                        {opt.Description__c}
+                                    </div>
+                                </div>
+                                
+                                <input type="radio" checked={opt.isSelected} readonly />
+                            </div>
+                            <hr>
+                        </div>
+                    </template>
+                </div>
+
+                <!-- QUESTION 2: CORD OPTION (Fades in after Q1) -->
+                <template if:true={selectedPower}>
+                    <div class="fade-in slds-m-top_x-large">
+                        <h2 class="title">Select Power Cord</h2>
+                        <hr>
+                        
+                        <div class="options-list">
+                            <template for:each={visibleCordOptions} for:item="opt">
+                                <div key={opt.Option_Key__c}>
+                                    <div 
+                                        class={opt.rowClass} 
+                                        data-key={opt.Option_Key__c} 
+                                        onmouseenter={handleCordMouseEnter}
+                                        onmouseleave={handleCordMouseLeave}
+                                        onclick={handleCordSelect}>
+                                        
+                                        <div class="text-block" style="display: flex; align-items: center; gap: 15px;">
+                                            <template if:true={opt.Image_URL__c}>
+                                                <img src={opt.Image_URL__c} style="width: 50px; height: 50px; object-fit: contain; border: 1px solid #ccc; border-radius: 4px;" alt={opt.Option_Label__c}/>
+                                            </template>
+                                            <div>
+                                                <div class="option-title">{opt.Option_Label__c}</div>
+                                                <div if:true={opt.isVisible} class="option-desc fade-in">
+                                                    {opt.Description__c}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <input type="radio" checked={opt.isSelected} readonly />
+                                    </div>
+                                    <hr>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- NEXT BUTTON -->
+                <template if:true={isStepComplete}>
+                    <div class="footer-area fade-in">
+                        <button class="next-btn" onclick={handleNext}>NEXT →</button>
+                    </div>
+                </template>
+            </div>
+
+            <!-- RIGHT COLUMN: Sticky Dynamic Preview -->
+            <div class="preview-column">
+                <div class="sticky-preview">
+                    <div class="image-box">
+                        <img src={currentPreviewImage} alt="Cart Preview" class="preview-img fade-in"/>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </div>
+</template>

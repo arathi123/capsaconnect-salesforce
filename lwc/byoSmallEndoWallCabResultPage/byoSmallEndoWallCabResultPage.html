@@ -1,0 +1,129 @@
+<template>
+
+    <div class="results-page-container">
+
+        <!-- LOADER -->
+
+        <template if:true={isLoading}>
+
+            <div class="full-page-loader">
+
+                <lightning-spinner
+                    alternative-text="Generating Quote..."
+                    size="large"
+                    variant="brand">
+                </lightning-spinner>
+
+            </div>
+
+        </template>
+
+        <!-- HEADER -->
+
+        <div class="results-header">
+
+            <h2 class="title">
+                Small Endo Wall Cabinet Configuration Results
+            </h2>
+
+            <hr class="header-divider" />
+
+        </div>
+
+        <div class="results-main-content">
+
+            <!-- SKU -->
+
+            <div class="summary-section">
+
+                <h3 class="summary-title">
+                    Generated Cabinet Code
+                </h3>
+
+                <div class="code-box">
+
+                    <p class="cart-code">
+                        {packageSku}
+                    </p>
+
+                </div>
+
+            </div>
+
+            <template if:true={isUnlistedCart}>
+
+                <div class="slds-notify slds-notify_alert slds-theme_warning slds-m-bottom_medium">
+
+                    ⚠️ <b>Unlisted Cart:</b>
+
+                    We dont have product against this
+                    configuration. Quote line item will
+                    not be created for this cabinet.
+
+                </div>
+
+            </template>
+
+            <!-- CONFIG SUMMARY -->
+
+            <div class="summary-section slds-m-top_large">
+
+                <h3 class="summary-title">
+                    Configuration Summary
+                </h3>
+
+                <ul class="summary-list">
+
+                    <template if:true={selections.wallCabinet.label}>
+
+                        <li class="summary-item">
+
+                            <span class="bullet">•</span>
+
+                            <strong>Wall Cabinet:</strong>
+
+                            {selections.wallCabinet.label}
+
+                        </li>
+
+                    </template>
+
+                </ul>
+
+            </div>
+
+            <!-- ACTION -->
+
+            <div class="action-section slds-m-top_xx-large">
+
+                <template if:true={isReconfigureMode}>
+
+                    <button
+                        class="quote-btn"
+                        onclick={handleUpdateQuote}>
+
+                        UPDATE QUOTE
+
+                    </button>
+
+                </template>
+
+                <template if:false={isReconfigureMode}>
+
+                    <button
+                        class="quote-btn"
+                        onclick={handleQuoteRequest}>
+
+                        REQUEST A QUOTE
+
+                    </button>
+
+                </template>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</template>

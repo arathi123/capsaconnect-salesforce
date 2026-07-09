@@ -1,0 +1,107 @@
+.results-page-container {
+    padding: 3rem 10%;
+    font-family: 'Montserrat', sans-serif;
+    color: #333;
+}
+
+.title {
+    font-size: 32px;
+    font-weight: 600;
+}
+
+.header-divider {
+    border: 0;
+    border-top: 2px solid #e0e0e0;
+    margin: 1.5rem 0 3rem 0;
+}
+
+.summary-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #555;
+}
+
+.code-box {
+    background: #f4f6f9;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #d8dde6;
+    display: inline-block;
+}
+
+.cart-code {
+    font-size: 24px;
+    font-weight: 700;
+    color: #0176d3;
+    letter-spacing: 1px;
+}
+
+.summary-list {
+    list-style: none;
+    padding: 0;
+}
+
+.summary-item {
+    font-size: 18px;
+    margin-bottom: 12px;
+    padding: 10px;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    align-items: center;
+}
+
+.bullet {
+    color: #2cb195;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.qty-badge {
+    margin-left: auto;
+    background: #e5f2f1;
+    color: #2cb195;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.quote-btn {
+    background-color: #2cb195;
+    color: white;
+    padding: 15px 40px;
+    border-radius: 6px;
+    border: none;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.quote-btn:hover {
+    background-color: #1aac9d;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.full-page-loader {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slds-notify {
+    margin-top: 12px;
+    background: #fdf3d7;
+    border: 1px solid #e0c37a;
+    color: #8a6d3b;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 14px;
+      /*  max-width: 500px; */
+}

@@ -1,0 +1,49 @@
+<template>
+    <div class="path-container">
+
+        <!-- Back to Product Selector -->
+        <div class="back-container">
+            <lightning-button-icon
+                class="custom-back-btn"
+                icon-name="utility:home"
+                alternative-text="Back to Products"
+                title="Back to Products"
+                onclick={handleBack}>
+            </lightning-button-icon>
+        </div>
+
+        <!-- Existing Path -->
+        <div class="path-wrapper">
+            <div class="slds-path slds-p-around_medium">
+                <div class="slds-grid slds-path__track">
+                    <div class="slds-grid slds-path__scroller-container">
+                        <div class="slds-path__scroller">
+                            <div class="slds-path__scroller_inner">
+                        <ul class="slds-path__nav" role="listbox" aria-orientation="horizontal">
+                                    <template for:each={computedSteps} for:item="step">
+                                <li key={step.key} class={step.classList} role="presentation">
+                                            <a class="slds-path__link"
+                                               role="option"
+                                               tabindex="-1"
+                                               data-key={step.key}
+                                               onclick={handleClick}>
+                                                <span class="slds-path__stage">
+                                            <lightning-icon icon-name="utility:check"
+                                                        variant="inverse"
+                                                        size="x-small">
+                                                    </lightning-icon>
+                                                </span>
+                                        <span class="slds-path__title">{step.label}</span>
+                                            </a>
+                                        </li>
+                                    </template>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</template>

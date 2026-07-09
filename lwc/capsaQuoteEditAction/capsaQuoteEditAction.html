@@ -1,0 +1,21 @@
+<template>
+    <template if:true={hasError}>
+        <div class="slds-p-around_medium">
+            <lightning-icon
+                icon-name="utility:error"
+                alternative-text="Error"
+                variant="error"
+                size="small"
+                class="slds-m-right_small">
+            </lightning-icon>
+            <span>{errorMessage}</span>
+        </div>
+    </template>
+
+    <template if:false={hasError}>
+        <div class="slds-align_absolute-center slds-p-around_large">
+            <lightning-spinner alternative-text="Opening Configurator..." size="medium"></lightning-spinner>
+            <p class="slds-m-top_small slds-text-color_weak">Opening Capsa Configurator...</p>
+        </div>
+    </template>
+</template>

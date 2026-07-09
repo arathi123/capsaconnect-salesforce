@@ -1,0 +1,114 @@
+<template>
+    <!-- ── Connect CTA Banner ── -->
+    <div class="connect-section">
+        <div class="connect-inner">
+            <h2 class="connect-heading">Connect With Capsa Healthcare.</h2>
+            <a href={quoteUrl} class="quote-btn">REQUEST A QUOTE</a>
+        </div>
+        <!-- Curved divider: blue drops low at bottom-left, eases up toward the right -->
+        <div class="connect-curve" aria-hidden="true">
+            <svg viewBox="0 0 1440 130" preserveAspectRatio="none">
+                <path d="M0,130 L0,104 C470,88 900,44 1440,16 L1440,130 Z"></path>
+            </svg>
+        </div>
+    </div>
+
+    <!-- ── Main Footer ── -->
+    <div class="footer-main">
+        <div class="footer-inner">
+
+            <!-- Logo -->
+            <div class="footer-logo-col">
+                <div class="footer-logo-wrap">
+                    <img class="footer-logo-img"
+                        src="/Capsaconnect/sfsites/c/resource/Capsa_Connect_Logo"
+                        alt="Capsa Connect" />
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="footer-col">
+                <h4 class="footer-col-title">QUICK LINKS</h4>
+                <ul class="footer-links">
+                    <li><a href="/order-parts" class="footer-link">Order Parts</a></li>
+                    <li><a href="/my-orders" class="footer-link">My Orders</a></li>
+                    <li><a href="/invoices" class="footer-link">Invoices</a></li>
+                    <li><a href="/service-support" class="footer-link">Service &amp; Support</a></li>
+                    <li><a href="https://www.capsahealthcare.com" target="_blank" rel="noopener noreferrer" class="footer-link">Main Website</a></li>
+                </ul>
+            </div>
+
+            <!-- Follow Us -->
+            <div class="footer-col">
+                <h4 class="footer-col-title">FOLLOW US:</h4>
+                <div class="social-row">
+                    <a href="https://www.facebook.com/CapsaHealthcare" target="_blank" rel="noopener noreferrer" class="social-icon-link social--fb" aria-label="Facebook">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="17" height="17">
+                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                        </svg>
+                    </a>
+                    <a href="https://twitter.com/CapsaHealthcare" target="_blank" rel="noopener noreferrer" class="social-icon-link social--x" aria-label="X (Twitter)">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.733-8.835L1.254 2.25H8.08l4.259 5.63 5.905-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                        </svg>
+                    </a>
+                    <a href="https://www.linkedin.com/company/capsa-healthcare" target="_blank" rel="noopener noreferrer" class="social-icon-link social--in" aria-label="LinkedIn">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="17" height="17">
+                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                            <rect x="2" y="9" width="4" height="12"/>
+                            <circle cx="4" cy="4" r="2"/>
+                        </svg>
+                    </a>
+                    <a href="https://www.youtube.com/CapsaHealthcare" target="_blank" rel="noopener noreferrer" class="social-icon-link social--yt" aria-label="YouTube">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+                            <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.54C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/>
+                            <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#ffffff"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Contact Us -->
+            <div class="footer-col">
+                <h4 class="footer-col-title">CONTACT US:</h4>
+                <p class="contact-line">Phone: <a href="tel:8557344142" class="contact-link">855.734.4142</a></p>
+                <p class="contact-line">Email: <a href="mailto:info@capsahealthcare.com" class="contact-link">info@capsahealthcare.com</a></p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ── Newsletter Bar ── -->
+    <div class="newsletter-bar">
+        <div class="newsletter-inner">
+            <span class="newsletter-label">Sign up for Our Newsletter</span>
+            <div class="newsletter-fields">
+                <input
+                    type="email"
+                    class="newsletter-input"
+                    placeholder="Enter Your Email"
+                    value={newsletterEmail}
+                    oninput={handleEmailInput}
+                />
+                <select class="newsletter-select" onchange={handleIndustryChange}>
+                    <option value="">Choose Your Industry</option>
+                    <option value="hospital">Hospital / Health System</option>
+                    <option value="ltc">Long-Term Care</option>
+                    <option value="pharmacy">Pharmacy</option>
+                    <option value="clinic">Clinic / Ambulatory</option>
+                    <option value="ems">EMS / First Responder</option>
+                    <option value="other">Other</option>
+                </select>
+                <button class="subscribe-btn" onclick={submitNewsletter}>SUBSCRIBE</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── Copyright Bar ── -->
+    <div class="copyright-bar">
+        <p class="copyright-text">
+            Site Credits &nbsp;|&nbsp; Sitemap &nbsp;|&nbsp; Privacy Policy &nbsp;|&nbsp;
+            &copy; Copyright Capsa Healthcare {currentYear}. All Rights Reserved. &nbsp;|
+        </p>
+    </div>
+</template>

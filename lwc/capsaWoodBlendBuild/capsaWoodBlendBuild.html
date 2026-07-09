@@ -1,0 +1,120 @@
+<template>
+    <lightning-card>
+        <template if:true={isLoading}>
+            <div class="slds-is-relative" style="height: 200px;">
+                <lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+            </div>
+        </template>
+
+        <template if:false={isLoading}>
+            
+            <template if:true={isUseCaseStep}>
+                <c-byo-cart-type-selection 
+                    product-type={productType}
+                    ontypeselected={handleCartTypeSelection}
+                    onnextstep={handleNextButton}>
+                </c-byo-cart-type-selection>
+            </template>
+
+            <template if:true={isWidthStep}>
+                <c-byo-width-selection 
+                    product-type={productType}
+                    selections={selections}
+                    onwidthselected={handleWidthSelection}
+                    onnextstep={handleNextButton}>
+                </c-byo-width-selection>
+            </template>
+
+            <template if:true={isHeightStep}>
+                <c-byo-height-selection 
+                    product-type={productType}
+                    selections={selections}
+                    onheightselected={handleHeightSelection}
+                    onnextstep={handleNextButton}>
+                </c-byo-height-selection>
+            </template>
+
+            <template if:true={isLockStep}>
+                <c-byo-lock-selection 
+                    product-type={productType}
+                    selections={selections}
+                    onlockselected={handleLockSelection}
+                    onnextstep={handleNextButton}>
+                </c-byo-lock-selection>
+            </template>
+
+            <template if:true={isSeriesStep}>
+                <c-byo-series-selection 
+                    product-type={productType}
+                    selections={selections}
+                    onseriesselected={handleSeriesSelection}
+                    onnextstep={handleNextButton}>
+                </c-byo-series-selection>
+            </template>
+
+            <template if:true={isColorStep}>
+                <c-byo-color-selection 
+                    product-type={productType}
+                    selections={selections}
+                    oncolorselected={handleColorSelection}
+                    onnextstep={handleNextButton}>
+                </c-byo-color-selection>
+            </template>
+
+            <template if:true={isStorageStep}>
+                <c-byo-storage-selection 
+                    product-type={productType}
+                    selected-height={selections.height.key}
+                    selected-color={selections.color.key}
+                    is-extended={isStorageMode}
+                    onnextstep={handleNextButton}>
+                </c-byo-storage-selection>
+            </template>
+
+            <template if:true={isExtendedStorageStep}>
+                <c-byo-storage-selection 
+                    product-type={productType}
+                    selected-height={selections.height.key}
+                    selected-color={selections.color.key}
+                    is-extended={isExtendedMode}
+                    onnextstep={handleNextButton}>
+                </c-byo-storage-selection>
+            </template>
+
+            <template if:true={isOptionsStep}>
+                <c-byo-woodblend-options-selection 
+                    product-type={productType}
+                    selected-height={selections.height.key}
+                    selected-color={selections.series.key}
+                    onnextstep={handleNextButton}>
+                </c-byo-woodblend-options-selection>
+            </template>
+
+            <template if:true={isAccessoryStep}>
+                <c-byo-accessory-selection 
+                    product-type={productType}
+                    onnextstep={handleNextButton}>
+                </c-byo-accessory-selection>
+            </template>
+
+            <!-- Tray Step for WoodBlend -->
+            <template if:true={isTrayStep}>
+                <c-byo-tray-selection
+                    product-type={productType}
+                    ontrayselected={handleTraySelection}
+                    onnextstep={handleNextButton}>
+                </c-byo-tray-selection>
+            </template>
+
+            <template if:true={isResultStep}>
+                <c-byo-woodblend-result-page
+                    summary-data={summaryData}
+                    opportunity-id={opportunityId}
+                    quote-id={quoteId}
+                    is-unlisted-cart={isUnlistedCart}>
+                </c-byo-woodblend-result-page>
+            </template>
+
+        </template>
+    </lightning-card>
+</template>

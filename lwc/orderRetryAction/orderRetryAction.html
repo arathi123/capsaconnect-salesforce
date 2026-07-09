@@ -1,0 +1,17 @@
+<template>
+    <lightning-card title="Retry Integration" icon-name="utility:refresh">
+        <div class="slds-p-around_medium">
+            <template if:true={isLoading}>
+                <lightning-spinner alternative-text="Processing..."></lightning-spinner>
+            </template>
+            
+            <template if:false={isLoading}>
+                <lightning-button 
+                    variant="brand"
+                    label="Retry SyteLine Integration"
+                    onclick={handleRetry}>
+                </lightning-button>
+            </template>
+        </div>
+    </lightning-card>
+</template>

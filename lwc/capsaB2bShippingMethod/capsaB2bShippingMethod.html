@@ -1,0 +1,55 @@
+<template>
+
+    <template if:true={isPreview}>
+        <div class="slds-box slds-p-around_medium">
+            <p>Custom Shipping Address Component (Preview)</p>
+        </div>
+    </template>
+
+    <template if:false={isPreview}>
+        <div class="sm-wrapper">
+            
+
+            <template if:true={isProcessing}>
+                <lightning-spinner size="small"
+                    alternative-text="Loading shipping options"></lightning-spinner>
+            </template>
+
+            <!-- Edit mode: cascading dropdowns (framework drives this via setAspect) -->
+            <template if:false={showSummary}>
+                <h2 class="sm-title">Choose Shipping Method</h2>
+                <div class="sm-grid">
+                    <lightning-combobox label="Shipping Method" placeholder="Select a carrier"
+                        options={carrierOptions} value={selectedCarrier}
+                        onchange={handleCarrierChange} disabled={carrierDisabled} required></lightning-combobox>
+                    <lightning-combobox label="Class of Service" placeholder="Select class"
+                        options={classOptions} value={selectedClass}
+                        onchange={handleClassChange} disabled={classDisabled} required></lightning-combobox>
+                    <lightning-combobox label="Freight Terms" placeholder="Select freight terms"
+                        options={freightOptions} value={selectedFreight}
+                        onchange={handleFreightChange} disabled={freightDisabled} required></lightning-combobox>
+                </div>
+            </template>
+
+            <!-- Summary mode: framework called setAspect({ summary: true }) -->
+            <template if:true={showSummary}>
+                <dl class="sm-summary">
+                    <dt>Shipping Method</dt><dd>{selectedCarrier}</dd>
+                    <dt>Class of Service</dt><dd>{selectedClass}</dd>
+                    <dt>Freight Terms</dt><dd>{selectedFreight}</dd>
+                </dl>
+            </template>
+
+            <template if:true={showDisclaimer}>
+                <p class="sm-disclaimer">
+                    **Your actual freight charge will be calculated at the time of
+                    shipment and invoiced accordingly.
+                </p>
+            </template>
+
+            <template if:true={errorMessage}>
+                <p class="sm-error">{errorMessage}</p>
+            </template>
+        </div>
+    </template>
+</template>

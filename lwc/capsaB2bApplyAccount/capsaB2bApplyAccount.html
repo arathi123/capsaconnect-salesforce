@@ -1,0 +1,10 @@
+<template>
+    <div class="apply-card">
+        <p class="apply-description">{description}</p>
+        <button type="button" class="apply-btn" onclick={handleOpen}>{buttonLabel}</button>
+    </div>
+
+    <!-- Public "Request a Capsa Connect Account" form, opened by the button above.
+         Rendered here (hidden) so a guest can submit without navigating away. -->
+    <c-capsa-b2b-new-account-case></c-capsa-b2b-new-account-case>
+</template>

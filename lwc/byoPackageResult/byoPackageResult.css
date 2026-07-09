@@ -1,0 +1,163 @@
+:host {
+    display: block;
+}
+
+.full-page-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.7); /* Optional: dims the page */
+    z-index: 9999; /* Ensures it sits above everything, including headers */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.full-page-loader lightning-spinner {
+    position: fixed; 
+}
+
+.results-page-container {
+    padding: 3.5rem 8%;
+    font-family: 'Open Sans', sans-serif;
+    color: #444;
+    /* Ensure no internal scrollbars are forced */
+    overflow: visible; 
+}
+
+.results-layout-split {
+    display: flex;
+    gap: 5rem;
+    align-items: stretch; /* This makes both columns the same total height */
+    position: relative;
+}
+
+.left-content-column {
+    flex: 1.6;
+    /* Prevents the left side from creating its own scrollbar */
+    overflow: visible;
+}
+
+.right-image-column {
+    flex: 1;
+    position: relative;
+}
+
+/* THE FIX: This container sticks to the top as you scroll the page */
+.sticky-container {
+    position: -webkit-sticky; /* For Safari */
+    position: sticky;
+    top: 2rem; /* Distance from the top of the screen when stuck */
+    align-self: flex-start; /* Required for sticky to work inside Flex */
+}
+
+/* Typography & Visuals (Same as previous for harmony) */
+.title {
+    font-size: 32px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.header-divider {
+    border: 0;
+    border-top: 1px solid #e0e0e0;
+    margin: 1.5rem 0;
+}
+
+.intro-block {
+    margin-bottom: 3rem;
+}
+
+.intro-text {
+    font-size: 20px;
+    line-height: 1.6;
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+.summary-title {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.summary-divider {
+    border: 0;
+    border-top: 2px solid #333;
+    margin: 1rem 0;
+}
+
+.summary-list {
+    list-style: none;
+    padding: 0;
+}
+
+.summary-item {
+    margin-bottom: 1.5rem;
+}
+
+.summary-item > strong {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
+.summary-sub-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.summary-sub-list li {
+    position: relative;
+    padding-left: 20px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+}
+
+.summary-sub-list li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #2cb195;
+    font-weight: bold;
+}
+
+.cart-image-wrapper {
+    width: 100%;
+    padding-top: 3rem;
+}
+
+.main-cart-img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+
+.btn-quote {
+    background-color: #2cb195;
+    color: #fff;
+    border: none;
+    width: 100%;
+    padding: 18px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.btn-quote:hover {
+    background-color: #24917a;
+}
+
+a {
+    color: #2cb195;
+    text-decoration: none;
+    font-weight: 600;
+}

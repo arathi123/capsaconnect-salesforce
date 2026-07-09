@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <isExposed>false</isExposed>
+    <apiVersion>66.0</apiVersion>
+    <masterLabel>capsaPauiBuild</masterLabel>
+    <description>Build your own for the PA product items</description>
+</LightningComponentBundle>

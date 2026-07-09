@@ -1,0 +1,64 @@
+<template>
+    <div class="use-case-container fade-in">
+        <template if:true={isLoading}>
+            <div class="spinner-container">
+                <lightning-spinner alternative-text="Generating Quote..." size="medium"></lightning-spinner>
+                <div class="slds-m-top_medium loading-text">Saving your configuration...</div>
+            </div>
+        </template>
+        <template if:false={isLoading}>
+            <div class="questions-column">
+                <div class="results-header slds-m-bottom_large">
+                    <h3 class="results-main-heading">YOUR CUSTOMIZED V6 WALL ARM IS CONFIGURED!</h3>
+                    <p class="slds-m-top_small slds-text-body_regular results-sub-text"> Thank you for visiting the online product
+                        configurator for the V6 Wall Arm. Your customized configuration is available to submit a Request For Quote,
+                        Email to Coworker, or Print/Save as PDF Document. </p>
+                    </p>
+                    <p style="font-family: Arial, sans-serif; font-size: 14px; line-height: 1.5; color: #333333;">
+                        If you were not able to configure the SlimCart to meet your precise requirements, please contact
+                        us directly at: 1-800-437-6633 ,
+                        <a href="mailto:info@capsahealthcare.com"
+                            style="color: #1589ee; text-decoration: none;">info@capsahealthcare.com</a>,
+                        or visit 
+                        <a href="https://capsahealthcare.com" style="color: #1589ee; text-decoration: none;"
+                            target="_blank">capsahealthcare.com</a>.
+                    </p>
+                </div>
+
+                <h3 class="summary-heading">Your Summary</h3>
+                <ul class="summary-list">
+                    <hr class="summary-divider" />
+
+                    <template for:each={summarySections} for:item="section">
+                        <template if:true={section.hasData}>
+                            <li key={section.title}><strong>{section.title}</strong></li>
+                            <ul key={section.title} class="sub-list">
+                                <template for:each={section.items} for:item="item">
+                                    <li key={item.label}>
+                                        <!-- {item.label} -->
+                                        <template if:true={item.key}>
+                                            &nbsp;-&nbsp;<strong>{item.key}</strong>
+                                        </template>
+                                    </li>
+                                </template>
+                            </ul>
+                            <hr key={section.title} class="summary-divider" />
+                        </template>
+                    </template>
+                </ul>
+            </div>
+            <div class="preview-column">
+                <div class="sticky-preview">
+                    <div class="image-box">
+                        <img src={currentPreviewImage} alt="Cart Preview" class="preview-img fade-in"/>
+                    </div>
+
+                    <button class="submit-btn" onclick={handleGenerateQuote}>
+                        <template if:true={isReconfigureMode}>UPDATE QUOTE</template>
+                        <template if:false={isReconfigureMode}>GENERATE QUOTE</template>
+                    </button>
+                </div>
+            </div>
+        </template>
+    </div>
+</template>

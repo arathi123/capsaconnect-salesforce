@@ -1,0 +1,82 @@
+<template>
+    <!-- Experience Builder preview -->
+    <template lwc:if={isPreview}>
+        <div class="slds-box slds-p-around_medium">
+            <p class="slds-text-heading_small">Credit Card (BridgePay)</p>
+            <p class="slds-text-body_small slds-text-color_weak">
+                Secure hosted card entry renders here in the live store.
+            </p>
+        </div>
+    </template>
+
+    <template lwc:if={showSummary}>
+        <div class="bp-card">
+            <p class="bp-title">Payment</p>
+            <div class="bp-tile">
+                <span class="bp-tile-check" aria-hidden="true">✓</span>
+                <span>{summaryLabel}</span>
+            </div>
+
+            <!-- Authorization runs at Place Order (PAYMENT stage) while this
+                 summary view is showing — surface progress and failures here. -->
+            <template lwc:if={isAuthorizing}>
+                <div class="bp-inline">
+                    <lightning-spinner alternative-text="Authorizing payment" size="small"></lightning-spinner>
+                    <span class="bp-muted">Authorizing payment…</span>
+                </div>
+            </template>
+            <template lwc:if={showError}>
+                <div class="bp-error" role="alert">
+                    {errorMessage} Please reopen the payment section to re-enter your card.
+                </div>
+            </template>
+        </div>
+    </template>
+
+    <template lwc:if={isReady}>
+        <div class="bp-card">
+            <p class="bp-title">Credit Card</p>
+
+            <!-- Session bootstrap spinner -->
+            <template lwc:if={isLoadingSession}>
+                <div class="bp-inline bp-center">
+                    <lightning-spinner alternative-text="Loading secure payment" size="small"></lightning-spinner>
+                    <span class="bp-muted">Loading secure payment…</span>
+                </div>
+            </template>
+
+            <!-- Hosted iframe (PAN entered here, never in Salesforce) -->
+            <template lwc:if={iframeUrl}>
+                <div class="bp-iframe-wrap">
+                    <iframe
+                        title="Secure Card Entry"
+                        src={iframeUrl}
+                        class="bp-iframe"
+                        sandbox="allow-scripts allow-forms allow-same-origin"
+                        onload={handleIframeReady}>
+                    </iframe>
+                </div>
+
+                <template lwc:if={hasToken}>
+                    <div class="bp-tile bp-m-top" role="status">
+                        <span class="bp-tile-check" aria-hidden="true">✓</span>
+                        <span>{tileLabel}</span>
+                    </div>
+                </template>
+            </template>
+
+            <!-- Authorizing overlay -->
+            <template lwc:if={isAuthorizing}>
+                <div class="bp-inline">
+                    <lightning-spinner alternative-text="Authorizing payment" size="small"></lightning-spinner>
+                    <span class="bp-muted">Authorizing payment…</span>
+                </div>
+            </template>
+
+            <!-- Error -->
+            <template lwc:if={showError}>
+                <div class="bp-error" role="alert">{errorMessage}</div>
+            </template>
+        </div>
+    </template>
+</template>

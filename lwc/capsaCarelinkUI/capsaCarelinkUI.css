@@ -1,0 +1,64 @@
+.build-container {
+    text-align: center;
+    padding: 20px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.page-container {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.title {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 25px;
+    color: #333;
+}
+
+.subtitle {
+    font-size: 22px;
+    font-weight: 400;
+    margin-top: 10px;
+    margin-bottom: 25px;
+    color: #333;
+}
+
+.divider {
+    border: 0;
+    border-top: 1px solid #e0e0e0;
+    margin: 20px auto;
+    width: 80%;
+}
+
+.description {
+    width: 75%;
+    margin: 0 auto 50px auto;
+    font-size: 20px; 
+    color: #444;
+    line-height: 1.6;
+}
+
+.build-btn {
+    font-size: 20px;
+    padding: 18px 45px;
+    background-color: #2cb195;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-weight: bold;
+}
+
+.build-btn:hover {
+    background-color: #00446b;
+}
+
+.spinner-container {
+    height: 100px;             
+    display: flex;             
+    justify-content: center;    
+    align-items: center;       
+    position: relative;        
+}

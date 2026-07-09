@@ -1,0 +1,119 @@
+.page-container {
+    text-align: left;
+    padding: 40px 40px 60px 40px; /* Reduced top padding */
+    font-family: 'Montserrat', sans-serif;
+}
+
+.title {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: #333;
+    text-align: left;
+    line-height: 1.2;
+}
+
+
+.description {
+    width: 100%;
+    margin: 0 0 32px 0; /* Reduced margin */
+    font-size: 16px; /* Smaller to match screenshot */
+    color: #444;
+    line-height: 1.5;
+    text-align: left;
+}
+
+.build-btn {
+    font-size: 18px;
+    padding: 12px 40px;
+    background-color: #48b9b0;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+    font-weight: 500;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.build-btn:hover {
+    background-color: #3aa59d;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.spinner-container {
+    height: 200px;             
+    display: flex;             
+    justify-content: center;    
+    align-items: center;       
+    position: relative;        
+}
+
+.path-wrapper {
+    margin-bottom: 0;
+    background: #f4f6f9;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+/* Right column - match screenshot */
+.preview-block {
+    text-align: left; /* Left align like screenshot */
+    padding: 40px 40px 0 0; /* Match left column top padding */
+}
+
+.preview-header {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: #080707;
+    margin-bottom: 2px;
+    text-transform: uppercase;
+}
+
+.preview-subheader {
+    font-size: 0.75rem;
+    font-style: italic;
+    color: #706e6b;
+    margin-bottom: 20px;
+}
+
+.image-container {
+    display: flex;
+    justify-content: flex-start; /* Align image left in column */
+}
+
+/* Smaller image to match screenshot */
+.cart-image {
+    max-width: 300px; /* Reduced from 360px */
+    width: 100%;
+    height: auto;
+    border: none; /* No border in screenshot */
+    border-radius: 0;
+    padding: 0;
+    background: transparent;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .page-container {
+        padding: 32px 20px;
+        text-align: left;
+    }
+    
+    .title {
+        font-size: 24px;
+    }
+    
+    .description {
+        font-size: 14px;
+    }
+    
+    .preview-block {
+        padding: 32px 20px 0 20px;
+    }
+    
+    .cart-image {
+        max-width: 100%;
+    }
+}

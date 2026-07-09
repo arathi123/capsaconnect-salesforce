@@ -1,0 +1,357 @@
+<template>
+
+    <div class="use-case-container">
+
+        <template if:true={isLoading}>
+            <div class="spinner-container">
+                <lightning-spinner
+                    alternative-text="Loading..."
+                    size="medium">
+                </lightning-spinner>
+            </div>
+        </template>
+
+        <template if:false={isLoading}>
+
+            <!-- LEFT SIDE -->
+
+            <div class="questions-column">
+
+                <!-- STORAGE TYPE -->
+
+                <h2 class="title">
+                    Select Storage Type
+                </h2>
+
+                <hr>
+
+                <div class="options-list">
+
+                    <template
+                        for:each={storageOptions}
+                        for:item="opt">
+
+                        <div key={opt.Option_Key__c}>
+
+                            <div
+                                class={opt.rowClass}
+                                data-key={opt.Option_Key__c}
+                                onclick={handleStorageSelect}>
+
+                                <div class="text-block">
+
+                                    <div class="option-title">
+                                        {opt.Option_Label__c}
+                                    </div>
+
+                                    <template if:true={opt.Description__c}>
+                                        <div class="option-desc">
+                                            {opt.Description__c}
+                                        </div>
+                                    </template>
+
+                                </div>
+
+                                <input
+                                    type="radio"
+                                    checked={opt.isSelected}
+                                    readonly />
+
+                            </div>
+
+                            <hr>
+
+                        </div>
+
+                    </template>
+
+                </div>
+
+                <!-- BIN SYSTEM -->
+
+                <template if:true={showBinSystemSection}>
+
+                    <div class="slds-m-top_x-large">
+
+                        <h2 class="section-title">
+                            Choose Bin System
+                        </h2>
+
+                        <hr>
+
+                        <div class="options-list">
+
+                            <template
+                                for:each={binSystemOptions}
+                                for:item="opt">
+
+                                <div key={opt.Option_Key__c}>
+
+                                    <div
+                                        class={opt.rowClass}
+                                        data-key={opt.Option_Key__c}
+                                        onclick={handleBinSystemSelect}>
+
+                                        <div class="text-block">
+
+                                            <div class="option-title">
+                                                {opt.Option_Label__c}
+                                            </div>
+
+                                            <template if:true={opt.Description__c}>
+                                                <div class="option-desc">
+                                                    {opt.Description__c}
+                                                </div>
+                                            </template>
+
+                                        </div>
+
+                                        <input
+                                            type="radio"
+                                            checked={opt.isSelected}
+                                            readonly />
+
+                                    </div>
+
+                                    <hr>
+
+                                </div>
+
+                            </template>
+
+                        </div>
+
+                    </div>
+
+                </template>
+
+                <!-- DUAL LOCK -->
+
+                <template if:true={showDualLockSection}>
+
+                    <div class="slds-m-top_x-large">
+
+                        <h2 class="section-title">
+                            Dual Locking
+                        </h2>
+
+                        <p class="option-desc">
+                            Would you like to Add the Dual-locking option to support controlled medications and witness authentication? Y/N
+                        </p>
+
+                        <hr>
+
+                        <div class="options-list">
+
+                            <template
+                                for:each={dualLockOptions}
+                                for:item="opt">
+
+                                <div key={opt.Option_Key__c}>
+
+                                    <div
+                                        class={opt.rowClass}
+                                        data-key={opt.Option_Key__c}
+                                        onclick={handleDualLockSelect}>
+
+                                        <div class="text-block">
+
+                                            <div class="option-title">
+                                                {opt.Option_Label__c}
+                                            </div>
+
+                                        </div>
+
+                                        <input
+                                            type="radio"
+                                            checked={opt.isSelected}
+                                            readonly />
+
+                                    </div>
+
+                                    <hr>
+
+                                </div>
+
+                            </template>
+
+                        </div>
+
+                    </div>
+
+                </template>
+
+                <!-- BIN COLOR -->
+
+                <template if:true={showBinColorSection}>
+
+                    <div class="slds-m-top_x-large">
+
+                        <h2 class="section-title">
+                            Choose Bin Color
+                        </h2>
+
+                        <hr>
+
+                        <div class="options-list">
+
+                            <template
+                                for:each={binColorOptions}
+                                for:item="opt">
+
+                                <div key={opt.Option_Key__c}>
+
+                                    <div
+                                        class={opt.rowClass}
+                                        data-key={opt.Option_Key__c}
+                                        onclick={handleBinColorSelect}>
+
+                                        <div class="text-block">
+
+                                            <div class="option-title">
+                                                {opt.Option_Label__c}
+                                            </div>
+
+                                        </div>
+
+                                        <input
+                                            type="radio"
+                                            checked={opt.isSelected}
+                                            readonly />
+
+                                    </div>
+
+                                    <hr>
+
+                                </div>
+
+                            </template>
+
+                        </div>
+
+                    </div>
+
+                </template>
+
+                <!-- BIN TYPE -->
+
+                <template if:true={showBinTypeSection}>
+
+                    <div class="slds-m-top_x-large">
+
+                        <h2 class="section-title">
+                            Please Choose Bin Type
+                        </h2>
+
+                        <hr>
+
+                        <div class="drawer-grid">
+
+                            <template
+                                for:each={filteredBinTypes}
+                                for:item="opt">
+
+                                <div
+                                    key={opt.Option_Key__c}
+                                    class={opt.cardClass}
+                                    data-key={opt.Option_Key__c}
+                                    onclick={handleBinTypeSelect}>
+
+                                    <div class="card-content">
+
+                                        <template if:true={opt.Image_URL__c}>
+
+                                            <img
+                                                src={opt.Image_URL__c}
+                                                alt={opt.Option_Label__c}
+                                                class="drawer-img"/>
+
+                                        </template>
+
+                                        <div class="radio-row">
+
+                                            <input
+                                                type="radio"
+                                                checked={opt.isSelected}
+                                                readonly />
+
+                                            <div>
+
+                                                <div class="color-name">
+                                                    {opt.Option_Label__c}
+                                                </div>
+
+                                                <template if:true={opt.Description__c}>
+                                                    <div class="option-desc">
+                                                        {opt.Description__c}
+                                                    </div>
+                                                </template>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </template>
+
+                        </div>
+
+                    </div>
+
+                </template>
+
+                <!-- NEXT BUTTON -->
+
+                <template if:true={isStepComplete}>
+
+                    <div class="footer-area">
+
+                        <button
+                            class="next-btn"
+                            onclick={handleNext}>
+
+                            NEXT →
+
+                        </button>
+
+                    </div>
+
+                </template>
+
+            </div>
+
+            <!-- RIGHT SIDE -->
+
+            <div class="preview-column">
+
+                <div class="sticky-preview">
+
+                    <div class="preview-heading">
+                        YOUR SELECTION
+                    </div>
+
+                    <div class="preview-subheading">
+                        Representative Image
+                    </div>
+
+                    <div class="image-box">
+
+                        <img
+                            src={currentPreviewImage}
+                            alt="Trio Preview"
+                            class="preview-img"/>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </template>
+
+    </div>
+
+</template>

@@ -1,0 +1,78 @@
+<template>
+
+    <div class="container">
+
+        <h2 class="title">
+            Choose Cabinet Line Configuration
+        </h2>
+
+        <hr>
+
+        <template
+            for:each={cabinetOptions}
+            for:item="opt">
+
+            <div
+                key={opt.Option_Key__c}>
+
+                <div
+
+                    class={opt.rowClass}
+
+                    data-key={opt.Option_Key__c}
+
+                    onmouseenter={handleMouseEnter}
+
+                    onmouseleave={handleMouseLeave}
+
+                    onclick={handleSelect}>
+
+                    <div class="text-block">
+
+                        <div class="option-title">
+
+                            {opt.Option_Label__c}
+
+                        </div>
+
+                        <div
+                            if:true={opt.isVisible}
+                            class="option-desc">
+
+                            {opt.Description__c}
+
+                        </div>
+
+                    </div>
+
+                    <input
+                        type="radio"
+                        name="cabinetLine"
+                        value={opt.Option_Key__c}
+                        checked={opt.isSelected} />
+
+                </div>
+
+                <hr>
+
+            </div>
+
+        </template>
+
+        <div
+            if:true={showNextButton}
+            class="footer-area">
+
+            <button
+                class="next-btn"
+                onclick={handleNext}>
+
+                NEXT
+
+            </button>
+
+        </div>
+
+    </div>
+
+</template>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>63.0</apiVersion>
+    <!-- Child component: rendered inside capsaB2bApplyAccount, not dropped
+         directly on a page, so it is not exposed to the Experience Builder. -->
+    <isExposed>false</isExposed>
+</LightningComponentBundle>

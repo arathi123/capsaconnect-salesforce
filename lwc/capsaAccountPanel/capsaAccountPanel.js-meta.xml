@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>66.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Capsa Account Panel</masterLabel>
+    <description>Quick-access account cards (Orders, Invoices, Quotes, Support). Guests are routed to login; logged-in users go to the respective site pages.</description>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="eyebrow" type="String" label="Eyebrow Text" default="Your account, in real time" />
+            <property name="heading" type="String" label="Heading" default="One login for your entire Capsa relationship" />
+            <property name="ordersPage" type="String" label="Orders Page (API name)" description="Experience route API name for logged-in users." default="Open_Order_Summaries__c" />
+            <property name="invoicesPage" type="String" label="Invoices Page (API name)" description="Experience route API name for logged-in users." default="MyInvoices__c" />
+            <property name="quotesPage" type="String" label="Quotes Page (API name)" description="Experience route API name for logged-in users." default="MyQuotes__c" />
+            <property name="supportPage" type="String" label="Support Cases Page (API name)" description="Experience route API name for logged-in users." default="MyCases__c" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

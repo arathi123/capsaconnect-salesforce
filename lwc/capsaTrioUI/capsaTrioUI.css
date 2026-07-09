@@ -1,0 +1,96 @@
+.build-container {
+    text-align: center;
+    padding: 20px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.page-container {
+    text-align: center;
+    padding: 40px 20px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.title {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 25px;
+    color: #333;
+    text-align: center;
+}
+
+.subtitle{
+    font-size: 22px;
+    font-weight: 400;
+    margin-top: 10px;
+    margin-bottom: 25px;
+    color: #333;
+    text-align: center;
+}
+
+.description {
+    width: 75%;
+    margin: 0 auto 50px auto;
+    font-size: 20px;
+    color: #444;
+    line-height: 1.6;
+}
+
+.build-btn {
+    font-size: 22px;
+    padding: 15px 40px;
+    background-color: #48b9b0;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.spinner-container {
+    height: 100px;             
+    display: flex;             
+    justify-content: center;    
+    align-items: center;       
+    position: relative;        
+}
+
+.cart-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);  
+    gap: 20px;                              
+    width: 90%;
+    margin: auto;
+}
+
+.cart-card {
+    text-align: center;
+    padding: 20px;
+}
+
+.cart-title {
+    font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+
+.cart-img {
+    width: 250px;
+    height: 320px;
+    margin: 0 auto;
+    display: block;
+}
+
+.select-btn {
+    margin-top: 20px;
+    padding: 15px 60px;
+    background-color: #48b9b0;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.select-btn:hover {
+    background-color: #3aa59d;
+}

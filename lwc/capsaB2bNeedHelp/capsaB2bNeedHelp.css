@@ -1,0 +1,61 @@
+.need-help-section {
+    background-color: #f2f4f8;
+    padding: 48px 24px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.need-help-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.need-help-heading {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1b3a5c;
+    margin: 0 0 12px 0;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.need-help-text {
+    font-size: 1rem;
+    color: #444;
+    margin: 0 0 20px 0;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.contact-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.contact-item {
+    font-size: 1rem;
+    color: #444;
+}
+
+.contact-label {
+    font-weight: 600;
+    margin-right: 4px;
+    color: #1b3a5c;
+}
+
+.contact-link {
+    color: #1b7cbf;
+    text-decoration: none;
+}
+
+.contact-link:hover {
+    text-decoration: underline;
+}
+
+.contact-divider {
+    color: #999;
+    font-size: 1.2rem;
+}

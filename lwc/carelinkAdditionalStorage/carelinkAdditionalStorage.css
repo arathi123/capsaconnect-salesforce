@@ -1,0 +1,142 @@
+.use-case-container {
+    display: flex;
+    gap: 40px;
+    padding: 2rem 5%;
+}
+
+.questions-column {
+    flex: 6;
+}
+
+.preview-column {
+    flex: 4;
+}
+
+.title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.step-description {
+    color: #666;
+    line-height: 1.4;
+}
+
+/* Row Styling */
+.option-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    cursor: pointer;
+    transition: background 0.2s;
+    border-radius: 6px;
+    width: 100%;
+}
+
+.option-row:hover {
+    background: #f9f9f9;
+}
+
+.option-row.selected {
+    background: #f2f2f2;
+    border-left: 4px solid #2cb195;
+}
+
+.text-block {
+    max-width: 85%;
+}
+
+.option-title {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.option-desc {
+    font-size: 14px;
+    color: #666;
+    margin-top: 4px;
+    line-height: 1.4;
+}
+
+/* Custom Checkbox Sizing */
+.custom-checkbox {
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+    accent-color: #2cb195;
+}
+
+/* LAYERED CANVAS CSS */
+.sticky-preview {
+    position: sticky;
+    top: 20px;
+}
+
+.canvas-container {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+    background: #fff;
+    overflow: hidden;
+}
+
+.base-cart-img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.overlay-drawer {
+    position: absolute;
+}
+
+/* Footer */
+.footer-area {
+    margin-top: 2rem;
+    padding-top: 20px;
+    text-align: right;
+}
+
+.next-btn {
+    background-color: #2cb195;
+    color: white;
+    padding: 12px 32px;
+    border-radius: 6px;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.next-btn:hover {
+    background-color: #1aac9d;
+}
+
+.fade-in {
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 300px;
+}

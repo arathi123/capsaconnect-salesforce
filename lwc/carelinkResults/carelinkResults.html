@@ -1,0 +1,65 @@
+<template>
+    <div class="use-case-container fade-in">
+        <template if:true={isLoading}>
+            <div class="spinner-container">
+                <lightning-spinner alternative-text="Generating Quote..." size="medium"></lightning-spinner>
+                <div class="slds-m-top_medium loading-text">Saving your configuration...</div>
+            </div>
+        </template>
+
+        <template if:false={isLoading}>
+            <div class="questions-column">
+                <div class="results-header slds-m-bottom_large">
+                    <h3 class="results-main-heading">YOUR CUSTOMIZED CARELINK MOBILE COMPUTING WORKSTATION IS CONFIGURED!</h3>
+                    <p class="slds-m-top_small slds-text-body_regular results-sub-text">
+                        Thank you for visiting the online product configurator for the CareLink Mobile Computing Workstation.
+                    </p>
+                </div>
+
+                <h3 class="summary-heading">Your Summary</h3>
+                <hr class="summary-divider" />
+                
+                <ul class="summary-list">
+                    <li><strong>Primary Chassis SKU</strong></li>
+                    <ul class="sub-list">
+                        <li><strong>{chassisSku}</strong></li>
+                    </ul>
+                    <hr class="summary-divider" />
+
+                    <template for:each={summarySections} for:item="section">
+                        <template if:true={section.hasData}>
+                            <li key={section.title}><strong>{section.title}</strong></li>
+                            <ul key={section.title} class="sub-list">
+                                <template for:each={section.items} for:item="item">
+                                    <li key={item.label}>
+                                        {item.label}
+                                        <template if:true={item.sku}>
+                                            &nbsp;-&nbsp;<strong>{item.sku}</strong>
+                                        </template>
+                                    </li>
+                                </template>
+                            </ul>
+                            <hr key={section.title} class="summary-divider" />
+                        </template>
+                    </template>
+                </ul>
+            </div>
+
+            <div class="preview-column">
+                <div class="sticky-preview">
+                    <div class="canvas-container slds-m-bottom_large">
+                        <img src={baseCartImage} alt="Final Cart" class="base-cart-img" />
+                        <template for:each={overlays} for:item="overlay">
+                            <img key={overlay.url} src={overlay.url} class="overlay-drawer" style={overlay.style} alt="Overlay" />
+                        </template>
+                    </div>
+
+                    <button class="submit-btn" onclick={handleGenerateQuote}>
+                        <template if:true={isReconfigureMode}>UPDATE QUOTE</template>
+                        <template if:false={isReconfigureMode}>GENERATE QUOTE</template>
+                    </button>
+                </div>
+            </div>
+        </template>
+    </div>
+</template>

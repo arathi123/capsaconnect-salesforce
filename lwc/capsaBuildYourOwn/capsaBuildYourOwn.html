@@ -1,0 +1,117 @@
+<template>
+    <lightning-card>
+        <template if:true={isLoading}>
+            <div class="slds-is-relative" style="height: 200px;">
+                <lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+            </div>
+        </template>
+
+        <template if:false={isLoading}>
+            
+            <template if:true={isUseCaseStep}>
+                <c-byo-cart-type-selection 
+                    product-type={productType}
+                    selections={selections}
+                    ontypeselected={handleCartTypeSelection}
+                    onnextstep={handleNextButton}>
+                </c-byo-cart-type-selection>
+            </template>
+
+            <template if:true={isHeightStep}>
+                <c-byo-height-selection 
+                    product-type={productType}
+                    selections={selections}
+                    onheightselected={handleHeightSelection}
+                    onnextstep={handleNextButton}>
+                </c-byo-height-selection>
+            </template>
+
+            <template if:true={isLockStep}>
+                <c-byo-lock-selection 
+                    product-type={productType}
+                    selections={selections}
+                    onlockselected={handleLockSelection}
+                    onnextstep={handleNextButton}>
+                </c-byo-lock-selection>
+            </template>
+
+            <template if:true={isColorStep}>
+                <c-byo-color-selection 
+                    product-type={productType}
+                    selections={selections}
+                    oncolorselected={handleColorSelection}
+                    onnextstep={handleNextButton}>
+                </c-byo-color-selection>
+            </template>
+
+            <template if:true={isStorageStep}>
+                <c-byo-storage-selection 
+                    product-type={productType}
+                    selected-height={selections.height.key}
+                    selected-color={selections.color.key}
+                    onnextstep={handleNextButton}>
+                </c-byo-storage-selection>
+            </template>
+
+            <template if:true={isOptionsStep}>
+                <c-byo-options-selection 
+                    product-type={productType}
+                    selections={selections}
+                    selected-height={selections.height.key}
+                    selected-color={selections.color.key}
+                    onnextstep={handleNextButton}>
+                </c-byo-options-selection>
+            </template>
+
+            <template if:true={isTrayStep}>
+                <c-byo-tray-selection
+                    product-type={productType}
+                    ontrayselected={handleTraySelection}
+                    selections={selections}
+                    onnextstep={handleNextButton}>
+                </c-byo-tray-selection>
+            </template>
+
+            <template if:true={isBridgeStep}>
+                <c-byo-bridge-selection 
+                    onnextstep={handleNextButton}
+                    selections={selections}>   
+                </c-byo-bridge-selection>
+            </template>
+
+            <template if:true={isAccessoryStep}>
+                <template if:true={isPackage}>
+                    <c-byo-package-selection 
+                        onnextstep={handleNextButton}>
+                    </c-byo-package-selection>
+                </template>
+                <template if:false={isPackage}>
+                    <c-byo-accessory-selection 
+                        product-type={productType}
+                        selections={selections}
+                        onnextstep={handleNextButton}>
+                    </c-byo-accessory-selection>
+                </template>
+            </template>
+
+            <template if:true={isResultStep}>
+                <template if:true={isPackage}>
+                    <c-byo-result-page 
+                        opportunity-id={opportunityId}
+                        summary-data={summaryData}
+                        is-unlisted-cart={isUnlistedCart}
+                        quote-id={quoteId}>
+                    </c-byo-result-page>
+                </template>
+                <template if:false={isPackage}>
+                    <c-byo-result-page 
+                        opportunity-id={opportunityId}
+                        summary-data={summaryData}
+                        is-unlisted-cart={isUnlistedCart}
+                        quote-id={quoteId}>
+                    </c-byo-result-page>
+                </template>
+            </template>
+        </template>
+    </lightning-card>
+</template>

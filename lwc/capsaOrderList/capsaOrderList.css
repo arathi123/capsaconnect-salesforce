@@ -1,0 +1,391 @@
+:host {
+    display: block;
+    --orders-text: #1e293b;
+    --orders-muted: #64748b;
+    --orders-border: #e7ecf2;
+    --orders-navy: #0f2742;
+    --orders-accent: #155da4;
+    font-family: 'Open Sans', 'Salesforce Sans', Arial, sans-serif;
+}
+
+.orders {
+    /* Match the Quotes list: fill the region, hug the left edge (no centering) */
+    padding: 0.5rem 0;
+    box-sizing: border-box;
+}
+
+/* Header row: title + tabs */
+.orders__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+}
+
+.orders__title {
+    margin: 0;
+    font-size: 1.9rem;
+    font-weight: 800;
+    color: #0f2742;
+    letter-spacing: -0.01em;
+}
+
+.orders__tabs {
+    display: inline-flex;
+    gap: 0.5rem;
+}
+
+.tab {
+    appearance: none;
+    cursor: pointer;
+    border: 1px solid var(--orders-border);
+    background: #ffffff;
+    color: var(--orders-text);
+    font: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.45rem 1.1rem;
+    border-radius: 8px;
+    transition: background-color 0.15s ease, color 0.15s ease,
+        border-color 0.15s ease;
+}
+
+.tab:hover {
+    border-color: #c7d2e0;
+}
+
+.tab--selected {
+    background: #0f2742;
+    border-color: #0f2742;
+    color: #ffffff;
+}
+
+/* Card / table */
+.card {
+    background: #ffffff;
+    border: 1px solid var(--orders-border);
+    border-radius: 14px;
+    box-shadow: 0 1px 3px rgba(15, 39, 66, 0.06);
+    overflow: hidden;
+}
+
+/* ── Search toolbar ───────────────────────────────────── */
+.list-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    padding: 0.85rem 1.5rem;
+    border-bottom: 1px solid var(--orders-border);
+}
+
+.search-box {
+    position: relative;
+    flex: 1 1 16rem;
+    max-width: 22rem;
+}
+
+.search-icon {
+    position: absolute;
+    left: 0.7rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1rem;
+    height: 1rem;
+    color: var(--orders-muted);
+    pointer-events: none;
+}
+
+.search-input {
+    width: 100%;
+    box-sizing: border-box;
+    font-family: inherit;
+    font-size: 0.875rem;
+    color: var(--orders-text);
+    background: #ffffff;
+    border: 1px solid var(--orders-border);
+    border-radius: 9px;
+    padding: 0.5rem 2.1rem 0.5rem 2.2rem;
+    transition: border-color 0.12s ease, box-shadow 0.12s ease;
+}
+
+.search-input::placeholder {
+    color: #9aa4b0;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--orders-accent);
+    box-shadow: 0 0 0 3px rgba(21, 93, 164, 0.15);
+}
+
+.search-clear {
+    position: absolute;
+    right: 0.4rem;
+    top: 50%;
+    transform: translateY(-50%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: none;
+    color: var(--orders-muted);
+    cursor: pointer;
+}
+
+.search-clear svg {
+    width: 0.85rem;
+    height: 0.85rem;
+}
+
+.search-clear:hover {
+    background: #f0f2f5;
+    color: var(--orders-text);
+}
+
+.search-meta {
+    font-size: 0.8125rem;
+    color: var(--orders-muted);
+    white-space: nowrap;
+}
+
+/* ── Table area ───────────────────────────────────────── */
+/* The spinner overlays the rows rather than replacing them, so the layout
+   doesn't jump and the search input keeps focus between keystrokes. */
+.table-area {
+    position: relative;
+    min-height: 10rem;
+}
+
+.spinner-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.72);
+}
+
+/* Scroll the table horizontally instead of crushing columns when space is
+   tight. The toolbar and pagination bar sit outside this and never scroll. */
+.table-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.table {
+    width: 100%;
+    /* Keep columns readable at any zoom / narrow width; the table scrolls instead */
+    min-width: 820px;
+}
+
+.thead,
+.trow {
+    display: grid;
+    grid-template-columns: 1.7fr 1.1fr 1.3fr 0.9fr 1.1fr;
+    align-items: center;
+    gap: 1rem;
+    padding: 0 1.5rem;
+}
+
+.thead {
+    height: 48px;
+    background: #f8fafc;
+    border-bottom: 1px solid var(--orders-border);
+}
+
+.th {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--orders-muted);
+}
+
+.th.sortable {
+    cursor: pointer;
+    user-select: none;
+}
+
+.th.sortable:hover {
+    color: var(--orders-text);
+}
+
+.sort-ic {
+    font-size: 0.6rem;
+    letter-spacing: 0;
+    color: var(--orders-navy);
+}
+
+.trow {
+    min-height: 76px;
+    border-bottom: 1px solid var(--orders-border);
+}
+
+.trow:last-child {
+    border-bottom: none;
+}
+
+.td {
+    font-size: 0.92rem;
+    color: var(--orders-muted);
+    min-width: 0;
+}
+
+/* Order column */
+.td--order {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.order-link {
+    font-size: 0.98rem;
+    font-weight: 700;
+    color: #155da4;
+    text-decoration: none;
+    width: fit-content;
+}
+
+.order-link:hover,
+.order-link:focus-visible {
+    text-decoration: underline;
+    outline: none;
+}
+
+.po {
+    font-size: 0.82rem;
+    color: var(--orders-muted);
+}
+
+.td--total {
+    font-weight: 700;
+    color: var(--orders-text);
+}
+
+/* Status badge */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.28rem 0.7rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.badge__dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+    flex: 0 0 auto;
+}
+
+.badge--blue {
+    background: #e8f1fd;
+    color: #1a73c7;
+}
+.badge--amber {
+    background: #f8eccd;
+    color: #97701f;
+}
+.badge--green {
+    background: #e1f4e8;
+    color: #1f7a45;
+}
+.badge--red {
+    background: #fde7e7;
+    color: #b3261e;
+}
+.badge--gray {
+    background: #eef1f5;
+    color: #64748b;
+}
+
+/* ── Pagination ───────────────────────────────────────── */
+.pagination-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    padding: 0.85rem 1.5rem;
+    border-top: 1px solid var(--orders-border);
+    background: #f8fafc;
+}
+
+.page-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.pg-btn {
+    background: #ffffff;
+    border: 1px solid var(--orders-border);
+    border-radius: 8px;
+    padding: 0.35rem 0.85rem;
+    font: inherit;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--orders-accent);
+    cursor: pointer;
+}
+
+.pg-btn:disabled {
+    color: #b6bec7;
+    cursor: default;
+}
+
+.page-status,
+.page-summary {
+    font-size: 0.8125rem;
+    color: var(--orders-muted);
+}
+
+/* ── Empty state (inside the card) ────────────────────── */
+.empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--orders-muted);
+}
+
+.empty-title {
+    margin: 0.75rem 0 0;
+    font-size: 1.0625rem;
+    font-weight: 700;
+    color: var(--orders-text);
+}
+
+.empty-text {
+    margin: 0.25rem 0 0;
+    font-size: 0.875rem;
+}
+
+/* Error state (replaces the card) */
+.orders__state {
+    background: #ffffff;
+    border: 1px solid var(--orders-border);
+    border-radius: 14px;
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    color: var(--orders-muted);
+    font-size: 0.95rem;
+}
+
+.orders__state--error {
+    color: #b3261e;
+}
+
+/* Small screens: tighten outer spacing; the card scrolls horizontally. */
+@media (max-width: 720px) {
+    .orders__title {
+        font-size: 1.5rem;
+    }
+}

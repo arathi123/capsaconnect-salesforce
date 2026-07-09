@@ -1,0 +1,114 @@
+<template>
+    <div class="carelink-engine-container">
+
+        <template if:true={isUseCase}>
+            <c-carelink-use-case
+                product-type={productType}
+                selections={selections}
+                onstepcomplete={handleStepComplete}>
+            </c-carelink-use-case>
+        </template>
+
+        <template if:true={isPower}>
+            <c-carelink-power
+                product-type={productType}
+                selections={selections}
+                onstepcomplete={handleStepComplete}>
+            </c-carelink-power>
+        </template>
+
+        <template if:true={isLift}>
+            <c-carelink-lift
+                product-type={productType}
+                selections={selections}
+                onstepcomplete={handleStepComplete}>
+            </c-carelink-lift>
+        </template>
+
+        <template if:true={isMonitor}>
+            <c-carelink-monitor
+                product-type={productType}
+                selections={selections}
+                onstepcomplete={handleStepComplete}>
+            </c-carelink-monitor>
+        </template>
+
+        <template if:true={isKeyboard}>
+            <c-m38e-keyboard-tray
+                product-type={productType}
+                selections={selections}
+                onstepcomplete={handleStepComplete}>
+            </c-m38e-keyboard-tray>
+        </template>
+
+        <template if:true={isStorageAndSecurity}>
+            <c-carelink-storage-security
+                product-type={productType}
+                selections={selections}
+                onstepcomplete={handleStepComplete}>
+            </c-carelink-storage-security>
+        </template>
+
+        <template if:true={isBuilder}>
+            
+            <template if:true={isStandardBinSystem}>
+                <c-carelink-standard-builder
+                    product-type={productType}
+                    selections={selections}
+                    onstepcomplete={handleStepComplete}>
+                </c-carelink-standard-builder>
+            </template>
+
+            <template if:true={isMaxBinSystem}>
+                <c-carelink-max-bin-builder
+                    product-type={productType}
+                    selections={selections}
+                    onstepcomplete={handleStepComplete}>
+                </c-carelink-max-bin-builder>
+            </template>
+
+        </template>
+
+        <template if:true={isAdditionalStorage}>
+            <c-carelink-additional-storage
+                product-type={productType}
+                selections={selections}
+                onstepcomplete={handleStepComplete}>
+            </c-carelink-additional-storage>
+        </template>
+
+        <template if:true={isTelehealth}>
+            <c-carelink-telehealth
+                product-type={productType}
+                selections={selections}
+                onstepcomplete={handleStepComplete}>
+            </c-carelink-telehealth>
+        </template>
+
+        <template if:true={isAccessories}>
+            <c-carelink-accessories
+                product-type={productType}
+                selections={selections}
+                onstepcomplete={handleStepComplete}>
+            </c-carelink-accessories>
+        </template>
+
+        <template if:true={isWarranty}>
+            <c-carelink-warranty
+                product-type={productType}
+                selections={selections}
+                onstepcomplete={handleStepComplete}>
+            </c-carelink-warranty>
+        </template>
+
+        <template if:true={isResults}>
+            <c-carelink-results 
+                opportunity-id={opportunityId} 
+                quote-id={quoteId} 
+                selections={selections} 
+                onresetflow={handleResetFlow}>
+            </c-carelink-results>
+        </template>
+
+    </div>
+</template>

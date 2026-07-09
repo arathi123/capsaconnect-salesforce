@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>66.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Capsa Product Line Grid</masterLabel>
+    <description>"Shop Parts by Product Line" responsive card grid for the B2B Connect home page.</description>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="heading" type="String" label="Heading" default="Shop Parts by Product Line" />
+            <property name="subheading" type="String" label="Subheading" default="Select your Capsa Healthcare product to browse available replacement parts, accessories, and supplies" />
+            <property name="cardsJson" type="String" label="Cards (JSON array)" description="Optional override. JSON array of objects: {title, categoryName (defaults to title, resolved to the category id at run time), image (file in capsaCategoryImages) or imageUrl}. Leave blank to use the built-in Capsa product lines." />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

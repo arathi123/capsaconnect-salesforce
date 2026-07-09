@@ -1,0 +1,64 @@
+<template>
+    <div class="results-page-container fade-in">
+        <template if:true={isLoading}>
+            <div class="full-page-loader">
+                <lightning-spinner alternative-text="Generating Quote..." size="large" variant="brand"></lightning-spinner>
+            </div>
+        </template>
+
+        <div class="results-header">
+            <h2 class="title">Tech Ready Configuration Results</h2>
+            <hr class="header-divider" />
+        </div>
+
+        <div class="results-main-content">
+            
+            <div class="summary-section">
+                <h3 class="summary-title">Generated Cart Code</h3>
+                <div class="code-box">
+                    <p class="cart-code">{summaryData.packageSku}</p>
+                </div>
+            </div>
+
+            <template if:true={isUnlistedCart}>
+                <div class="slds-notify slds-notify_alert slds-theme_warning slds-m-bottom_medium slds-m-top_medium">
+                    ⚠️ <b>Unlisted Cart:</b> 
+                    We don't have a standard product catalog entry against this specific cart configuration. It will be flagged as an unlisted cart and our team will review this custom request.
+                </div>
+            </template>
+
+            <template if:true={hasAccessories}>
+                <div class="summary-section slds-m-top_large">
+                    <h3 class="summary-title">Selected Accessories</h3>
+                    <ul class="summary-list">
+                        <template for:each={summaryData.accessories} for:item="acc">
+                            <li class="summary-item" key={acc.id}>
+                                <span class="bullet">•</span> {acc.label} 
+                                <template if:true={acc.position}>
+                                    <span class="slds-m-left_xx-small slds-text-color_weak">({acc.position})</span>
+                                </template>
+                                <span class="qty-badge" if:true={acc.quantity}>Qty: {acc.quantity}</span>
+                            </li>
+                        </template>
+                    </ul>
+                </div>
+            </template>
+ 
+            <template if:true={hasTray}>
+                <div class="summary-section slds-m-top_large">
+                    <h3 class="summary-title">Selected Tray</h3>
+                    <ul class="summary-list">
+                        <li class="summary-item">
+                            <span class="bullet">•</span> {summaryData.tray.label} - {summaryData.tray.key}
+                        </li>
+                    </ul>
+                </div>
+            </template>
+
+            <div class="action-section slds-m-top_xx-large">
+                <button class="quote-btn" onclick={handleQuoteRequest}>REQUEST A QUOTE</button>
+            </div>
+
+        </div>
+    </div>
+</template>

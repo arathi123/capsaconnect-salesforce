@@ -1,0 +1,422 @@
+/* ──────────────────────────────────────────────
+   Full-bleed: break out of the Experience region
+   padding so the footer fills the whole section.
+────────────────────────────────────────────── */
+:host {
+    display: block;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+}
+
+/* ──────────────────────────────────────────────
+   Connect CTA Banner
+────────────────────────────────────────────── */
+.connect-section {
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 84px 48px 168px;
+    /* Dark navy on the left easing to bright light-blue on the right */
+    background: linear-gradient(
+        100deg,
+        #04243d 0%,
+        #093a5d 22%,
+        #0a6da0 52%,
+        #3aa3d4 78%,
+        #b4e2f6 100%
+    );
+}
+
+.connect-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+}
+
+.connect-heading {
+    font-size: 2.1rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+    line-height: 1.2;
+    flex: 1;
+    min-width: 200px;
+}
+
+.quote-btn {
+    display: inline-block;
+    padding: 16px 40px;
+    background: #f0a23a !important;
+    background-color: #f0a23a !important;
+    color: #0a2840 !important;
+    border: none !important;
+    text-decoration: none !important;
+    border-radius: 999px !important;
+    font-size: 0.82rem;
+    font-weight: 800;
+    font-family: 'Open Sans', sans-serif;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    box-shadow: 0 8px 22px rgba(240, 162, 58, 0.4) !important;
+    transition: background-color 0.2s ease, transform 0.15s ease,
+        box-shadow 0.2s ease;
+}
+
+.quote-btn:hover,
+.quote-btn:focus {
+    background: #e2912a !important;
+    background-color: #e2912a !important;
+    color: #0a2840 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(240, 162, 58, 0.5) !important;
+}
+
+/* Curved divider */
+.connect-curve {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    line-height: 0;
+    z-index: 0;
+}
+
+.connect-curve svg {
+    display: block;
+    width: 100%;
+    height: 130px;
+}
+
+.connect-curve path {
+    fill: #edf1f5;
+}
+
+/* ──────────────────────────────────────────────
+   Main Footer (light section)
+────────────────────────────────────────────── */
+.footer-main {
+    background: #edf1f5;
+    padding: 8px 48px 36px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-start;
+    gap: 48px;
+    flex-wrap: wrap;
+}
+
+/* Logo column */
+.footer-logo-col {
+    flex: 0 0 auto;
+}
+
+.footer-logo-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.footer-logo-icon {
+    width: 66px;
+    height: 56px;
+}
+
+/* Header-matching logo image */
+.footer-logo-img {
+    width: 150px;
+    height: auto;
+    display: block;
+}
+
+.footer-brand-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Open Sans', sans-serif;
+    line-height: 1.05;
+}
+
+.brand-capsa {
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: #0a2f4f;
+}
+
+.brand-connect {
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 5px;
+    margin-left: 4px;
+    color: #5a6b7d;
+}
+
+/* Content columns */
+.footer-col {
+    flex: 1;
+    min-width: 140px;
+}
+
+.footer-col-title {
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: #0d3b5a;
+    letter-spacing: 1.2px;
+    margin: 0 0 16px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.footer-link {
+    font-size: 0.88rem;
+    color: #444c5a;
+    text-decoration: none;
+    font-family: 'Open Sans', sans-serif;
+    transition: color 0.15s;
+}
+
+.footer-link:hover {
+    color: #0173A5;
+    text-decoration: none;
+}
+
+/* Social icons — brand colours, borderless */
+.social-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.social-icon-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    text-decoration: none;
+    transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.social-icon-link:hover {
+    transform: translateY(-2px);
+    opacity: 0.85;
+}
+
+.social--fb {
+    color: #1877f2;
+}
+.social--x {
+    color: #14171a;
+}
+.social--in {
+    color: #0a66c2;
+}
+.social--yt {
+    color: #ff0000;
+}
+
+/* Contact */
+.contact-line {
+    font-size: 0.88rem;
+    color: #444c5a;
+    font-family: 'Open Sans', sans-serif;
+    margin: 0 0 8px;
+    line-height: 1.5;
+}
+
+.contact-link {
+    color: #0173A5;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.15s;
+}
+
+.contact-link:hover {
+    color: #015f8a;
+    text-decoration: underline;
+}
+
+/* ──────────────────────────────────────────────
+   Newsletter Bar (sits on the same light section)
+────────────────────────────────────────────── */
+.newsletter-bar {
+    background: #edf1f5;
+    padding: 8px 48px 32px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.newsletter-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.newsletter-label {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #0a2840;
+    font-family: 'Open Sans', sans-serif;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.newsletter-fields {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    flex-wrap: wrap;
+}
+
+.newsletter-input {
+    flex: 1;
+    min-width: 180px;
+    height: 46px;
+    padding: 0 16px;
+    border: 1px solid #d0d8e0;
+    border-radius: 6px;
+    font-size: 0.88rem;
+    font-family: 'Open Sans', sans-serif;
+    color: #344054;
+    background: #ffffff;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.newsletter-input::placeholder {
+    color: #98a2b3;
+}
+
+.newsletter-input:focus,
+.newsletter-select:focus {
+    border-color: #0173A5;
+    box-shadow: 0 0 0 3px rgba(1, 115, 165, 0.15);
+}
+
+.newsletter-select {
+    flex: 1;
+    min-width: 180px;
+    height: 46px;
+    padding: 0 16px;
+    border: 1px solid #d0d8e0;
+    border-radius: 6px;
+    font-size: 0.88rem;
+    font-family: 'Open Sans', sans-serif;
+    color: #344054;
+    background: #ffffff;
+    cursor: pointer;
+    outline: none;
+    box-sizing: border-box;
+    appearance: auto;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.subscribe-btn {
+    height: 46px;
+    padding: 0 34px;
+    background: #0a2840;
+    color: #ffffff;
+    border: none;
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 800;
+    font-family: 'Open Sans', sans-serif;
+    letter-spacing: 1px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.subscribe-btn:hover {
+    background: #05182a;
+    transform: translateY(-1px);
+}
+
+/* ──────────────────────────────────────────────
+   Copyright Bar
+────────────────────────────────────────────── */
+.copyright-bar {
+    background: #0173A5;
+    padding: 15px 48px;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.copyright-text {
+    font-size: 0.8rem;
+    color: #dceaf2;
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* ──────────────────────────────────────────────
+   Responsive
+────────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .connect-section {
+        padding: 44px 24px 96px;
+        text-align: center;
+    }
+    .connect-inner {
+        justify-content: center;
+    }
+    .connect-heading {
+        font-size: 1.6rem;
+        flex: 1 1 100%;
+    }
+    .connect-curve svg {
+        height: 60px;
+    }
+    .footer-main {
+        padding: 8px 24px 28px;
+    }
+    .footer-inner {
+        gap: 28px;
+    }
+    .newsletter-bar {
+        padding: 8px 24px 28px;
+    }
+    .newsletter-label {
+        flex: 1 1 100%;
+    }
+    .subscribe-btn {
+        flex: 1 1 100%;
+    }
+    .copyright-bar {
+        padding: 14px 24px;
+    }
+}

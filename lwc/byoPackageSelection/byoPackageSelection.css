@@ -1,0 +1,87 @@
+:host {
+    display: block;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.card-step {
+    margin-top: 3.5rem;
+    padding-left: 8%;
+    padding-right: 8%;
+}
+
+.title { 
+    font-size: 24px; 
+    font-weight: 600; 
+    color: #333; 
+}
+
+.instruction-text { 
+    font-size: 18px; 
+    line-height: 1.4; 
+    color: #444; 
+}
+
+/* Package Card Design */
+.package-card {
+    position: relative;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    background-color: #fff;
+    transition: all 0.2s ease;
+    margin-top: 1.5rem;
+}
+
+/* Highlight state when selected */
+.package-card.selected {
+    border-color: #2cb195;
+    box-shadow: 0 0 10px rgba(44, 177, 149, 0.3);
+    background-color: #f0fdfa;
+}
+
+.package-card:hover:not(.selected) {
+    border-color: #999;
+}
+
+.main-pkg-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    padding: 15px;
+    object-fit: contain;
+}
+
+/* Footer & Next Button (Matching Storage Component) */
+.footer-container {
+    display: flex;
+    justify-content: flex-end;
+    padding-bottom: 50px;
+}
+
+.btn-next {
+    background-color: #ccc;
+    color: #fff;
+    border: none;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.btn-next:not(:disabled) { 
+    background-color: #2cb195; 
+    cursor: pointer; 
+}
+
+.none-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 120px;
+    background-color: #f9f9f9;
+}
+
+.none-card:hover:not(.selected) {
+    background-color: #f0f0f0;
+}

@@ -1,0 +1,128 @@
+<template>
+    <div class="orders">
+        <div class="orders__header">
+            <h2 class="orders__title">{heading}</h2>
+            <div class="orders__tabs" role="tablist">
+                <button class={allClass} data-tab="all" onclick={handleTab} type="button">All</button>
+                <button class={activeClass} data-tab="active" onclick={handleTab} type="button">Active</button>
+                <button class={historyClass} data-tab="history" onclick={handleTab} type="button">History</button>
+            </div>
+        </div>
+
+        <template if:true={error}>
+            <div class="orders__state orders__state--error">
+                We couldn't load your orders. Please try again later.
+            </div>
+        </template>
+
+        <template if:true={showCard}>
+            <div class="card">
+
+                <!-- Search toolbar: stays mounted while a query is in flight so
+                     the input keeps focus, and remains reachable when a search
+                     returns nothing (otherwise there'd be no way to clear it). -->
+                <div class="list-toolbar">
+                    <div class="search-box">
+                        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <circle cx="11" cy="11" r="7"></circle>
+                            <line x1="20" y1="20" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        <input type="text" class="search-input" autocomplete="off"
+                            placeholder="Search by order or PO number" aria-label="Search orders"
+                            oninput={handleSearchInput} onkeydown={handleSearchKeydown} />
+                        <template if:true={hasSearchText}>
+                            <button type="button" class="search-clear" title="Clear search"
+                                aria-label="Clear search" onclick={handleClearSearch}>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                </svg>
+                            </button>
+                        </template>
+                    </div>
+                    <template if:true={isSearching}>
+                        <span class="search-meta" aria-live="polite">{searchResultLabel}</span>
+                    </template>
+                </div>
+
+                <div class="table-area">
+
+                    <template if:true={loading}>
+                        <div class="spinner-overlay">
+                            <lightning-spinner alternative-text="Loading orders" size="medium"></lightning-spinner>
+                        </div>
+                    </template>
+
+                    <template if:true={hasRows}>
+                        <div class="table-scroll">
+                            <div class="table" role="table">
+                                <div class="thead" role="row">
+                                    <span class="th th--order sortable" role="columnheader"
+                                        aria-sort={ariaSortOrder} data-column="orderNumber" onclick={handleSort}>
+                                        ORDER <span class="sort-ic">{sortIconOrder}</span>
+                                    </span>
+                                    <span class="th th--date sortable" role="columnheader"
+                                        aria-sort={ariaSortDate} data-column="orderedDate" onclick={handleSort}>
+                                        DATE <span class="sort-ic">{sortIconDate}</span>
+                                    </span>
+                                    <span class="th th--items" role="columnheader">ITEMS</span>
+                                    <span class="th th--total sortable" role="columnheader"
+                                        aria-sort={ariaSortTotal} data-column="total" onclick={handleSort}>
+                                        TOTAL <span class="sort-ic">{sortIconTotal}</span>
+                                    </span>
+                                    <span class="th th--status sortable" role="columnheader"
+                                        aria-sort={ariaSortStatus} data-column="status" onclick={handleSort}>
+                                        STATUS <span class="sort-ic">{sortIconStatus}</span>
+                                    </span>
+                                </div>
+
+                                <template for:each={displayRows} for:item="row">
+                                    <div class="trow" key={row.orderSummaryId} role="row">
+                                        <div class="td td--order">
+                                            <a
+                                                href={row.url}
+                                                class="order-link"
+                                                data-id={row.orderSummaryId}
+                                                onclick={handleOrderClick}
+                                            >{row.orderNumber}</a>
+                                            <span class="po">PO {row.poNumber}</span>
+                                        </div>
+                                        <div class="td td--date">{row.dateText}</div>
+                                        <div class="td td--items">{row.itemsText}</div>
+                                        <div class="td td--total">{row.totalText}</div>
+                                        <div class="td td--status">
+                                            <span class={row.badgeClass}>
+                                                <span class="badge__dot" aria-hidden="true"></span>{row.status}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+
+                        <template if:true={showPagination}>
+                            <div class="pagination-bar">
+                                <span class="page-summary">{pageSummary}</span>
+                                <div class="page-nav">
+                                    <button class="pg-btn" onclick={handlePrev} disabled={isFirstPage}>Previous</button>
+                                    <span class="page-status">Page {pageNumber} of {totalPages}</span>
+                                    <button class="pg-btn" onclick={handleNext} disabled={isLastPage}>Next</button>
+                                </div>
+                            </div>
+                        </template>
+                    </template>
+
+                    <template if:true={showEmpty}>
+                        <div class="empty-state">
+                            <lightning-icon icon-name="standard:orders" size="large"></lightning-icon>
+                            <p class="empty-title">{emptyTitle}</p>
+                            <p class="empty-text">{emptyText}</p>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </template>
+    </div>
+</template>

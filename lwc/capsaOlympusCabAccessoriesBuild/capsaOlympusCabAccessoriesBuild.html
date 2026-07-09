@@ -1,0 +1,67 @@
+<template>
+
+    <lightning-card>
+
+        <!-- LOADING -->
+
+        <template if:true={isLoading}>
+
+            <div
+                class="slds-is-relative"
+                style="height:200px;">
+
+                <lightning-spinner
+                    alternative-text="Loading..."
+                    size="medium">
+                </lightning-spinner>
+
+            </div>
+
+        </template>
+
+        <!-- MAIN FLOW -->
+
+        <template if:false={isLoading}>
+
+            <!-- CABINET LINE -->
+
+            <template if:true={isCabinetLineStep}>
+
+                <c-byo-cabinet-line-selection
+                    product-type={productType}
+                    selections={selections}
+                    onnextstep={handleNextButton}>
+                </c-byo-cabinet-line-selection>
+
+            </template>
+
+            <!-- ACCESSORIES -->
+
+            <template if:true={isAccessoryStep}>
+
+                <c-byo-accessory-selection
+                    product-type={productType}
+                    selections={selections}
+                    onnextstep={handleNextButton}>
+                </c-byo-accessory-selection>
+
+            </template>
+
+            <!-- RESULTS -->
+
+            <template if:true={isResultStep}>
+
+                <c-capsa-olympus-cab-accessorie-result-page
+                    summary-data={summaryData}
+                    opportunity-id={opportunityId}
+                    quote-id={quoteId}
+                    is-unlisted-cart={isUnlistedCart}>
+                </c-capsa-olympus-cab-accessorie-result-page>
+
+            </template>
+
+        </template>
+
+    </lightning-card>
+
+</template>

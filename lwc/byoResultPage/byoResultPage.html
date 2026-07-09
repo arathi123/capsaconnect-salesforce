@@ -1,0 +1,192 @@
+<template>
+    <div class="results-page-container">
+        <template if:true={isLoading}>
+            <div class="full-page-loader">
+                <lightning-spinner 
+                    alternative-text="Generating Quote..." 
+                    size="large" 
+                    variant="brand">
+                </lightning-spinner>
+            </div>
+        </template>
+
+        <div class="results-header">
+            <h2 class="title">Results</h2>
+            <hr class="header-divider" />
+            <div class="intro-block">
+                <p class="intro-text">
+                    Thanks! Your customized configuration is available to submit a Request For Quote, Email to Coworker,
+                    or Print/Save as PDF Document.
+                </p>
+                <p class="intro-text">
+                    If you were not able to precisely configure your Avalo, contact your Capsa Representative, or
+                    contact us directly at <strong>800.437.6633</strong>, <a
+                        href="mailto:info@capsahealthcare.com">info@capsahealthcare.com</a>, or visit <a
+                        href="https://capsahealthcare.com" target="_blank">capsahealthcare.com</a>
+                </p>
+            </div>
+        </div>
+
+        <template if:true={isUnlistedCart}>
+            <div class="slds-notify slds-notify_alert slds-theme_warning slds-m-bottom_medium">
+                ⚠️ <b>Unlisted Cart:</b> 
+                We dont have have product Against this cart, therefor it will come under unlisted cart field and Quote line will not be created against this.
+            </div>
+        </template>
+
+        <div class="results-main-content">
+            <div class="summary-column">
+                <h3 class="summary-title">YOUR SUMMARY</h3>
+                <hr class="summary-divider" />
+
+                <ul class="summary-list">
+                    <li class="summary-item">
+                        <strong>Package Type</strong>
+                        <ul class="summary-sub-list">
+                            <li>{packageType}</li>
+                        </ul>
+                    </li>
+
+                    <template if:true={useCase}>
+                        <li class="summary-item">
+                            <strong>Use Case</strong>
+                            <ul class="summary-sub-list">
+                                <li>{useCase}</li>
+                            </ul>
+                        </li>
+                    </template>
+
+                    <template if:true={height}>
+                        <li class="summary-item">
+                            <strong>Height</strong>
+                            <ul class="summary-sub-list">
+                                <li>{height}</li>
+                            </ul>
+                        </li>
+                    </template>
+
+                    <template if:true={lock}>
+                        <li class="summary-item">
+                            <strong>Lock</strong>
+                            <ul class="summary-sub-list">
+                                <li>{lock}</li>
+                            </ul>
+                        </li>
+                    </template>
+
+                    <template if:true={color}>
+                        <li class="summary-item">
+                            <strong>Color</strong>
+                            <ul class="summary-sub-list">
+                                <li>{color}</li>
+                            </ul>
+                        </li>
+                    </template>
+
+                    <template if:true={hasStorageTiers}>
+                        <li class="summary-item">
+                            <strong>Storage Tiers</strong>
+                            <ul class="summary-sub-list">
+                                <template for:each={storageTiers} for:item="tier">
+                                    <li key={tier.slot}>
+                                        <strong>Tier {tier.slot} - </strong>{tier.displayLabel}
+                                    </li>
+                                </template>
+                            </ul>
+                        </li>
+                    </template>
+
+                    <template if:true={hasOptions}>
+                        <li class="summary-item">
+                            <strong>Options</strong>
+                            <ul class="summary-sub-list">
+                                <template if:true={handle}>
+                                    <li><strong>Handle:</strong> {handle.displayValue}</li>
+                                </template>
+                                <template if:true={labels}>
+                                    <li><strong>Labels:</strong> {labels.displayValue}</li>
+                                </template>
+                                <template if:true={pullOutSurface}>
+                                    <li><strong>Pull Out Surface:</strong> {pullOutSurface.displayValue}</li>
+                                </template>
+                            </ul>
+                        </li>
+                    </template>
+
+                    <template if:true={hasBridge}>
+                        <li class="summary-item">
+                            <strong>Bridge</strong>
+                            <ul class="summary-sub-list">
+                                <li>{bridge.displayValue}</li>
+                            </ul>
+                        </li>
+                    </template>
+
+                    <template if:true={hasBins}>
+                        <li class="summary-item slds-m-bottom_medium">
+                            <strong>Bins</strong>
+                            <ul class="summary-sub-list">
+                                <template for:each={bins} for:item="bin">
+                                    <li key={bin.id}>
+                                        {bin.label}
+                                        <template if:true={bin.quantity}>
+                                            <ul class="summary-sub-list slds-m-top_x-small">
+                                                <li>Quantity: {bin.quantity}</li>
+                                            </ul>
+                                        </template>
+                                    </li>
+                                </template>
+                            </ul>
+                        </li>
+                    </template>
+
+                    <template if:true={hasOptionalStorageShelf}>
+                        <li class="summary-item slds-m-bottom_medium">
+                            <strong>Optional Storage Shelf</strong>
+                            <ul class="summary-sub-list">
+                                <li>{optionalStorageShelff}</li>
+                            </ul>
+                        </li>
+                    </template>
+
+                    <template if:true={hasAccessories}>
+                        <li class="summary-item">
+                            <strong>Accessories</strong>
+                            <ul class="summary-sub-list">
+                                <template for:each={accessories} for:item="acc">
+                                    <li key={acc.id}>
+                                        {acc.label}
+                                        <template if:true={acc.quantity}>
+                                            <ul class="summary-sub-list slds-m-top_x-small">
+                                                <li>Quantity: {acc.quantity}</li>
+                                            </ul>
+                                        </template>
+                                    </li>
+                                </template>
+                            </ul>
+                        </li>
+                    </template>
+
+                    <template if:true={hasTray}>
+                        <li class="summary-item slds-m-top_medium">
+                            <strong>Selected Tray</strong>
+                            <ul class="summary-sub-list">
+                                <li>{tray.label}-{tray.key}</li>
+                            </ul>
+                        </li>
+                    </template>
+                    
+                </ul>
+            </div>
+
+            <div class="image-column">
+                <c-byo-cart-preview 
+                    summary-data={summaryData}
+                    is-reconfigure-mode={isReconfigureMode}
+                    onrequestquote={handleQuoteRequest}
+                    onupdatequote={handleUpdateQuote}>
+                </c-byo-cart-preview>
+            </div>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,403 @@
+<template>
+
+    <div class="shell-container">
+
+        <!-- LOADER -->
+
+        <template if:true={isLoading}>
+
+            <div class="spinner-container">
+
+                <lightning-spinner
+                    alternative-text="Loading..."
+                    size="medium">
+                </lightning-spinner>
+
+            </div>
+
+        </template>
+
+        <!-- MAIN -->
+
+        <template if:false={isLoading}>
+
+            <template if:true={materialOptions.length}>
+
+                <div class="question-block fade-in">
+
+                    <h3 class="question-title">
+                        Select Cabinet Material
+                    </h3>
+
+                    <div class="option-grid">
+
+                        <template
+                            for:each={materialOptions}
+                            for:item="opt">
+
+                            <div
+                                key={opt.Option_Key__c}
+
+                                class={opt.cardClass}
+
+                                data-section="material"
+
+                                data-key={opt.Option_Key__c}
+
+                                onclick={handleSelect}>
+
+                                <div class="card-inner">
+
+                                    <template if:true={opt.Image_URL__c}>
+
+                                        <img
+                                            src={opt.Image_URL__c}
+                                            class="card-icon"
+                                            alt={opt.Option_Label__c} />
+
+                                    </template>
+
+                                    <div class="radio-row">
+
+                                        <input
+                                            type="radio"
+                                            checked={opt.isSelected}
+                                            readonly />
+
+                                        <label>
+
+                                            {opt.Option_Label__c}
+
+                                        </label>
+
+                                    </div>
+
+                                    <div
+                                        if:true={opt.Description__c}
+                                        class="tooltip">
+
+                                        {opt.Description__c}
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </template>
+
+                    </div>
+
+                </div>
+
+            </template>
+
+            <template if:true={heightOptions.length}>
+
+                <div class="question-block fade-in">
+
+                    <h3 class="question-title">
+                        Select Height
+                    </h3>
+
+                    <div class="option-grid">
+
+                        <template
+                            for:each={heightOptions}
+                            for:item="opt">
+
+                            <div
+                                key={opt.Option_Key__c}
+
+                                class={opt.cardClass}
+
+                                data-section="height"
+
+                                data-key={opt.Option_Key__c}
+
+                                onclick={handleSelect}>
+
+                                <div class="card-inner">
+
+                                    <template if:true={opt.Image_URL__c}>
+
+                                        <img
+                                            src={opt.Image_URL__c}
+                                            class="card-icon"
+                                            alt={opt.Option_Label__c} />
+
+                                    </template>
+
+                                    <div class="radio-row">
+
+                                        <input
+                                            type="radio"
+                                            checked={opt.isSelected}
+                                            readonly />
+
+                                        <label>
+
+                                            {opt.Option_Label__c}
+
+                                        </label>
+
+                                    </div>
+
+                                    <div
+                                        if:true={opt.Description__c}
+                                        class="tooltip">
+
+                                        {opt.Description__c}
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </template>
+
+                    </div>
+
+                </div>
+
+            </template>
+
+            <template if:true={depthOptions.length}>
+
+                <div class="question-block fade-in">
+
+                    <h3 class="question-title">
+                        Select Depth
+                    </h3>
+
+                    <div class="option-grid">
+
+                        <template
+                            for:each={depthOptions}
+                            for:item="opt">
+
+                            <div
+                                key={opt.Option_Key__c}
+
+                                class={opt.cardClass}
+
+                                data-section="depth"
+
+                                data-key={opt.Option_Key__c}
+
+                                onclick={handleSelect}>
+
+                                <div class="card-inner">
+
+                                    <template if:true={opt.Image_URL__c}>
+
+                                        <img
+                                            src={opt.Image_URL__c}
+                                            class="card-icon"
+                                            alt={opt.Option_Label__c} />
+
+                                    </template>
+
+                                    <div class="radio-row">
+
+                                        <input
+                                            type="radio"
+                                            checked={opt.isSelected}
+                                            readonly />
+
+                                        <label>
+
+                                            {opt.Option_Label__c}
+
+                                        </label>
+
+                                    </div>
+
+                                    <div
+                                        if:true={opt.Description__c}
+                                        class="tooltip">
+
+                                        {opt.Description__c}
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </template>
+
+                    </div>
+
+                </div>
+
+            </template>
+
+            <!-- =====================================
+                 WIDTH
+            ====================================== -->
+
+            <template if:true={widthOptions.length}>
+
+                <div class="question-block fade-in">
+
+                    <h3 class="question-title">
+                        Select Width
+                    </h3>
+
+                    <div class="option-grid">
+
+                        <template
+                            for:each={widthOptions}
+                            for:item="opt">
+
+                            <div
+                                key={opt.Option_Key__c}
+
+                                class={opt.cardClass}
+
+                                data-section="width"
+
+                                data-key={opt.Option_Key__c}
+
+                                onclick={handleSelect}>
+
+                                <div class="card-inner">
+
+                                    <template if:true={opt.Image_URL__c}>
+
+                                        <img
+                                            src={opt.Image_URL__c}
+                                            class="card-icon"
+                                            alt={opt.Option_Label__c} />
+
+                                    </template>
+
+                                    <div class="radio-row">
+
+                                        <input
+                                            type="radio"
+                                            checked={opt.isSelected}
+                                            readonly />
+
+                                        <label>
+
+                                            {opt.Option_Label__c}
+
+                                        </label>
+
+                                    </div>
+
+                                    <div
+                                        if:true={opt.Description__c}
+                                        class="tooltip">
+
+                                        {opt.Description__c}
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </template>
+
+                    </div>
+
+                </div>
+
+            </template>
+
+            <template if:true={doorOptions.length}>
+
+                <div class="question-block fade-in">
+
+                    <h3 class="question-title">
+                        Select Door
+                    </h3>
+
+                    <div class="option-grid">
+
+                        <template
+                            for:each={doorOptions}
+                            for:item="opt">
+
+                            <div
+                                key={opt.Option_Key__c}
+
+                                class={opt.cardClass}
+
+                                data-section="door"
+
+                                data-key={opt.Option_Key__c}
+
+                                onclick={handleSelect}>
+
+                                <div class="card-inner">
+
+                                    <template if:true={opt.Image_URL__c}>
+
+                                        <img
+                                            src={opt.Image_URL__c}
+                                            class="card-icon"
+                                            alt={opt.Option_Label__c} />
+
+                                    </template>
+
+                                    <div class="radio-row">
+
+                                        <input
+                                            type="radio"
+                                            checked={opt.isSelected}
+                                            readonly />
+
+                                        <label>
+
+                                            {opt.Option_Label__c}
+
+                                        </label>
+
+                                    </div>
+
+                                    <div
+                                        if:true={opt.Description__c}
+                                        class="tooltip">
+
+                                        {opt.Description__c}
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </template>
+
+                    </div>
+
+                </div>
+
+            </template>
+
+            <template if:true={isComplete}>
+
+                <div class="footer-area fade-in">
+
+                    <button
+                        class="next-btn"
+                        onclick={handleNext}>
+
+                        NEXT →
+
+                    </button>
+
+                </div>
+
+            </template>
+
+        </template>
+
+    </div>
+
+</template>

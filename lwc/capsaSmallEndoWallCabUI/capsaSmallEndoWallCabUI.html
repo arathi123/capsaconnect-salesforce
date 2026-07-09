@@ -1,0 +1,67 @@
+<template>
+
+    <div class="path-wrapper">
+
+        <c-cart-path-bar 
+            product-family={productType}
+            current-step={currentStep}
+            enabled-steps={allowedSteps}
+            onchildevent={handlePathSelection}
+            onbacktoproducts={handleResetFlow}>
+        </c-cart-path-bar>
+
+    </div>
+
+    <!-- LANDING -->
+
+    <template if:true={showLandingPage}>
+
+        <div class="page-container">
+
+            <h1 class="title">
+                Small Endo Wall Cabinet Configurator
+            </h1>
+
+            <hr>
+
+            <p class="description">
+                Configure Small Endo Wall Cabinets based on your workflow and requirements.
+            </p>
+
+            <button 
+                class="build-btn"
+                onclick={handleBuildClick}>
+
+                START CONFIGURATION →
+
+            </button>
+
+        </div>
+
+    </template>
+
+    <!-- LOADER -->
+
+    <template if:true={isLoading}>
+
+        <lightning-spinner
+            alternative-text="Loading">
+        </lightning-spinner>
+
+    </template>
+
+    <!-- BUILD FLOW -->
+
+    <template if:true={showBuildYourOwn}>
+
+        <c-capsa-small-endo-wall-cab-build
+            opportunity-id={opportunityId}
+            quote-id={quoteId}
+            product-type={productType}
+            onstepchange={handleStepChange}
+            onresetflow={handleResetFlow}>
+        </c-capsa-small-endo-wall-cab-build>
+
+    </template>
+
+</template>

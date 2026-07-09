@@ -1,0 +1,175 @@
+<template>
+
+    <!-- ================= LOADING ================= -->
+
+    <template if:true={isLoading}>
+
+        <div class="spinner-container">
+
+            <lightning-spinner
+                alternative-text="Loading..."
+                size="medium">
+
+            </lightning-spinner>
+
+        </div>
+
+    </template>
+
+    <!-- ================= PAGE ================= -->
+
+    <template if:false={isLoading}>
+
+        <div class="use-case-container fade-in">
+
+            <!-- ================= LEFT PANEL ================= -->
+
+            <div class="questions-column">
+
+                <h2 class="title">
+
+                    Select Accessories
+
+                </h2>
+
+                <hr>
+
+                <p class="slds-text-body_regular slds-m-bottom_medium">
+
+                    The Trio mobile computing workstation is designed to accept
+                    a wide variety of accessories to customize your workflow
+                    and organization.
+
+                    <br/><br/>
+
+                    Select an accessory image or name to learn more about that
+                    option.
+
+                    <br/><br/>
+
+                    Add an accessory to your configuration by selecting the
+                    checkbox next to the item.
+
+                </p>
+
+                <div class="options-list slds-m-top_medium">
+
+                    <template
+                        for:each={accessoryOptions}
+                        for:item="option">
+
+                        <div
+                            key={option.Option_Key__c}
+                            class={option.cardClass}
+                            data-key={option.Option_Key__c}
+                            onclick={handleAccessorySelect}>
+
+                            <div class="card-content">
+
+                                <!-- Checkbox -->
+
+                                <input
+                                    type="checkbox"
+                                    checked={option.isChecked}
+                                    readonly />
+
+                                <!-- Text -->
+
+                                <div class="text-block">
+
+                                    <div class="option-title">
+
+                                        {option.Option_Label__c}
+
+                                    </div>
+
+                                        <template if:true={option.Description__c}>
+
+                                            <div class="option-desc hover-desc">
+
+                                                {option.Description__c}
+
+                                            </div>
+
+                                        </template>
+
+                                </div>
+
+                                <!-- Image -->
+
+                                <template if:true={option.Image_URL__c}>
+
+                                    <img
+                                        src={option.Image_URL__c}
+                                        class="acc-img"
+                                        alt={option.Option_Label__c}/>
+
+                                </template>
+
+                            </div>
+
+                        </div>
+
+                        <hr key={option.Id}>
+
+                    </template>
+
+                </div>
+
+                <!-- Footer -->
+
+                <div class="footer-area">
+
+                    <button
+                        class="next-btn"
+                        onclick={handleNext}>
+
+                        NEXT →
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- ================= RIGHT PANEL ================= -->
+
+            <div class="preview-column">
+
+                <div class="sticky-preview">
+
+                    <div class="canvas-container">
+
+                        <!-- Base Cart -->
+
+                        <img
+                            src={baseCartImage}
+                            class="base-cart-img"
+                            alt="Configured Cart"/>
+
+                        <!-- Drawer Overlays -->
+
+                        <template
+                            for:each={overlays}
+                            for:item="overlay">
+
+                            <img
+                                key={overlay.url}
+                                src={overlay.url}
+                                class="overlay-drawer"
+                                style={overlay.style}
+                                alt="Drawer Overlay"/>
+
+                        </template>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </template>
+
+</template>

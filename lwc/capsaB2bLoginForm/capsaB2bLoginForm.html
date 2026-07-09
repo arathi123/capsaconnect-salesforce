@@ -1,0 +1,43 @@
+<template>
+    <div class="login-card">
+        <template if:true={showError}>
+            <div class="login-error" role="alert">{errorMessage}</div>
+        </template>
+
+        <div class="form-field-group">
+            <label class="field-label">*{usernameLabel}:</label>
+            <input type="text"
+                   class="login-input"
+                   data-id="username"
+                   placeholder={usernameLabel}
+                   autocomplete="username email"
+                   onkeyup={handleKeyUp}/>
+        </div>
+
+        <div class="form-field-group">
+            <label class="field-label">*{passwordLabel}:</label>
+            <input type="password"
+                   class="login-input"
+                   data-id="password"
+                   placeholder={passwordLabel}
+                   autocomplete="current-password"
+                   onkeyup={handleKeyUp}/>
+        </div>
+
+        <div class="forgot-row">
+            <a href={forgotPasswordUrl} class="forgot-link">{forgotPasswordLabel}</a>
+        </div>
+
+        <div class="button-row">
+            <button type="button" class="login-btn" onclick={handleLogin} disabled={isLoading}>
+                <template if:true={isLoading}>Logging in...</template>
+                <template if:false={isLoading}>{loginButtonLabel}</template>
+            </button>
+        </div>
+
+        <div class="existing-customer-section">
+            <p class="existing-text">{existingCustomerText}</p>
+            <a href={requestLoginUrl} class="request-login-btn">{requestLoginLabel}</a>
+        </div>
+    </div>
+</template>

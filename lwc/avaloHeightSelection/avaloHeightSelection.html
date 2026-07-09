@@ -1,0 +1,92 @@
+<template>    
+    <template if:true={showcartHeight}>
+        <!-- REUSABLE PATH BAR (same UI as parent) -->
+        <c-cart-path-bar current-step="Height" onchildevent={handlePathselection}></c-cart-path-bar>
+    <h1 class="title">Cart Height</h1> <hr>
+    <p class="subtitle">
+       Choose a height that meets your capacity and workflow requirements.
+       </p>
+    <div class="height-grid">
+
+        <div class="height-card">
+             <div class="img-wrapper">
+            <img src={standardImg} class="height-img">
+             <div class="hover-text">10 High Cart</div>
+             </div>
+            <label>
+                <input type="radio" name="height" value="standard" data-id="standard" onchange={handleSelect}>
+                Standard
+            </label>
+             <div class="dimensions">
+                Dimensions: 43”H x 31” W x 24”D / 110 x 79 x 61 cm
+            </div>
+        </div>
+
+        <div class="height-card">
+             <div class="img-wrapper">
+            <img src={intermediateImg} class="height-img">
+             <div class="hover-text">9 High Cart</div>
+             </div>
+            
+            <label>
+                <input type="radio" name="height" value="intermediate" data-id="intermediate" onchange={handleSelect}>
+                Intermediate
+            </label>
+              <div class="dimensions">
+               Dimensions: 39.5”H x 31” W x 24”D / 100 x 79 x 61 cm
+            </div>
+        </div>
+
+        <template if:true={showcompact}>
+            <div class="height-card">
+             <div class="img-wrapper">
+            <img src={compactImg} class="height-img">
+            <div class="hover-text">8 High Cart</div>
+            </div>
+            <label>
+                <input type="radio" name="height" value="compact" data-id="compact" onchange={handleSelect}>
+                Compact
+            </label>
+             <div class="dimensions">
+               Dimensions: 36”H x 31” W x 24”D / 91 x 79 x 61 cm
+            </div>
+        </div>
+        </template>
+        
+
+    </div>
+  <template if:true={showNext}>
+    <div class="next-btn-wrapper">
+        <button class="next-btn" onclick={handlenext}>NEXT</button>
+    </div>
+</template>
+ <template if:true={isLoading}>
+        <div class="slds-is-relative" style="height: 100px;"> <!-- Container for positioning -->
+           <div class="Spinner Container"><lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+      </div> 
+        </div>
+    </template>
+</template>
+  <!-- PAGE 3 — ACCESSORY PACKAGES -->
+   <template if:false={isLoading}>
+    <template if:true={showpackages}>
+        <c-accessory-packages selected-height={selectedHeight}    selected-cart={selectedCart}>  </c-accessory-packages>
+    </template>
+    </template>
+    <template if:true={showTypeSelection}>
+        <c-capsa-u-i ></c-capsa-u-i>
+    </template>
+    <template if:false={isLoading}>
+    <template if:true={showLockSection}>
+        <c-lock-section selected-cart = {cart}></c-lock-section>
+    </template>
+    </template>
+      <template if:true={isLoading}>
+        <div class="slds-is-relative" style="height: 100px;"> <!-- Container for positioning -->
+           <div class="Spinner Container"><lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+      </div> 
+        </div>
+    </template>
+    
+ 
+</template>

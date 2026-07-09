@@ -1,0 +1,168 @@
+/* ── Add controls row (checkboxes + button below picker) ──── */
+.add-controls-row {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.add-btn-wrap {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+/* ── Asset warranty detail box (add panel) ───────────────── */
+.asset-detail-box {
+    background-color: var(--lwc-colorBackgroundAlt, #f3f3f3);
+    border-left: 4px solid var(--lwc-brandAccessible, #0176d3);
+    border-radius: 0.25rem;
+}
+
+.detail-label {
+    font-size: 0.75rem;
+    color: var(--lwc-colorTextLabel, #3e3e3c);
+    margin-bottom: 0.125rem;
+}
+
+/* ── Inline spinner ──────────────────────────────────────── */
+.inline-spinner {
+    position: relative;
+    top: 0.25rem;
+}
+
+/* ── Empty state ─────────────────────────────────────────── */
+.empty-state {
+    border: 1px dashed var(--lwc-colorBorder, #dddbda);
+    border-radius: 0.25rem;
+}
+
+.empty-icon {
+    display: block;
+    margin: 0 auto 0.5rem;
+    opacity: 0.4;
+}
+
+/* ── Asset section headers ───────────────────────────────── */
+.asset-section-header {
+    display: flex;
+    align-items: center;
+}
+
+.asset-section-title {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--lwc-colorTextLabel, #3e3e3c);
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+}
+
+/* ── Asset table ─────────────────────────────────────────── */
+.slds-table td,
+.slds-table th {
+    vertical-align: middle;
+}
+
+/* ── Row number ──────────────────────────────────────────── */
+.row-number {
+    font-size: 0.75rem;
+    color: var(--lwc-colorTextLabel, #3e3e3c);
+    font-weight: 600;
+}
+
+/* ── Row expander (chevron) button ───────────────────────── */
+.row-expander {
+    color: var(--lwc-colorTextIcon, #706e6b);
+}
+
+.row-expander:hover {
+    color: var(--lwc-colorTextDefault, #080707);
+}
+
+/* ── Delete button — reveal on row hover ─────────────────── */
+.delete-btn {
+    opacity: 0;
+    transition: opacity 0.1s;
+}
+
+.slds-hint-parent:hover .delete-btn {
+    opacity: 1;
+}
+
+/* ── Expanded inline edit row ────────────────────────────── */
+.expanded-edit-row > td {
+    background-color: var(--lwc-colorBackgroundAlt, #f3f3f3);
+    border-top: 2px solid var(--lwc-brandAccessible, #0176d3);
+}
+
+/* ── Cases hover link + popover ──────────────────────────── */
+.case-hover-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.case-hover-link {
+    color: var(--lwc-brandAccessible, #0176d3);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.case-popover {
+    position: absolute;
+    top: calc(100% + 0.75rem);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9000;
+    min-width: 18rem;
+    max-width: 24rem;
+}
+
+.case-popover-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    padding: 0.3rem 0;
+    border-bottom: 1px solid var(--lwc-colorBorderSeparator, #e0e5ee);
+}
+
+.case-popover-row:last-child {
+    border-bottom: none;
+}
+
+.case-popover-number {
+    font-weight: 600;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.case-popover-subject {
+    font-size: 0.8125rem;
+    color: var(--lwc-colorTextDefault, #3e3e3c);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1;
+}
+
+.case-popover-status {
+    font-size: 0.75rem;
+    color: var(--lwc-colorTextLabel, #706e6b);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* ── Warranty info box inside expanded row ───────────────── */
+.warranty-info-box {
+    background-color: #fff;
+    border: 1px solid var(--lwc-colorBorder, #dddbda);
+    border-radius: 0.25rem;
+    padding: 0.75rem;
+}
+
+.warranty-info-heading {
+    font-size: 0.6875rem;
+    color: var(--lwc-colorTextLabel, #3e3e3c);
+}

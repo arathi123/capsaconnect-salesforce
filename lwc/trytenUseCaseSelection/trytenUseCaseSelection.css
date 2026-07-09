@@ -1,0 +1,198 @@
+.use-case-container {
+    display: flex;
+    gap: 40px;
+    margin-top: 1rem;
+    padding: 0 5%;
+}
+
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 300px;
+    position: relative;
+}
+
+.questions-column {
+    flex: 6;
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+    padding-bottom: 50px;
+}
+
+.preview-column {
+    flex: 4;
+}
+
+.sticky-preview {
+    position: sticky;
+    top: 20px;
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+}
+
+.preview-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #2cb195;
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+.image-box {
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.preview-img {
+    max-width: 100%;
+    max-height: 500px;
+    object-fit: contain;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.question-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.option-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.option-card {
+    background: #fff;
+    border: 2px solid #e5e5e5;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    position: relative; /* Crucial for absolute tooltip positioning */
+}
+
+.option-card:hover {
+    border-color: #2cb195;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.option-card.selected {
+    border-color: #2cb195;
+    background-color: #f0fdfa;
+}
+
+.card-inner {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+}
+
+.card-icon {
+    height: 80px;
+    width: auto;
+    object-fit: contain;
+    margin-bottom: 10px;
+}
+
+.radio-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: auto; /* Pushes radio to the bottom if text varies */
+}
+
+.radio-row label {
+    font-weight: 500;
+    font-size: 1rem;
+    cursor: pointer;
+    pointer-events: none; 
+}
+
+/* Tooltip Hover Logic */
+.tooltip {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    bottom: 105%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 14px;
+    border-radius: 6px;
+    width: 240px;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    z-index: 100;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    pointer-events: none;
+}
+
+.tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -6px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: #333 transparent transparent transparent;
+}
+
+.option-card:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+.fade-in {
+    animation: fadeIn 0.4s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.footer-area {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.next-btn {
+    background-color: #2cb195;
+    color: white;
+    padding: 14px 32px;
+    border-radius: 6px;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 6px rgba(44, 177, 149, 0.2);
+    transition: background-color 0.2s ease;
+}
+
+.next-btn:hover {
+    background-color: #1aac9d;
+}

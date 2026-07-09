@@ -1,0 +1,33 @@
+.path-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.custom-back-btn {
+    --slds-c-button-color-background: #48b9b0;
+    --slds-c-button-color-border: #48b9b0;
+    --slds-c-icon-color-foreground: #ffffff; 
+}
+
+.custom-back-btn:hover {
+    --slds-c-button-color-background-hover: #369c94;
+    --slds-c-button-color-border-hover: #369c94;
+}
+
+.back-container {
+    flex-shrink: 0;
+}
+
+.path-wrapper {
+    flex: 1;
+}
+
+.step-disabled {
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+.slds-path__stage {
+    background: none !important;
+}

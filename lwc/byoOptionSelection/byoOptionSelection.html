@@ -1,0 +1,112 @@
+<template>
+
+    <div class="container">
+
+        <h2 class="title">
+            Choose Option Configuration
+        </h2>
+
+        <hr>
+
+        <div class="height-grid">
+
+            <template
+                for:each={optionOptions}
+                for:item="item">
+
+                <div
+                    key={item.cardkey}
+                    class={item.cardClass}
+                    data-key={item.cardkey}
+                    onmouseenter={handleMouseEnter}
+                    onmouseleave={handleMouseLeave}
+                    onclick={handleSelect}>
+
+                    <div class="card-content">
+
+                        <img
+                            src={item.Image_URL__c}
+                            alt={item.Option_Label__c}
+                            class="cart-img" />
+
+                        <div class="radio-row">
+
+                            <input
+                                type="radio"
+                                name="option"
+                                value={item.Option_Key__c}
+                                checked={item.isSelected} />
+
+                            <label class="cart-name">
+                                {item.Option_Label__c}
+                            </label>
+
+                        </div>
+
+                        <div class="description-container">
+
+                            <p
+                                if:true={item.showDesc}
+                                class="cart-subtext fade-in">
+
+                                {item.Description__c}
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </template>
+
+            <!-- NONE CARD -->
+            <div
+                class={noneCardClass}
+                onclick={handleNoneSelection}>
+
+                <div class="card-content">
+
+                    <div class="cart-img none-img">
+                    
+                    </div>
+
+                    <div class="radio-row">
+
+                        <input
+                            type="radio"
+                            checked={optionNone}
+                            readonly />
+
+                        <label class="cart-name">
+                            None
+                        </label>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <hr>
+
+        <div
+            if:true={showNextButton}
+            class="footer-area">
+
+            <button
+                class="next-btn"
+                onclick={handleNext}>
+
+                NEXT
+
+            </button>
+
+        </div>
+
+    </div>
+
+</template>

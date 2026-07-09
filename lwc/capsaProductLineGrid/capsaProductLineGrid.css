@@ -1,0 +1,138 @@
+:host {
+    display: block;
+    background: #f4f7fa;
+}
+
+.section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 4rem;
+}
+
+.section__title {
+    margin: 0 0 0.75rem;
+    text-align: center;
+    color: #005587;
+    font-weight: 700;
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    font-family: 'Open Sans', sans-serif;
+}
+
+.section__subtitle {
+    max-width: 680px;
+    margin: 0 auto 2.5rem;
+    text-align: center;
+    color: #5b6b7a;
+    line-height: 1.55;
+    font-size: 0.95rem;
+    font-family: 'Open Sans', sans-serif;
+}
+
+/* ── Grid: 3 columns on desktop ── */
+.grid {
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+/* ── Card ── */
+.card {
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: 0 1px 4px rgba(16, 38, 63, 0.07), 0 2px 8px rgba(16, 38, 63, 0.04);
+    transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+    cursor: pointer;
+}
+
+.card:hover,
+.card:focus-visible {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 32px rgba(16, 38, 63, 0.14);
+    border-color: #b8d4e8;
+}
+
+/* ── Image area ── */
+.card__media {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 4 / 3;
+    background: #ffffff;
+    padding: 20px 24px;
+    overflow: hidden;
+}
+
+.card__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    transition: transform 0.3s ease;
+}
+
+.card:hover .card__media img {
+    transform: scale(1.04);
+}
+
+.card__media-fallback {
+    font-size: 3rem;
+    color: #b8cfe0;
+}
+
+/* ── Label bar ── */
+.card__body {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 1rem 1.25rem;
+    border-top: 1px solid #edf2f7;
+    background: #fafcfe;
+}
+
+.card__title {
+    font-weight: 600;
+    color: #1c2b3a;
+    font-size: 0.95rem;
+    line-height: 1.35;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.card__arrow {
+    color: #0173A5;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+}
+
+.card:hover .card__arrow {
+    transform: translateX(4px);
+}
+
+/* ── Responsive breakpoints ── */
+@media (max-width: 900px) {
+    .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 560px) {
+    .grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .card,
+    .card__media img,
+    .card__arrow {
+        transition: none;
+    }
+}

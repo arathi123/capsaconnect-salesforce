@@ -1,0 +1,122 @@
+<template>
+
+    <lightning-card>
+
+        <!-- LOADING -->
+
+        <template if:true={isLoading}>
+
+            <div
+                class="slds-is-relative"
+                style="height:200px;">
+
+                <lightning-spinner
+                    alternative-text="Loading..."
+                    size="medium">
+                </lightning-spinner>
+
+            </div>
+
+        </template>
+
+        <!-- MAIN FLOW -->
+
+        <template if:false={isLoading}>
+
+            <!-- CABINET LINE -->
+
+            <template if:true={isCabinetLineStep}>
+
+                <c-byo-cabinet-line-selection
+                    product-type={productType}
+                    selections={selections}
+                    onnextstep={handleNextButton}>
+                </c-byo-cabinet-line-selection>
+
+            </template>
+
+            <!-- J HOOKS -->
+            <template if:true={isJHooksStep}>
+
+                <c-byo-j-hooks-selection
+                    product-type={productType}
+                    onnextstep={handleNextButton}>
+                </c-byo-j-hooks-selection>
+ 
+            </template> 
+
+
+            <!-- MATERIAL -->
+
+            <template if:true={isMaterialStep}>
+
+                <c-byo-material-selection
+                    product-type={productType}
+                    onnextstep={handleNextButton}>
+                </c-byo-material-selection>
+
+            </template> 
+
+            <!-- DOOR KEY -->
+
+            <template if:true={isDoorKeyTypeStep}>
+
+                <c-byo-door-key-selection
+                    product-type={productType}
+                    onnextstep={handleNextButton}>
+                </c-byo-door-key-selection>
+
+            </template> 
+
+            <!-- TOP -->
+
+            <template if:true={isTopStep}>
+
+                <c-byo-top-selection
+                    product-type={productType}
+                    selections={selections}
+                    onnextstep={handleNextButton}>
+                </c-byo-top-selection>
+
+            </template> 
+
+            <!-- ACCESSORIES -->
+
+            <template if:true={isAccessoryStep}>
+
+                <c-byo-accessory-selection
+                    product-type={productType}
+                    onnextstep={handleNextButton}>
+                </c-byo-accessory-selection>
+
+            </template>
+
+            <!-- OPTION -->
+
+            <template if:true={isOptionStep}>
+
+                <c-byo-option-selection
+                    product-type={productType}
+                    onnextstep={handleNextButton}>
+                </c-byo-option-selection>
+
+            </template>
+
+            <!-- RESULTS-->
+            <template if:true={isResultStep}>
+
+                <c-byo-sas-cabinets-result-page
+                    summary-data={summaryData}
+                    opportunity-id={opportunityId}
+                    quote-id={quoteId}
+                    is-unlisted-cart={isUnlistedCart}>
+                </c-byo-sas-cabinets-result-page>
+
+            </template>  
+
+
+        </template>
+
+    </lightning-card>
+
+</template>

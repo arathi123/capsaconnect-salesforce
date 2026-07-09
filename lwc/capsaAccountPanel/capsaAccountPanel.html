@@ -1,0 +1,29 @@
+<template>
+    <section class="panel">
+        <div class="panel__inner">
+            <p class="panel__eyebrow">{eyebrow}</p>
+            <h2 class="panel__heading">{heading}</h2>
+
+            <div class="cards">
+                <template for:each={cards} for:item="card">
+                    <button
+                        key={card.key}
+                        type="button"
+                        class="card"
+                        data-key={card.key}
+                        aria-label={card.label}
+                        onclick={handleCardClick}
+                    >
+                        <span class="card__icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24">
+                                <path d={card.icon}></path>
+                            </svg>
+                        </span>
+                        <span class="card__title">{card.label}</span>
+                        <span class="card__desc">{card.description}</span>
+                    </button>
+                </template>
+            </div>
+        </div>
+    </section>
+</template>

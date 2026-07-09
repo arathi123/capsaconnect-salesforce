@@ -1,0 +1,45 @@
+<template>
+    <div class="m40-engine-container">
+
+        <template if:true={isCartTypeComputing}>
+            <c-capsa-non-powered-m40-cart-type
+                product-type={productType}
+                selections={selections}
+                onstepcomplete={handleStepComplete}>
+            </c-capsa-non-powered-m40-cart-type>
+        </template>
+
+        <template if:true={isPowerCordOption}>
+            <c-capsa-non-powered-m40-power-cord
+                product-type={productType}
+                selections={selections}
+                onstepcomplete={handleStepComplete}>
+            </c-capsa-non-powered-m40-power-cord>
+        </template>
+
+        <template if:true={isWarrantyService}>
+            <c-capsa-non-powered-m40-warranty-service
+                product-type={productType}
+                selections={selections}
+                onstepcomplete={handleStepComplete}>
+            </c-capsa-non-powered-m40-warranty-service>
+        </template>
+
+        <template if:true={isAccessories}>
+            <c-capsa-non-powered-m40-accessories
+                product-type={productType}
+                selections={selections}
+                onstepcomplete={handleStepComplete}>
+            </c-capsa-non-powered-m40-accessories>
+        </template>
+
+        <template if:true={isResult}>
+            <c-capsa-non-powered-m40-result
+                summary-data={summaryData}
+                opportunity-id={opportunityId}
+                quote-id={quoteId}>
+            </c-capsa-non-powered-m40-result>
+        </template>
+
+    </div>
+</template>

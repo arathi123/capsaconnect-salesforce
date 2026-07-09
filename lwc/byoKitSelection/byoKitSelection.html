@@ -1,0 +1,83 @@
+<template>
+    <div class="container">
+        <h2 class="title">Accessory Kit</h2>
+        <hr>
+        <p class="subtitle">Choose an accessory kit.</p>
+
+        <div class="height-grid">
+            <template for:each={kitOptions} for:item="item">
+                <div key={item.Option_Key__c}
+                     class={item.cardClass}
+                     data-key={item.Option_Key__c}
+                     onclick={handleSelect}
+                     onmouseenter={handleMouseEnter}
+                     onmouseleave={handleMouseLeave}>
+
+                    <div class="card-content">
+                        <img src={item.Image_URL__c} class="cart-img"/>
+
+                        <div class="radio-row">
+                            <input type="checkbox" checked={item.isSelected}/>
+                            <label class="cart-name">{item.Option_Label__c}</label>
+                        </div>
+
+                        <div class="description-container">
+                            <p if:true={item.showDesc} class="cart-subtext fade-in">
+                                {item.Description__c}
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </template>
+             <!-- NONE CARD -->
+            <div
+                class={noneCardClass}
+                onclick={handleNoneSelection}>
+
+                <div class="card-content">
+
+                    <div class="cart-img none-img">
+                        No Kit
+                    </div>
+
+                    <div class="radio-row">
+                        <input
+                            type="radio"
+                            checked={kitNone}
+                            readonly />
+
+                        <label class="cart-name">
+                            None
+                        </label>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <hr>
+       <!-- <div class="height-card none-card"
+     onclick={handleNoneSelection}>
+
+            <div class="card-content">
+
+                <div class="radio-row">
+                    <input
+                        type="radio"
+                        checked={kitNone}/>
+
+                    <label class="cart-name">
+                        None
+                    </label>
+                </div>
+
+            </div>
+        </div> -->
+
+
+        <div if:true={showNextButton} class="footer-area">
+            <button class="next-btn" onclick={handleNext}>NEXT</button>
+        </div>
+    </div>
+</template>

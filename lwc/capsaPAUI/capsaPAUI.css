@@ -1,0 +1,59 @@
+.page-container {
+    text-align: center;
+    padding: 60px 20px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.title {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 25px;
+    color: #333;
+    text-align: center;
+}
+
+hr {
+    width: 60%;
+    margin: 0 auto 30px auto;
+    border: 0;
+    border-top: 1px solid #e0e0e0;
+}
+
+.description {
+    width: 60%;
+    margin: 0 auto 50px auto;
+    font-size: 20px;
+    color: #444;
+    line-height: 1.6;
+}
+
+.build-btn {
+    font-size: 22px;
+    padding: 15px 50px;
+    background-color: #48b9b0;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.2s;
+    font-weight: 500;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.build-btn:hover {
+    background-color: #3aa59d;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.spinner-container {
+    height: 200px;             
+    display: flex;             
+    justify-content: center;    
+    align-items: center;       
+    position: relative;        
+}
+
+.path-wrapper {
+    margin-bottom: 20px;
+}

@@ -1,0 +1,143 @@
+.container {
+    margin-top: 3.5rem;
+    padding-left: 8%;
+    padding-right: 8%;
+    font-family: 'Open Sans', sans-serif;
+}
+
+hr {
+    margin-block: 1.25rem;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+}
+
+.subtitle {
+    font-size: 18px;
+    margin-top: 0.5rem;
+    margin-bottom: 2.5rem;
+    color: #666;
+}
+
+.tray-grid {
+    display: flex;
+    flex-wrap: wrap; /* Allows cards to wrap if there are more than 3 */
+    justify-content: flex-start;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.tray-card {
+    flex: 1 1 calc(33.333% - 20px); /* Forces 3 per row minus gap */
+    max-width: calc(33.333% - 20px);
+    border: 2px solid #e5e5e5;
+    border-radius: 12px;
+    padding: 15px 15px 10px 15px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: #fff;
+    box-sizing: border-box;
+}
+
+.tray-card:hover {
+    border-color: #2cb195;
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.tray-card.selected {
+    border-color: #2cb195;
+    background-color: #f0fdfa;
+}
+
+.tray-img {
+    width: 100%;
+    height: 100%;
+    max-height: 180px;
+    margin-bottom: 15px;
+    object-fit: contain;
+}
+
+.radio-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.tray-name {
+    font-weight: 600;
+    font-size: 16px;
+    color: #333;
+}
+
+.description-container {
+    min-height: 80px; /* Space for descriptions to keep height stable */
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.tray-subtext {
+    font-size: 0.95rem;
+    color: #666;
+    margin-top: 5px;
+    text-align: center;
+    line-height: 1.4;
+}
+
+.tray-card.selected .tray-subtext {
+    color: #333;
+    font-weight: 500;
+}
+
+.fade-in {
+    animation: fadeIn 0.3s ease-in;
+}
+
+.footer-area {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 3rem;
+}
+
+.next-btn {
+    background-color: #2cb195;
+    color: white;
+    padding: 12px 40px;
+    border-radius: 6px;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.next-btn:hover {
+    background-color: #1aac9d;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    .tray-card {
+        flex: 1 1 calc(50% - 20px);
+        max-width: calc(50% - 20px);
+    }
+}
+
+@media (max-width: 480px) {
+    .tray-card {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+}

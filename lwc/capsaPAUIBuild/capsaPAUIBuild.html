@@ -1,0 +1,44 @@
+<template>
+    <lightning-card>
+        <template if:true={isLoading}>
+            <div class="slds-is-relative" style="height: 200px;">
+                <lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+            </div>
+        </template>
+
+        <template if:false={isLoading}>
+
+            <template if:true={isTableTopUnit}>
+                <c-capsa-table-top-unit
+                    product-type={productType}
+                    ontypeselected={handleTableTopSelected}
+                    onnextstep={handleNextButton}>
+                </c-capsa-table-top-unit>
+            </template>
+
+            <template if:true={isWarranty}>
+                <c-capsa-warranty
+                    product-type={productType}
+                    onwarrantyselected={handleWarrantySelected}
+                    onnextstep={handleNextButton}>
+                </c-capsa-warranty>
+            </template>
+
+            <template if:true={isService}>
+                <c-capsa-service
+                    product-type={productType}
+                    onserviceselected={handleServiceSelected}
+                    onnextstep={handleNextButton}>
+                </c-capsa-service>
+            </template>
+
+            <template if:true={isResult}>
+                <c-capsa-p-a-result
+                    opportunity-id={opportunityId}
+                    summary-data={selections}
+                    quote-id={quoteId}>
+                </c-capsa-p-a-result>
+            </template>
+        </template>
+    </lightning-card>
+</template>

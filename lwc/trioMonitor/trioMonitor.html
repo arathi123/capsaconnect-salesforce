@@ -1,0 +1,266 @@
+<template>
+
+    <div class="use-case-container">
+
+        <template if:true={isLoading}>
+
+            <div class="spinner-container">
+
+                <lightning-spinner
+                    alternative-text="Loading..."
+                    size="medium">
+                </lightning-spinner>
+
+            </div>
+
+        </template>
+
+        <template if:false={isLoading}>
+
+            <!-- LEFT SIDE -->
+
+            <div class="questions-column">
+
+                <!-- DISPLAY TYPE -->
+
+                <h2 class="title">
+                    Select Display Type / Computing Interface
+                </h2>
+
+                <hr/>
+
+                <div class="options-list">
+
+                    <template
+                        for:each={displayTypeOptions}
+                        for:item="opt">
+
+                        <div key={opt.Option_Key__c}>
+
+                            <div
+                                class={opt.rowClass}
+                                data-key={opt.Option_Key__c}
+                                onclick={handleDisplayTypeSelect}>
+
+                                <div class="text-block">
+
+                                    <div class="option-title">
+                                        {opt.Option_Label__c}
+                                    </div>
+
+                                    <template if:true={opt.isVisible}>
+
+                                        <div class="option-desc">
+                                            {opt.Description__c}
+                                        </div>
+
+                                    </template>
+
+                                </div>
+
+                                <input
+                                    type="radio"
+                                    checked={opt.isSelected}
+                                    readonly />
+
+                            </div>
+
+                            <hr/>
+
+                        </div>
+
+                    </template>
+
+                </div>
+
+                <!-- DISPLAY MOUNT -->
+
+                <template if:true={showDisplayMountSection}>
+
+                    <div class="slds-m-top_x-large">
+
+                        <h2 class="section-title">
+                            Select Display Mount
+                        </h2>
+
+                        <hr/>
+
+                        <div class="options-list">
+
+                            <template
+                                for:each={displayMountOptions}
+                                for:item="opt">
+
+                                <div key={opt.Option_Key__c}>
+
+                                    <div
+                                        class={opt.rowClass}
+                                        data-key={opt.Option_Key__c}
+                                        onclick={handleDisplayMountSelect}>
+
+                                        <div class="text-block">
+
+                                            <div
+                                                style="display:flex;align-items:center;gap:10px;">
+
+                                                <div class="option-title">
+                                                    {opt.Option_Label__c}
+                                                </div>
+
+                                                <template if:true={opt.Image_URL__c}>
+
+                                                    <img
+                                                        src={opt.Image_URL__c}
+                                                        class="tiny-image"/>
+
+                                                </template>
+
+                                            </div>
+
+                                            <template if:true={opt.isVisible}>
+
+                                                <div class="option-desc">
+                                                    {opt.Description__c}
+                                                </div>
+
+                                            </template>
+
+                                        </div>
+
+                                        <input
+                                            type="radio"
+                                            checked={opt.isSelected}
+                                            readonly />
+
+                                    </div>
+
+                                    <hr/>
+
+                                </div>
+
+                            </template>
+
+                        </div>
+
+                    </div>
+
+                </template>
+
+                <!-- WORK SURFACE LIGHT -->
+
+                <template if:true={showWorkSurfaceSection}>
+
+                    <div class="slds-m-top_x-large">
+
+                        <h2 class="section-title">
+                            Would you like to add the Work Surface / Notification Light?
+                        </h2>
+
+                        <p class="option-desc">
+
+                            Trio offers a combination work surface &
+                            notification light mounted on the column
+                            just above the work surface.
+
+                            The work surface light provides task lighting
+                            when in darkened rooms.
+
+                            The notification light is programmable to display
+                            different colors and includes a USB port.
+
+                        </p>
+
+                        <hr/>
+
+                        <div class="options-list">
+
+                            <template
+                                for:each={workSurfaceOptions}
+                                for:item="opt">
+
+                                <div key={opt.Option_Key__c}>
+
+                                    <div
+                                        class={opt.rowClass}
+                                        data-key={opt.Option_Key__c}
+                                        onclick={handleWorkSurfaceSelect}>
+
+                                        <div class="text-block">
+
+                                            <div class="option-title">
+                                                {opt.Option_Label__c}
+                                            </div>
+
+                                        </div>
+
+                                        <input
+                                            type="radio"
+                                            checked={opt.isSelected}
+                                            readonly />
+
+                                    </div>
+
+                                    <hr/>
+
+                                </div>
+
+                            </template>
+
+                        </div>
+
+                    </div>
+
+                </template>
+
+                <!-- NEXT BUTTON -->
+
+                <template if:true={isStepComplete}>
+
+                    <div class="footer-area">
+
+                        <button
+                            class="next-btn"
+                            onclick={handleNext}>
+
+                            NEXT →
+
+                        </button>
+
+                    </div>
+
+                </template>
+
+            </div>
+
+            <!-- RIGHT SIDE -->
+
+            <div class="preview-column">
+
+                <div class="sticky-preview">
+
+                    <div class="preview-heading">
+                        YOUR SELECTION
+                    </div>
+
+                    <div class="preview-subheading">
+                        Representative Image
+                    </div>
+
+                    <div class="image-box">
+
+                        <img
+                            src={currentPreviewImage}
+                            alt="Trio Preview"
+                            class="preview-img"/>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </template>
+
+    </div>
+
+</template>

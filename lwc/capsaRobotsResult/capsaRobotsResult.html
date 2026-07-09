@@ -1,0 +1,79 @@
+<template>
+    <div class="results-page-container">
+        <div class="slds-m-bottom_large">
+            <h2 class="title slds-m-bottom_small">Your Configuration Summary</h2>
+            <hr class="slds-m-vertical_small" />
+        </div>
+
+        <template if:true={isLoading}>
+            <div style="display:flex;justify-content:center;align-items:center;height:300px;">
+                <lightning-spinner alternative-text="Processing..." size="medium"></lightning-spinner>
+            </div>
+        </template>
+
+        <template if:false={isLoading}>
+
+            <!-- KL Robot -->
+            <template if:true={hasKLRobot}>
+                <div class="summary-section">
+                    <h3 class="section-title">KL Robot</h3>
+                    <template for:each={summaryData.klRobot} for:item="item">
+                        <div key={item.key} class="summary-row">
+                            <span class="item-label">{item.label}</span>
+                            <span class="item-code">{item.key}</span>
+                        </div>
+                    </template>
+                </div>
+            </template>
+
+            <!-- Warranty -->
+            <template if:true={hasWarranty}>
+                <div class="summary-section">
+                    <h3 class="section-title">Warranty</h3>
+                    <template for:each={summaryData.warranty} for:item="item">
+                        <div key={item.key} class="summary-row">
+                            <span class="item-label">{item.label}</span>
+                            <span class="item-code">{item.key}</span>
+                        </div>
+                    </template>
+                </div>
+            </template>
+
+            <!-- Service -->
+            <template if:true={hasService}>
+                <div class="summary-section">
+                    <h3 class="section-title">Service</h3>
+                    <template for:each={summaryData.service} for:item="item">
+                        <div key={item.key} class="summary-row">
+                            <span class="item-label">{item.label}</span>
+                            <span class="item-code">{item.key}</span>
+                        </div>
+                    </template>
+                </div>
+            </template>
+
+            <!-- Accessories -->
+            <template if:true={hasAccessories}>
+                <div class="summary-section">
+                    <h3 class="section-title">Accessories</h3>
+                    <template for:each={summaryData.accessories} for:item="acc">
+                        <div key={acc.optionKey} class="summary-row">
+                            <span class="item-label">{acc.optionLabel}</span>
+                            <span class="item-code">{acc.optionKey}</span>
+                        </div>
+                    </template>
+                </div>
+            </template>
+
+            <div class="footer-area slds-m-top_xx-large">
+                <template if:false={isReconfigureMode}>
+                    <button class="quote-btn" onclick={handleQuoteRequest}>REQUEST A QUOTE</button>
+                </template>
+                <template if:true={isReconfigureMode}>
+                    <button class="quote-btn" onclick={handleUpdateQuote}>UPDATE QUOTE</button>
+                </template>
+            </div>
+
+        </template>
+    </div>
+</template>

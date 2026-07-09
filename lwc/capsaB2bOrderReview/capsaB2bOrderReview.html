@@ -1,0 +1,146 @@
+<template>
+
+    <template if:true={isPreview}>
+        <div class="slds-box slds-p-around_medium">
+            <p>Order Review (Preview State)</p>
+        </div>
+    </template>
+
+    <template lwc:if={showContent}>
+        <div class="review-root">
+
+            <!-- Order email -->
+            <template lwc:if={reviewData}>
+                <p class="review-email">
+                    <strong>Order email:</strong> {reviewData.orderEmail}
+                </p>
+            </template>
+
+            <!-- Row 1: Bill To | Ship To -->
+            <div class="review-grid">
+                <div class="info-box">
+                    <p class="info-box__title">Bill to:</p>
+                    <template lwc:if={reviewData}>
+                        <p>{reviewData.accountName}</p>
+                        <p>{billToStreet}</p>
+                        <p>{billingLine}</p>
+                        <p>{billToCountry}</p>
+                        <template lwc:if={reviewData.accountFax}>
+                            <p>{reviewData.accountFax} (fax)</p>
+                        </template>
+                    </template>
+                </div>
+                <div class="info-box">
+                    <p class="info-box__title">Ship to:</p>
+                    <template lwc:if={shippingAddress}>
+                        <p>{shippingAddress.name}</p>
+                        <p>{shippingAddress.street}</p>
+                        <p>{shippingAddress.city}, {shippingAddress.region} {shippingAddress.postalCode}</p>
+                        <p>{shippingAddress.country}</p>
+                    </template>
+                </div>
+            </div>
+
+            <!-- Row 2: Payment Info | Shipping Method -->
+            <div class="review-grid">
+                <div class="info-box">
+                    <p class="info-box__title">Your Payment Information:</p>
+                    <template lwc:if={reviewData}>
+                        <p><strong>Method:</strong> {reviewPaymentMethod}</p>
+                        <template lwc:if={reviewPoNumber}>
+                            <p><strong>PO Number:</strong> {reviewPoNumber}</p>
+                        </template>
+                        <template lwc:if={hasPoFile}>
+                            <p><strong>PO Document:</strong> {poFileName} ({fileSizeDisplay})</p>
+                        </template>
+                    </template>
+                </div>
+                <div class="info-box">
+                    <p class="info-box__title">Shipping Method:</p>
+                    <template lwc:if={shippingMethod}>
+                        <p>{shippingMethod.name}</p>
+                    </template>
+                </div>
+            </div>
+
+            <!-- Line items table -->
+            <template lwc:if={hasItems}>
+                <div class="review-table-wrap">
+                    <table class="review-table">
+                        <thead>
+                            <tr>
+                                <th>Our Part # / Your Part #</th>
+                                <th>Items Ordered</th>
+                                <th class="right">Unit Price *</th>
+                                <th class="center">Qty</th>
+                                <th class="right">Discount</th>
+                                <th class="right">Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template for:each={cartItems} for:item="item">
+                                <tr key={item.cartItem.cartItemId}>
+                                    <td>{item.cartItem.productDetails.fields.ProductCode}</td>
+                                    <td>{item.cartItem.name}</td>
+                                    <td class="right">{item.cartItem.salesPrice}</td>
+                                    <td class="center">{item.cartItem.quantity}</td>
+                                    <td class="right">{item.cartItem.totalAdjustmentAmount}</td>
+                                    <td class="right">{item.cartItem.totalPrice}</td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </template>
+
+            <!-- Totals -->
+            <template lwc:if={cartSummary}>
+                <div class="totals-section">
+                    <table class="totals-table">
+                        <tbody>
+                            <tr>
+                                <td>Subtotal:</td>
+                                <td>{cartSummary.totalProductAmount}</td>
+                            </tr>
+                            <tr>
+                                <td>Taxes:</td>
+                                <td>{cartSummary.totalTaxAmount}</td>
+                            </tr>
+                            <tr>
+                                <td>Additional Charges:</td>
+                                <td>{cartSummary.totalChargeAmount}</td>
+                            </tr>
+                            <tr>
+                                <td>Shipping &amp; Handling:</td>
+                                <td>TBD</td>
+                            </tr>
+                            <tr class="totals-total">
+                                <td><strong>TOTAL:</strong></td>
+                                <td><strong>{cartSummary.grandTotalAmount}</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="review-price-note">* Price before discounts applied.</p>
+            </template>
+
+            <!-- T&C -->
+            <div class="review-tnc">
+                <div class="review-tnc-row">
+                    <input
+                        type="checkbox"
+                        data-id="terms-checkbox"
+                        class="review-tnc-checkbox"
+                        checked={isAccepted}
+                        onchange={handleAcceptChange} />
+                    <span class="review-tnc-text">I agree to the&nbsp;<a href={termsUrl} target="_blank" rel="noopener noreferrer" class="review-tnc-link">Terms and Conditions</a></span>
+                </div>
+                <template lwc:if={termsError}>
+                    <p class="review-tnc-error">{termsError}</p>
+                </template>
+            </div>
+
+        </div>
+    </template>
+
+</template>

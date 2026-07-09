@@ -1,0 +1,42 @@
+.card-step { padding: 2rem 5%; font-family: 'Open Sans', sans-serif; }
+.title { font-size: 1.5rem; font-weight: 600; color: #333; margin-bottom: 1rem; }
+
+.spinner-container { display: flex; justify-content: center; align-items: center; height: 300px; }
+
+.option-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 15px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.option-row:hover { background: #f9f9f9; }
+.option-row.selected { background: #f2f2f2; border-left: 4px solid #2cb195; }
+
+.text-block { max-width: 85%; }
+.option-title { font-size: 18px; font-weight: 600; color: #333; }
+.option-code { font-size: 13px; color: #666; margin-top: 4px; }
+
+.footer-area {
+    margin-top: 2rem;
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+    text-align: right;
+    margin-bottom: 3rem;
+}
+
+.next-btn {
+    background-color: #2cb195;
+    color: white;
+    padding: 12px 32px;
+    border-radius: 6px;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.next-btn:hover { background-color: #1aac9d; }
+
+.fade-in { animation: fadeIn 0.3s ease-in; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }

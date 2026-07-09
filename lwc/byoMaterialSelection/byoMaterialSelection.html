@@ -1,0 +1,91 @@
+<template>
+
+    <div class="container">
+
+        <h2 class="title">
+            Choose Material Configuration
+        </h2>
+
+        <hr>
+
+        <div class="height-grid">
+
+            <template
+                for:each={materialOptions}
+                for:item="item">
+
+                <div
+                    key={item.cardkey}
+
+                    class={item.cardClass}
+
+                    data-key={item.cardkey}
+
+                    onmouseenter={handleMouseEnter}
+
+                    onmouseleave={handleMouseLeave}
+
+                    onclick={handleSelect}>
+
+                    <div class="card-content">
+
+                        <img
+                            src={item.Image_URL__c}
+                            alt={item.Option_Label__c}
+                            class="cart-img" />
+
+                        <div class="radio-row">
+
+                            <input
+                                type="radio"
+                                name="material"
+                                value={item.Option_Key__c}
+                                checked={item.isSelected} />
+
+                            <label class="cart-name">
+
+                                {item.Option_Label__c}
+
+                            </label>
+
+                        </div>
+
+                        <div class="description-container">
+
+                            <p
+                                if:true={item.showDesc}
+                                class="cart-subtext fade-in">
+
+                                {item.Description__c}
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </template>
+
+        </div>
+
+        <hr>
+
+        <div
+            if:true={showNextButton}
+            class="footer-area">
+
+            <button
+                class="next-btn"
+                onclick={handleNext}>
+
+                NEXT
+
+            </button>
+
+        </div>
+
+    </div>
+
+</template>

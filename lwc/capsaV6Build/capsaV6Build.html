@@ -1,0 +1,53 @@
+<template>
+	<div class="v6-engine-container">
+		<template if:true={isTrack}>
+			<c-capsa-v-6-track 
+			product-type={productType} 
+			selections={selections} 
+			onstepcomplete={handleStepComplete}>
+			</c-capsa-v-6-track>
+		</template>
+
+		<template if:true={isArm}>
+			<c-capsa-v-6-arm 
+			product-type={productType} 
+			selections={selections} 
+			onstepcomplete={handleStepComplete}>
+			</c-capsa-v-6-arm>
+		</template>
+
+		<template if:true={isKeyboardArm}>
+			<c-capsa-v-6-keyboard-arm 
+			product-type={productType} 
+			selections={selections}
+			onstepcomplete={handleStepComplete}>
+			</c-capsa-v-6-keyboard-arm>
+		</template>
+
+		<template if:true={isKeyboardTray}>
+			<c-capsa-v-6-keyboard-tray 
+			product-type={productType} 
+			selections={selections}
+			onstepcomplete={handleStepComplete}>
+			</c-capsa-v-6-keyboard-tray>
+		</template>
+
+		<template if:true={isAccessories}>
+			<c-capsa-v-6-accessories 
+			product-type={productType} 
+			selections={selections}
+			onstepcomplete={handleStepComplete}>
+			</c-capsa-v-6-accessories>
+		</template>
+
+		<template if:true={isResults}>
+			<c-capsa-v-6-results 
+			opportunity-id={opportunityId} 
+			product-type={productType} 
+			quote-id={quoteId}
+			selections={selections} 
+			onstepcomplete={handleStepComplete}>
+			</c-capsa-v-6-results>
+		</template>
+	</div>
+</template>

@@ -1,0 +1,90 @@
+<template>
+    <div class="use-case-container fade-in">
+        
+        <template if:true={isLoading}>
+            <div class="spinner-container">
+                <lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+            </div>
+        </template>
+
+        <template if:false={isLoading}>
+            <div class="questions-column">
+                <h2 class="title">Select Use Case and Application</h2>
+                <hr>
+
+                <div class="options-list">
+                    <template for:each={cartTypeOptions} for:item="opt">
+                        <div key={opt.Option_Key__c}>
+                            <div 
+                                class={opt.rowClass} 
+                                data-key={opt.Option_Key__c} 
+                                onmouseenter={handleCartTypeMouseEnter} 
+                                onmouseleave={handleCartTypeMouseLeave} 
+                                onclick={handleCartTypeSelect}>
+                                
+                                <div class="text-block">
+                                    <div class="option-title">{opt.Option_Label__c}</div>
+                                    <template if:true={opt.Description__c}>
+                                        <div if:true={opt.isVisible} class="option-desc fade-in">
+                                            {opt.Description__c}
+                                        </div>
+                                    </template>
+                                </div>
+                                
+                                <input type="radio" checked={opt.isSelected} readonly />
+                            </div>
+                            <hr>
+                        </div>
+                    </template>
+                </div>
+
+                <template if:true={showSpecialtyOptions}>
+                    <div class="fade-in slds-m-top_x-large">
+                        <h2 class="title">Select Specialty Option</h2>
+                        <hr>
+                        
+                        <div class="options-list">
+                            <template for:each={specialtyOptions} for:item="spec">
+                                <div key={spec.Option_Key__c}>
+                                    <div 
+                                        class={spec.rowClass} 
+                                        data-key={spec.Option_Key__c} 
+                                        onmouseenter={handleSpecialtyMouseEnter} 
+                                        onmouseleave={handleSpecialtyMouseLeave} 
+                                        onclick={handleSpecialtySelect}>
+                                        
+                                        <div class="text-block">
+                                            <div class="option-title">{spec.Option_Label__c}</div>
+                                            <template if:true={spec.Description__c}>
+                                                <div if:true={spec.isVisible} class="option-desc fade-in">
+                                                    {spec.Description__c}
+                                                </div>
+                                            </template>
+                                        </div>
+                                        
+                                        <input type="radio" checked={spec.isSelected} readonly />
+                                    </div>
+                                    <hr>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+
+                <template if:true={isStepComplete}>
+                    <div class="footer-area fade-in">
+                        <button class="next-btn" onclick={handleNext}>NEXT →</button>
+                    </div>
+                </template>
+            </div>
+
+            <div class="preview-column">
+                <div class="sticky-preview">
+                    <div class="image-box">
+                        <img src={currentPreviewImage} alt="Cart Preview" class="preview-img fade-in"/>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </div>
+</template>

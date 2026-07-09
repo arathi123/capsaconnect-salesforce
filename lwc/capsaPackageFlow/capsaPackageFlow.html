@@ -1,0 +1,37 @@
+<template>
+    <div class="package-engine-container">
+        
+        <template if:true={isHeight}>
+            <c-package-height-selection 
+                options={currentOptions}
+                onheightselected={handleHeightSelection}
+                onnext={handleNext}>
+            </c-package-height-selection>
+        </template>
+
+        <template if:true={isLock}>
+            <c-package-lock-selection 
+                options={currentOptions}
+                onlockselected={handleLockSelection}
+                onnext={handleNext}>
+            </c-package-lock-selection>
+        </template>
+
+        <template if:true={isAccessory}>
+            <c-package-accessory-selection 
+                options={currentOptions}
+                onaccessoryselected={handleAccessorySelection}
+                onnext={handleNext}>
+            </c-package-accessory-selection>
+        </template>
+
+        <template if:true={isResults}>
+            <c-package-result-page 
+                opportunity-id={opportunityId}
+                package-summary-data={packageSummaryData}
+                quote-id={quoteId}>
+            </c-package-result-page>
+        </template>
+
+    </div>
+</template>

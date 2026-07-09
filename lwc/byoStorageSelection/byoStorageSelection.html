@@ -1,0 +1,119 @@
+<template>
+    <div class="card-step" id="storage-card">
+        <div class="slds-m-bottom_large">
+            <h2 class="title slds-m-bottom_small">Select Your Storage Drawers</h2>
+            <hr class="slds-m-vertical_small" />
+            <div class="instruction-text">
+                <p>All tiers must be filled in the proper order beginning with smaller drawers positioned above deeper drawers before you can advance.</p>
+
+                <p><b>Step 1:</b> If 3” Drawers are desired, position them first starting at the top. Start at Tier 1 and add the number of 3” drawers desired, from 0-10 depending on cart height chosen. Dividers are not included with 3” drawers. Click the <b>red pencil</b> next to drawer to choose the internal divider system or tray preference.</p>
+
+                <p><b>Step #2:</b> If 6” Drawers are desired, position them next. If no 3” drawers are selected begin placing 6” drawers at the top, from 0-5 depending on cart height chosen. One set of dividers is included in 6” drawers, see description next to drawer for more details.</p>
+
+                <p><b>Step #3:</b> If 10” Drawers are desired, position them last, from 0-3. One set of dividers is included in 10” drawers, see description next to drawer for more details.</p>
+
+                <p>To change your configuration, you may remove selections from the bottom up by clicking the red X, or by selecting Start Over/Reset.</p>
+            </div>
+        </div>
+
+        <div class="slds-grid slds-wrap slds-gutters">
+            
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                <div class="storage-image-container">
+                    <img src={cartBaseImage} class="base-cart-img" alt="Nexsys Cart Base" />
+                    
+                    <template for:each={drawerStack} for:item="drw">
+                        <div key={drw.id} class="drawer-overlay" style={drw.topStyle}>
+                            <img src={drw.img} class="drawer-face-img" />
+                            
+                            <template if:true={drw.isEditable}>
+                                <button class={drw.pencilClass}
+                                        data-id={drw.id} 
+                                        onclick={handleEditClick}
+                                        title="Choose divider option">✎</button>
+                            </template>
+                        </div>
+                    </template>
+
+                    <template if:true={drawerStack.length}>
+                        <button class="action-btn pop-btn" 
+                                style={popButtonTop}
+                                onclick={handlePop} 
+                                title="Remove this drawer">×</button>
+                    </template>
+                </div>
+            </div>
+
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                <div class="controls-wrapper">
+                    <button class="btn-reset slds-m-bottom_medium" onclick={handleReset}>
+                        <span>🗑</span> Reset
+                    </button>
+
+                    <div class="storage-options-list">
+                        <div class="option-row slds-grid slds-grid_vertical-align-center">
+                            <div class="slds-col slds-size_1-of-4">
+                                <button class="btn-add" disabled={isAdd3Disabled} data-size="1" onclick={handleAddClick}>Add</button>
+                            </div>
+                            <div class="slds-col slds-size_2-of-4">
+                                <img src={threeInchThumb} class="thumb-img" />
+                            </div>
+                            <div class="slds-col slds-size_1-of-4">
+                                <span class="label-text">3" Drawer</span>
+                            </div>
+                        </div>
+
+                        <div class="option-row slds-grid slds-grid_vertical-align-center slds-m-top_small">
+                            <div class="slds-col slds-size_1-of-4">
+                                <button class="btn-add" disabled={isAdd6Disabled} data-size="2" onclick={handleAddClick}>Add</button>
+                            </div>
+                            <div class="slds-col slds-size_2-of-4">
+                                <img src={sixInchThumb} class="thumb-img" />
+                            </div>
+                            <div class="slds-col slds-size_1-of-4">
+                                <span class="label-text">6" Drawer</span>
+                            </div>
+                        </div>
+
+                        <div class="option-row slds-grid slds-grid_vertical-align-center slds-m-top_small">
+                            <div class="slds-col slds-size_1-of-4">
+                                <button class="btn-add" disabled={isAdd10Disabled} data-size="3" onclick={handleAddClick}>Add</button>
+                            </div>
+                            <div class="slds-col slds-size_2-of-4">
+                                <img src={tenInchThumb} class="thumb-img" />
+                            </div>
+                            <div class="slds-col slds-size_1-of-4">
+                                <span class="label-text">10" Drawer</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slds-grid slds-m-top_xx-large">
+            <div class="slds-col slds-size_1-of-2">
+                <template if:true={showDividerValidationError}>
+                    <div class="slds-grid">
+                        <div class="slds-col slds-size_1-of-1">
+                            <div class="error-box">
+                                ⚠️ Please select a divider option for each 3" Drawer before proceeding.
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+            <div if:false={isNextDisabled} class="slds-col slds-size_1-of-2">
+                <button class="btn-next" disabled={isNextDisabled} onclick={handleNext}>NEXT</button>
+            </div>
+        </div>
+    </div>
+
+    <template if:true={showDividerModal}>
+        <c-byo-divider-modal 
+            options={dividerOptions} 
+            onsave={handleModalSave} 
+            onclose={closeModal}>
+        </c-byo-divider-modal>
+    </template>
+</template>

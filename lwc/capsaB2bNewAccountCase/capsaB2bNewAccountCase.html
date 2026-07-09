@@ -1,0 +1,145 @@
+<template>
+    <template if:true={isOpen}>
+        <div class="nac-backdrop" onclick={handleBackdropClick} onkeydown={handleKeydown}>
+            <div class="nac-modal" role="dialog" aria-modal="true" aria-labelledby="nac-title"
+                 onclick={stopPropagation}>
+
+                <!-- Header -->
+                <div class="nac-header">
+                    <h2 id="nac-title" class="nac-title">{modalTitle}</h2>
+                    <button type="button" class="nac-close" aria-label="Close"
+                            onclick={handleCancel} disabled={isSubmitting}>&times;</button>
+                </div>
+
+                <!-- ── Form ── -->
+                <template if:true={showForm}>
+                    <div class="nac-body">
+                        <p class="nac-intro">{modalIntro}</p>
+
+                        <template if:true={errorMessage}>
+                            <div class="nac-alert" role="alert">{errorMessage}</div>
+                        </template>
+
+                        <div class="nac-grid">
+                            <div class="nac-field full">
+                                <label class="nac-label" for="nac-email">Email <span class="req">*</span></label>
+                                <input id="nac-email" type="email" data-field="email"
+                                       class={fieldClass.email} value={form.email}
+                                       oninput={handleChange} autocomplete="email"
+                                       placeholder="you@company.com" maxlength="80"/>
+                            </div>
+
+                            <div class="nac-field half">
+                                <label class="nac-label" for="nac-phone">Phone <span class="req">*</span></label>
+                                <input id="nac-phone" type="tel" data-field="phone"
+                                       class={fieldClass.phone} value={form.phone}
+                                       oninput={handleChange} autocomplete="tel"
+                                       placeholder="(555) 123-4567" maxlength="40"/>
+                            </div>
+
+                            <div class="nac-field half">
+                                <label class="nac-label" for="nac-customer">Customer Number <span class="req">*</span></label>
+                                <input id="nac-customer" type="text" data-field="customerNumber"
+                                       class={fieldClass.customerNumber} value={form.customerNumber}
+                                       oninput={handleChange}
+                                       placeholder="Your Capsa customer #" maxlength="100"/>
+                            </div>
+
+                            <div class="nac-field full">
+                                <label class="nac-label" for="nac-company">Company Name <span class="req">*</span></label>
+                                <input id="nac-company" type="text" data-field="companyName"
+                                       class={fieldClass.companyName} value={form.companyName}
+                                       oninput={handleChange} autocomplete="organization"
+                                       placeholder="Company / practice name" maxlength="80"/>
+                            </div>
+
+                            <div class="nac-section-label full">Billing Address</div>
+
+                            <div class="nac-field full">
+                                <label class="nac-label" for="nac-street">Street <span class="req">*</span></label>
+                                <input id="nac-street" type="text" data-field="street"
+                                       class={fieldClass.street} value={form.street}
+                                       oninput={handleChange} autocomplete="address-line1"
+                                       placeholder="123 Main St" maxlength="120"/>
+                            </div>
+
+                            <div class="nac-field half">
+                                <label class="nac-label" for="nac-city">City <span class="req">*</span></label>
+                                <input id="nac-city" type="text" data-field="city"
+                                       class={fieldClass.city} value={form.city}
+                                       oninput={handleChange} autocomplete="address-level2"
+                                       placeholder="City" maxlength="60"/>
+                            </div>
+
+                            <div class="nac-field half">
+                                <label class="nac-label" for="nac-state">State <span class="req">*</span></label>
+                                <select id="nac-state" data-field="state" class={fieldClass.state}
+                                        onchange={handleChange}>
+                                    <template for:each={stateOptions} for:item="opt">
+                                        <option key={opt.value} value={opt.value} selected={opt.selected}>
+                                            {opt.label}
+                                        </option>
+                                    </template>
+                                </select>
+                            </div>
+
+                            <div class="nac-field half">
+                                <label class="nac-label" for="nac-zip">ZIP <span class="req">*</span></label>
+                                <input id="nac-zip" type="text" data-field="zip"
+                                       class={fieldClass.zip} value={form.zip}
+                                       oninput={handleChange} autocomplete="postal-code"
+                                       placeholder="ZIP" maxlength="15"/>
+                            </div>
+
+                            <div class="nac-field half">
+                                <label class="nac-label" for="nac-country">Country <span class="req">*</span></label>
+                                <input id="nac-country" type="text" data-field="country"
+                                       class={fieldClass.country} value={form.country}
+                                       oninput={handleChange} autocomplete="country-name"
+                                       placeholder="Country" maxlength="50"/>
+                            </div>
+
+                            <div class="nac-field full">
+                                <label class="nac-label" for="nac-comments">Comments</label>
+                                <textarea id="nac-comments" data-field="comments" class="nac-textarea"
+                                          oninput={handleChange} rows="3"
+                                          placeholder="Anything else we should know? (optional)"
+                                          maxlength="1000">{form.comments}</textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="nac-footer">
+                        <button type="button" class="nac-btn nac-btn-secondary"
+                                onclick={handleCancel} disabled={isSubmitting}>Cancel</button>
+                        <button type="button" class="nac-btn nac-btn-primary"
+                                onclick={handleSubmit} disabled={isSubmitDisabled}>
+                            <template if:true={isSubmitting}>
+                                <span class="nac-spinner" aria-hidden="true"></span> Submitting…
+                            </template>
+                            <template if:false={isSubmitting}>Submit Request</template>
+                        </button>
+                    </div>
+                </template>
+
+                <!-- ── Success ── -->
+                <template if:false={showForm}>
+                    <div class="nac-body nac-success">
+                        <div class="nac-check" aria-hidden="true">&#10003;</div>
+                        <h3 class="nac-success-title">Request submitted</h3>
+                        <p class="nac-success-text">
+                            Thanks! Your request has been received as case
+                            <strong>{successCaseNumber}</strong>. Our team will review it and
+                            reach out to set up your Capsa Connect account.
+                        </p>
+                    </div>
+                    <div class="nac-footer">
+                        <button type="button" class="nac-btn nac-btn-primary"
+                                onclick={handleDone}>Done</button>
+                    </div>
+                </template>
+
+            </div>
+        </div>
+    </template>
+</template>

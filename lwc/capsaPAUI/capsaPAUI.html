@@ -1,0 +1,44 @@
+<template>
+    <div class="path-wrapper">
+        <c-cart-path-bar
+            product-family={productType}
+            current-step={currentStep}
+            enabled-steps={allowedSteps}
+            hidden-steps={hiddenSteps}
+            onchildevent={handlePathSelection}
+            onbacktoproducts={handleResetFlow}>
+        </c-cart-path-bar>
+    </div>
+
+    <template if:true={showLandingPage}>
+        <div class="page-container">
+            <h1 class="title">PA Carts</h1>
+            <hr>
+            <p class="description">
+                Use this interactive tool to custom configure an PA Cart to meet your specific clinical workflow and secure storage requirements.
+            </p>
+
+            <button class="build-btn" onclick={handleBuildClick}>
+                START CONFIGURATION →
+            </button>
+        </div>
+    </template>
+
+    <template if:true={isLoading}>
+        <div class="spinner-container">
+            <lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+        </div>
+    </template>
+
+    <template if:false={isLoading}>
+        <template if:true={showBuildYourOwn}>
+            <c-capsa-p-a-u-i-build
+                opportunity-id={opportunityId}
+                product-type={productType}
+                quote-id={quoteId}
+                onstepchange={handleStepChange}
+                onresetflow={handleResetFlow}>
+            </c-capsa-p-a-u-i-build>
+        </template>
+    </template>
+</template>

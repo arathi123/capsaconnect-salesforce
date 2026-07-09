@@ -1,0 +1,41 @@
+<template>
+    <div class="container">
+        <h2 class="title">Tray Options</h2>
+        <hr>
+        <p class="subtitle">Select a tray that meets your workflow requirements. Click an option for more details.</p>
+
+        <div class="tray-grid">
+            <template for:each={trayOptions} for:item="item">
+                <div key={item.Option_Key__c} 
+                     class={item.cardClass}
+                     data-key={item.Option_Key__c}
+                     onmouseenter={handleMouseEnter}
+                     onmouseleave={handleMouseLeave}
+                     onclick={handleSelect}>
+                    
+                    <div class="card-content">
+                        <template if:true={item.Image_URL__c}>
+                            <img src={item.Image_URL__c} alt={item.Option_Label__c} class="tray-img" />
+                        </template>
+                        
+                        <div class="radio-row">
+                            <input type="radio" name="tray" value={item.Option_Key__c} checked={item.isSelected} />
+                            <label class="tray-name">{item.Option_Label__c}</label>
+                        </div>
+
+                        <div class="description-container">
+                            <p if:true={item.showDesc} class="tray-subtext fade-in">
+                                {item.Description__c}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </div>
+
+        <hr>
+        <div if:true={showNextButton} class="footer-area">
+            <button class="next-btn" onclick={handleNext}>NEXT</button>
+        </div>
+    </div>
+</template>

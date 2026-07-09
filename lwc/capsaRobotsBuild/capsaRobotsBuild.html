@@ -1,0 +1,45 @@
+<template>
+    <div class="m38e-engine-container">
+
+        <template if:true={isKLRobot}>
+            <c-capsa-robots-k-l-robot
+                product-type={productType}
+                selections={selections}
+                onstepcomplete={handleStepComplete}>
+            </c-capsa-robots-k-l-robot>
+        </template>
+
+        <template if:true={isWarranty}>
+            <c-capsa-robots-warranty
+                product-type={productType}
+                selections={selections}
+                onstepcomplete={handleStepComplete}>
+            </c-capsa-robots-warranty>
+        </template>
+
+        <template if:true={isRobotsService}>
+            <c-capsa-robots-service
+                product-type={productType}
+                selections={selections}
+                onstepcomplete={handleStepComplete}>
+            </c-capsa-robots-service>
+        </template>
+
+        <template if:true={isRobotsAccessory}>
+            <c-capsa-robots-accessory
+                product-type={productType}
+                selections={selections}
+                onstepcomplete={handleStepComplete}>
+            </c-capsa-robots-accessory>
+        </template>
+
+        <template if:true={isRobotsResult}>
+            <c-capsa-robots-result
+                summary-data={summaryData}
+                opportunity-id={opportunityId}
+                quote-id={quoteId}>
+            </c-capsa-robots-result>
+        </template>
+
+    </div>
+</template>
