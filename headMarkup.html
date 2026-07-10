@@ -112,89 +112,86 @@
   .capsa-results-modern .spacerArea {
     display: none !important;
   }
- 
 
-    /* =========================
-       IMAGE AREA WRAPPER
-       ========================= */
-    .capsa-results-modern .imageArea {
-      background: #f3f4f6 !important;
-      margin-top: 7px !important;
-      margin-left: 7px !important;
-      margin-right: 7px !important;
-      padding: 0 !important;
-      min-height: 270px !important;
-      height: 280px !important;
-      display: flex !important;
-      align-items: stretch !important;
-      justify-content: stretch !important;
-      overflow: hidden !important;
-    }
+  /* =========================
+     IMAGE AREA WRAPPER
+     ========================= */
+  .capsa-results-modern .imageArea {
+    background: #f3f4f6 !important;
+    margin-top: 7px !important;
+    margin-left: 7px !important;
+    margin-right: 7px !important;
+    padding: 0 !important;
+    min-height: 270px !important;
+    height: 280px !important;
+    display: flex !important;
+    align-items: stretch !important;
+    justify-content: stretch !important;
+    overflow: hidden !important;
+  }
 
-    /* =========================
-       FORCE ALL INNER IMAGE WRAPPERS
-       TO FILL THE GREY AREA
-       ========================= */
-    .capsa-results-modern .imageArea > *,
-    .capsa-results-modern .imageArea a,
-    .capsa-results-modern .imageArea div,
-    .capsa-results-modern .imageArea span,
-    .capsa-results-modern .imageArea picture {
-      width: 100% !important;
-      height: 100% !important;
-      max-width: none !important;
-      max-height: none !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      background: transparent !important;
-      padding: 0 !important;
-      margin: 0 !important;
-      box-sizing: border-box !important;
-    }
+  /* =========================
+     FORCE ALL INNER IMAGE WRAPPERS
+     TO FILL THE GREY AREA
+     ========================= */
+  .capsa-results-modern .imageArea > *,
+  .capsa-results-modern .imageArea a,
+  .capsa-results-modern .imageArea div,
+  .capsa-results-modern .imageArea span,
+  .capsa-results-modern .imageArea picture {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    max-height: none !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+  }
 
-    /* =========================
-       REAL PRODUCT IMAGE
-       fill available space much more aggressively
-       ========================= */
-    .capsa-results-modern .imageArea img {
-      width: 100% !important;
-      height: 100% !important;
-      max-width: 100% !important;
-      max-height: 100% !important;
-      min-width: 100% !important;
-      min-height: 100% !important;
-      object-fit: contain !important;
-      object-position: center center !important;
-      display: block !important;
-      padding-left:10px !important;
-      padding-right:10px !important;
-      margin: 0px !important;
-      background: transparent !important;
-      box-sizing: border-box !important;
-    }
+  /* =========================
+     REAL PRODUCT IMAGE
+     ========================= */
+  .capsa-results-modern .imageArea img {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    min-width: 100% !important;
+    min-height: 100% !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+    display: block !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    margin: 0 !important;
+    background: transparent !important;
+    box-sizing: border-box !important;
+  }
 
-    /* =========================
-       NO-IMAGE / PLACEHOLDER
-       keep same grey area, remove white box
-       ========================= */
-    .capsa-results-modern .imageArea .slds-image,
-    .capsa-results-modern .imageArea [class*="placeholder"],
-    .capsa-results-modern .imageArea [class*="fallback"],
-    .capsa-results-modern .imageArea lightning-primitive-icon,
-    .capsa-results-modern .imageArea .slds-icon_container {
-      background: transparent !important;
-      border: 0 !important;
-      box-shadow: none !important;
-    }
+  /* =========================
+     NO-IMAGE / PLACEHOLDER
+     ========================= */
+  .capsa-results-modern .imageArea .slds-image,
+  .capsa-results-modern .imageArea [class*="placeholder"],
+  .capsa-results-modern .imageArea [class*="fallback"],
+  .capsa-results-modern .imageArea lightning-primitive-icon,
+  .capsa-results-modern .imageArea .slds-icon_container {
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+  }
 
-    .capsa-results-modern .imageArea .slds-icon,
-    .capsa-results-modern .imageArea svg {
-      fill: #d6d9de !important;
-      color: #d6d9de !important;
-    }
+  .capsa-results-modern .imageArea .slds-icon,
+  .capsa-results-modern .imageArea svg {
+    fill: #d6d9de !important;
+    color: #d6d9de !important;
+  }
 
-    /* =========================
+  /* =========================
      Content / fields area
      ========================= */
   .capsa-results-modern .fieldsArea {
@@ -219,8 +216,6 @@
 
   /* =========================
      Product title / name
-     1. Center aligned
-     2. Wraps instead of truncating
      ========================= */
   .capsa-results-modern commerce-search-product-field,
   .capsa-results-modern commerce-search-product-field > div,
@@ -264,10 +259,14 @@
 
   /* =========================
      Add to cart button
+     Scoped so it DOES NOT affect pagination
      ========================= */
-  .capsa-results-modern button,
-  .capsa-results-modern .slds-button,
-  .capsa-results-modern [class*="addToCart"] {
+  .capsa-results-modern .fieldsArea button,
+  .capsa-results-modern .fieldsArea .slds-button,
+  .capsa-results-modern .fieldsArea [class*="addToCart"],
+  .capsa-results-modern commerce-search-product-card button,
+  .capsa-results-modern commerce-search-product-card .slds-button,
+  .capsa-results-modern commerce-search-product-card [class*="addToCart"] {
     margin-top: 4px !important;
     border-radius: 999px !important;
     background: var(--capsa-link) !important;
@@ -279,190 +278,120 @@
     box-shadow: none !important;
   }
 
-  .capsa-results-modern button:hover,
-  .capsa-results-modern .slds-button:hover,
-  .capsa-results-modern [class*="addToCart"]:hover {
+  .capsa-results-modern .fieldsArea button:hover,
+  .capsa-results-modern .fieldsArea .slds-button:hover,
+  .capsa-results-modern .fieldsArea [class*="addToCart"]:hover,
+  .capsa-results-modern commerce-search-product-card button:hover,
+  .capsa-results-modern commerce-search-product-card .slds-button:hover,
+  .capsa-results-modern commerce-search-product-card [class*="addToCart"]:hover {
     background: #0b588b !important;
     border-color: #0b588b !important;
   }
 
-    
-    /* =========================
-       Pagination container
-       ========================= */
-    .capsa-results-modern .slds-pagination,
-    .capsa-results-modern [class*="pagination"] {
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      gap: 10px !important;
-      margin-top: 18px !important;
-    }
+  /* =========================
+     Pagination
+     White square buttons, active page blue
+     ========================= */
+  .capsa-results-modern commerce-search-paging-control {
+    display: block !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+  }
 
-    /* =========================
-       All pagination buttons / numbers
-       ========================= */
-    .capsa-results-modern .slds-pagination button,
-    .capsa-results-modern .slds-pagination__item button,
-    .capsa-results-modern .slds-pagination__item a,
-    .capsa-results-modern [class*="pagination"] button,
-    .capsa-results-modern [class*="pagination"] a {
-      min-width: 42px !important;
-      width: 42px !important;
-      height: 42px !important;
-      padding: 0 !important;
-      border-radius: 10px !important;
-      border: 1px solid #d7dee8 !important;
-      background: #ffffff !important;
-      color: #ffffff !important;
-      display: inline-flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      font-size: 0.95rem !important;
-      font-weight: 600 !important;
-      box-shadow: 0 2px 6px rgba(15, 39, 66, 0.06) !important;
-      text-decoration: none !important;
-    }
+  .capsa-results-modern commerce-search-paging-control .pageControlPart {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 14px !important;
+    margin-top: 20px !important;
+    background: transparent !important;
+  }
 
-    /* =========================
-       Hover state
-       ========================= */
-    .capsa-results-modern .slds-pagination button:hover,
-    .capsa-results-modern .slds-pagination__item button:hover,
-    .capsa-results-modern .slds-pagination__item a:hover,
-    .capsa-results-modern [class*="pagination"] button:hover,
-    .capsa-results-modern [class*="pagination"] a:hover {
-      border-color: #b8c7d8 !important;
-      background: #f8fafc !important;
-    }
+  .capsa-results-modern commerce-search-paging-control .pageControlPart button.slds-button {
+    min-width: 36px !important;
+    width: 36px !important;
+    height: 36px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    border: 1px solid #b8b8b8 !important;
+    background: #ffffff !important;
+    color: #6b7280 !important;
+    box-shadow: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 0.95rem !important;
+    font-weight: 600 !important;
+    line-height: 1 !important;
+  }
 
-    /* =========================
-       Active / selected page
-       ========================= */
-    .capsa-results-modern .slds-pagination__item.slds-is-active button,
-    .capsa-results-modern .slds-pagination__item.slds-is-active a,
-    .capsa-results-modern .slds-pagination__item[aria-current="page"] button,
-    .capsa-results-modern .slds-pagination__item[aria-current="page"] a,
-    .capsa-results-modern [class*="pagination"] .active button,
-    .capsa-results-modern [class*="pagination"] .active a,
-    .capsa-results-modern [class*="pagination"] [aria-current="page"] {
-      background: #0f67a2 !important;
-      border-color: #0f67a2 !important;
-      color: #ffffff !important;
-      box-shadow: none !important;
-    }
+  .capsa-results-modern commerce-search-paging-control .pageControlPart button.slds-button:hover {
+    background: #f8fafc !important;
+    border-color: #9ca3af !important;
+    color: #374151 !important;
+  }
 
-    /* =========================
-       Optional: hide arrows if they are broken
-       ========================= */
-    .capsa-results-modern .slds-pagination button svg,
-    .capsa-results-modern .slds-pagination__item button svg,
-    .capsa-results-modern [class*="pagination"] button svg {
-      display: none !important;
-    }
+  .capsa-results-modern commerce-search-paging-control .pageControlPart button.nav-button {
+    background: #ffffff !important;
+    border: 1px solid #b8b8b8 !important;
+    color: #374151 !important;
+  }
+
+  .capsa-results-modern commerce-search-paging-control .pageControlPart button.nav-button.selected,
+  .capsa-results-modern commerce-search-paging-control .pageControlPart button.nav-button[aria-current="page"],
+  .capsa-results-modern commerce-search-paging-control .pageControlPart button.nav-button[aria-pressed="true"] {
+    background: #0f67a2 !important;
+    border-color: #0f67a2 !important;
+    color: #ffffff !important;
+  }
+
+  .capsa-results-modern commerce-search-paging-control .pageControlPart button.nav-direction {
+    background: #ffffff !important;
+    border: 1px solid #b8b8b8 !important;
+    color: transparent !important;
+    position: relative !important;
+    font-size: 0 !important;
+  }
+
+  .capsa-results-modern commerce-search-paging-control .pageControlPart button.nav-direction:hover {
+    background: #f8fafc !important;
+    border-color: #9ca3af !important;
+  }
+
+  .capsa-results-modern commerce-search-paging-control .pageControlPart button.nav-direction svg,
+  .capsa-results-modern commerce-search-paging-control .pageControlPart button.nav-direction lightning-primitive-icon,
+  .capsa-results-modern commerce-search-paging-control .pageControlPart button.nav-direction span {
+    display: none !important;
+  }
+
+  .capsa-results-modern commerce-search-paging-control .pageControlPart button.nav-direction[aria-label="Previous"]::before {
+    content: "‹";
+    font-size: 28px;
+    line-height: 1;
+    color: #6b7280;
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .capsa-results-modern commerce-search-paging-control .pageControlPart button.nav-direction[aria-label="Next"]::before {
+    content: "›";
+    font-size: 28px;
+    line-height: 1;
+    color: #6b7280;
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .capsa-results-modern commerce-search-paging-control .pageControlPart button.nav-direction:disabled,
+  .capsa-results-modern commerce-search-paging-control .pageControlPart button.nav-direction[aria-disabled="true"] {
+    opacity: 0.45 !important;
+    cursor: not-allowed !important;
+  }
 </style>
-
-<style>
-/* =========================
-   RESULTS PAGINATION
-   Based on actual DevTools classes
-   ========================= */
-
-    /* Pagination wrapper */
-    .capsa-results-modern commerce-search-paging-control .pageControlPart {
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      gap: 12px !important;
-      margin-top: 20px !important;
-      background-color: #ffffff !important
-    }
-
-    /* All pagination buttons */
-    .capsa-results-modern commerce-search-paging-control .pageControlPart button.slds-button {
-      min-width: 44px !important;
-      width: 44px !important;
-      height: 44px !important;
-      padding: 0 !important;
-      margin: 0 !important;
-      border-radius: 10px !important;
-      border: 1px solid #d9e0e8 !important;
-      background: #ffffff !important;
-      color: #1f2f3d !important;
-      box-shadow: 0 2px 8px rgba(15, 39, 66, 0.06) !important;
-      display: inline-flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      font-size: 0.95rem !important;
-      font-weight: 600 !important;
-      line-height: 1 !important;
-    }
-
-    /* Hover */
-    .capsa-results-modern commerce-search-paging-control .pageControlPart button.slds-button:hover {
-      background: #f8fafc !important;
-      border-color: #b9c8d8 !important;
-      color: #0f67a2 !important;
-    }
-
-    /* Number buttons */
-    .capsa-results-modern commerce-search-paging-control .pageControlPart button.nav-button {
-      background: #ffffff !important;
-      color: #1f2f3d !important;
-      border: 1px solid #d9e0e8 !important;
-    }
-
-    /* Selected page */
-    .capsa-results-modern commerce-search-paging-control .pageControlPart button.nav-button.selected,
-    .capsa-results-modern commerce-search-paging-control .pageControlPart button.nav-button[aria-current="page"] {
-      background: #0f67a2 !important;
-      border-color: #0f67a2 !important;
-      color: #ffffff !important;
-      box-shadow: none !important;
-    }
-
-    /* Previous / next buttons */
-    .capsa-results-modern commerce-search-paging-control .pageControlPart button.nav-direction {
-      background: #ffffff !important;
-      color: #ffffff !important;
-      border: 1px solid #d9e0e8 !important;
-      position: relative !important;
-      font-size: 0 !important; /* hide any broken icon/text */
-    }
-
-    /* Hide broken icon/svg content inside prev/next */
-    .capsa-results-modern commerce-search-paging-control .pageControlPart button.nav-direction svg,
-    .capsa-results-modern commerce-search-paging-control .pageControlPart button.nav-direction lightning-primitive-icon,
-    .capsa-results-modern commerce-search-paging-control .pageControlPart button.nav-direction span {
-      display: none !important;
-    }
-
-    /* Custom text chevrons */
-    .capsa-results-modern commerce-search-paging-control .pageControlPart button.nav-direction[aria-label="Previous"]::before {
-      content: "‹";
-      font-size: 20px;
-      line-height: 1;
-      color: #ffffff;
-    }
-
-    .capsa-results-modern commerce-search-paging-control .pageControlPart button.nav-direction[aria-label="Next"]::before {
-      content: "›";
-      font-size: 20px;
-      line-height: 1;
-      color: #ffffff;
-    }
-
-    /* Disabled prev/next */
-    .capsa-results-modern commerce-search-paging-control .pageControlPart button.nav-direction:disabled,
-    .capsa-results-modern commerce-search-paging-control .pageControlPart button.nav-direction[aria-disabled="true"] {
-      opacity: 0.45 !important;
-      cursor: not-allowed !important;
-    }
-
-    /* Optional spacing around whole pagination block */
-    .capsa-results-modern commerce-search-paging-control {
-      display: block !important;
-      padding-top: 8px !important;
-      padding-bottom: 8px !important;
-    }
-    </style>
