@@ -1,0 +1,468 @@
+<!-- branding stylesheets -->
+<link rel="stylesheet" href="{ basePath }/assets/styles/salesforce-lightning-design-system.min.css?{ versionKey }"/>
+<link rel="stylesheet" href="{ basePath }/assets/styles/dxp-site-spacing-styling-hooks.min.css?{ versionKey }" />
+<link rel="stylesheet" href="{ basePath }/assets/styles/dxp-styling-hooks.min.css?{ versionKey }" />
+<link rel="stylesheet" href="{ basePath }/assets/styles/dxp-slds-extensions.min.css?{ versionKey }" />
+
+<!-- General -->
+<link rel="shortcut icon" href="{basePath}/assets/favicon.ico?{versionKey}">
+<link rel="stylesheet" href="{basePath}/assets/css/theme2.css?{versionKey}">
+<link rel="stylesheet" href="{ styles/styles.css }" />
+
+<style>
+  /* =========================
+     Header background
+     ========================= */
+  commerce_builder-layout-header-simple .header-content,
+  commerce_builder-layout-header-one .header-content {
+    background: linear-gradient(to right, #033857, #0173A5) !important;
+  }
+
+  /* =========================
+     Login button
+     ========================= */
+  button.comm-login-form__login-button {
+    background-color: #0173A5 !important;
+    border-color: #0173A5 !important;
+    color: #ffffff !important;
+  }
+
+  /* =========================
+     Header profile/cart buttons
+     ========================= */
+  commerce_builder-user-profile-menu,
+  commerce_builder-multi-cart-badge {
+    display: inline-flex !important;
+    align-items: center;
+    border: 1.5px solid rgba(255, 255, 255, 0.9);
+    border-radius: 6px;
+    padding: 6px 14px;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
+  }
+
+  commerce_builder-user-profile-menu:hover,
+  commerce_builder-multi-cart-badge:hover {
+    background-color: rgba(255, 255, 255, 0.12);
+    border-color: #ffffff;
+  }
+
+  /* =========================
+     Header search input text
+     ========================= */
+  commerce_builder-search-input-container input.slds-input,
+  commerce_builder-search-input-container input.slds-input:focus,
+  commerce_builder-search-input-container input.slds-input:active {
+    color: #000 !important;
+    -webkit-text-fill-color: #000 !important;
+    caret-color: #000 !important;
+  }
+
+  /* =========================
+     Results component theme variables
+     Apply this class in Results > Style:
+     capsa-results-modern
+     ========================= */
+  .capsa-results-modern {
+    --capsa-card-radius: 18px;
+    --capsa-card-border: #e3e7ee;
+    --capsa-card-shadow: 0 4px 14px rgba(15, 39, 66, 0.08);
+    --capsa-card-shadow-hover: 0 14px 28px rgba(15, 39, 66, 0.12);
+    --capsa-text: #1f2f3d;
+    --capsa-muted: #6f8094;
+    --capsa-image-bg: #f3f4f6;
+    --capsa-link: #0f67a2;
+  }
+
+  /* =========================
+     Product card outer shell
+     ========================= */
+  .capsa-results-modern commerce-search-product-card .card-item,
+  .capsa-results-modern .card-item,
+  .capsa-results-modern article,
+  .capsa-results-modern .slds-card,
+  .capsa-results-modern li > div {
+    background: #ffffff !important;
+    border: 1px solid var(--capsa-card-border) !important;
+    border-radius: var(--capsa-card-radius) !important;
+    box-shadow: var(--capsa-card-shadow) !important;
+    overflow: hidden !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+  }
+
+  .capsa-results-modern commerce-search-product-card .card-item:hover,
+  .capsa-results-modern .card-item:hover,
+  .capsa-results-modern article:hover,
+  .capsa-results-modern .slds-card:hover,
+  .capsa-results-modern li > div:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--capsa-card-shadow-hover) !important;
+  }
+
+  /* =========================
+     Card inner grid layout
+     ========================= */
+  .capsa-results-modern .cardContainerGrid {
+    display: grid !important;
+    grid-template-rows: auto 0 1fr !important;
+    background: #ffffff !important;
+  }
+
+  .capsa-results-modern .spacerArea {
+    display: none !important;
+  }
+ 
+
+    /* =========================
+       IMAGE AREA WRAPPER
+       ========================= */
+    .capsa-results-modern .imageArea {
+      background: #f3f4f6 !important;
+      margin-top: 7px !important;
+      margin-left: 7px !important;
+      margin-right: 7px !important;
+      padding: 0 !important;
+      min-height: 270px !important;
+      height: 280px !important;
+      display: flex !important;
+      align-items: stretch !important;
+      justify-content: stretch !important;
+      overflow: hidden !important;
+    }
+
+    /* =========================
+       FORCE ALL INNER IMAGE WRAPPERS
+       TO FILL THE GREY AREA
+       ========================= */
+    .capsa-results-modern .imageArea > *,
+    .capsa-results-modern .imageArea a,
+    .capsa-results-modern .imageArea div,
+    .capsa-results-modern .imageArea span,
+    .capsa-results-modern .imageArea picture {
+      width: 100% !important;
+      height: 100% !important;
+      max-width: none !important;
+      max-height: none !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      background: transparent !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      box-sizing: border-box !important;
+    }
+
+    /* =========================
+       REAL PRODUCT IMAGE
+       fill available space much more aggressively
+       ========================= */
+    .capsa-results-modern .imageArea img {
+      width: 100% !important;
+      height: 100% !important;
+      max-width: 100% !important;
+      max-height: 100% !important;
+      min-width: 100% !important;
+      min-height: 100% !important;
+      object-fit: contain !important;
+      object-position: center center !important;
+      display: block !important;
+      padding-left:10px !important;
+      padding-right:10px !important;
+      margin: 0px !important;
+      background: transparent !important;
+      box-sizing: border-box !important;
+    }
+
+    /* =========================
+       NO-IMAGE / PLACEHOLDER
+       keep same grey area, remove white box
+       ========================= */
+    .capsa-results-modern .imageArea .slds-image,
+    .capsa-results-modern .imageArea [class*="placeholder"],
+    .capsa-results-modern .imageArea [class*="fallback"],
+    .capsa-results-modern .imageArea lightning-primitive-icon,
+    .capsa-results-modern .imageArea .slds-icon_container {
+      background: transparent !important;
+      border: 0 !important;
+      box-shadow: none !important;
+    }
+
+    .capsa-results-modern .imageArea .slds-icon,
+    .capsa-results-modern .imageArea svg {
+      fill: #d6d9de !important;
+      color: #d6d9de !important;
+    }
+
+    /* =========================
+     Content / fields area
+     ========================= */
+  .capsa-results-modern .fieldsArea {
+    background: #ffffff !important;
+    padding: 14px 18px 20px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 10px !important;
+    text-align: center !important;
+  }
+
+  .capsa-results-modern .fieldsArea > *,
+  .capsa-results-modern commerce-search-product-field,
+  .capsa-results-modern commerce-search-product-price,
+  .capsa-results-modern .fieldsArea a,
+  .capsa-results-modern .fieldsArea div {
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+  }
+
+  /* =========================
+     Product title / name
+     1. Center aligned
+     2. Wraps instead of truncating
+     ========================= */
+  .capsa-results-modern commerce-search-product-field,
+  .capsa-results-modern commerce-search-product-field > div,
+  .capsa-results-modern commerce-search-product-field .slds-text-heading_medium,
+  .capsa-results-modern commerce-search-product-field .slds-text-heading_medium.slds-truncate,
+  .capsa-results-modern commerce-search-product-field span[part="formatted-rich-text"] {
+    text-align: center !important;
+    font-size: 0.88rem !important;
+    line-height: 1.28 !important;
+    font-weight: 500 !important;
+    color: var(--capsa-text) !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: unset !important;
+    word-break: break-word !important;
+    overflow-wrap: anywhere !important;
+    display: block !important;
+    max-width: 100% !important;
+  }
+
+  .capsa-results-modern commerce-search-product-field .slds-truncate {
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: unset !important;
+    display: block !important;
+    max-width: 100% !important;
+  }
+
+  /* =========================
+     Price
+     ========================= */
+  .capsa-results-modern [class*="price"],
+  .capsa-results-modern .price {
+    color: #111827 !important;
+    font-size: 0.95rem !important;
+    font-weight: 700 !important;
+    margin: 0 !important;
+  }
+
+  /* =========================
+     Add to cart button
+     ========================= */
+  .capsa-results-modern button,
+  .capsa-results-modern .slds-button,
+  .capsa-results-modern [class*="addToCart"] {
+    margin-top: 4px !important;
+    border-radius: 999px !important;
+    background: var(--capsa-link) !important;
+    border: 1px solid var(--capsa-link) !important;
+    color: #ffffff !important;
+    font-size: 0.9rem !important;
+    font-weight: 600 !important;
+    padding: 10px 20px !important;
+    box-shadow: none !important;
+  }
+
+  .capsa-results-modern button:hover,
+  .capsa-results-modern .slds-button:hover,
+  .capsa-results-modern [class*="addToCart"]:hover {
+    background: #0b588b !important;
+    border-color: #0b588b !important;
+  }
+
+    
+    /* =========================
+       Pagination container
+       ========================= */
+    .capsa-results-modern .slds-pagination,
+    .capsa-results-modern [class*="pagination"] {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 10px !important;
+      margin-top: 18px !important;
+    }
+
+    /* =========================
+       All pagination buttons / numbers
+       ========================= */
+    .capsa-results-modern .slds-pagination button,
+    .capsa-results-modern .slds-pagination__item button,
+    .capsa-results-modern .slds-pagination__item a,
+    .capsa-results-modern [class*="pagination"] button,
+    .capsa-results-modern [class*="pagination"] a {
+      min-width: 42px !important;
+      width: 42px !important;
+      height: 42px !important;
+      padding: 0 !important;
+      border-radius: 10px !important;
+      border: 1px solid #d7dee8 !important;
+      background: #ffffff !important;
+      color: #ffffff !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      font-size: 0.95rem !important;
+      font-weight: 600 !important;
+      box-shadow: 0 2px 6px rgba(15, 39, 66, 0.06) !important;
+      text-decoration: none !important;
+    }
+
+    /* =========================
+       Hover state
+       ========================= */
+    .capsa-results-modern .slds-pagination button:hover,
+    .capsa-results-modern .slds-pagination__item button:hover,
+    .capsa-results-modern .slds-pagination__item a:hover,
+    .capsa-results-modern [class*="pagination"] button:hover,
+    .capsa-results-modern [class*="pagination"] a:hover {
+      border-color: #b8c7d8 !important;
+      background: #f8fafc !important;
+    }
+
+    /* =========================
+       Active / selected page
+       ========================= */
+    .capsa-results-modern .slds-pagination__item.slds-is-active button,
+    .capsa-results-modern .slds-pagination__item.slds-is-active a,
+    .capsa-results-modern .slds-pagination__item[aria-current="page"] button,
+    .capsa-results-modern .slds-pagination__item[aria-current="page"] a,
+    .capsa-results-modern [class*="pagination"] .active button,
+    .capsa-results-modern [class*="pagination"] .active a,
+    .capsa-results-modern [class*="pagination"] [aria-current="page"] {
+      background: #0f67a2 !important;
+      border-color: #0f67a2 !important;
+      color: #ffffff !important;
+      box-shadow: none !important;
+    }
+
+    /* =========================
+       Optional: hide arrows if they are broken
+       ========================= */
+    .capsa-results-modern .slds-pagination button svg,
+    .capsa-results-modern .slds-pagination__item button svg,
+    .capsa-results-modern [class*="pagination"] button svg {
+      display: none !important;
+    }
+</style>
+
+<style>
+/* =========================
+   RESULTS PAGINATION
+   Based on actual DevTools classes
+   ========================= */
+
+    /* Pagination wrapper */
+    .capsa-results-modern commerce-search-paging-control .pageControlPart {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 12px !important;
+      margin-top: 20px !important;
+      background-color: #ffffff !important
+    }
+
+    /* All pagination buttons */
+    .capsa-results-modern commerce-search-paging-control .pageControlPart button.slds-button {
+      min-width: 44px !important;
+      width: 44px !important;
+      height: 44px !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      border-radius: 10px !important;
+      border: 1px solid #d9e0e8 !important;
+      background: #ffffff !important;
+      color: #1f2f3d !important;
+      box-shadow: 0 2px 8px rgba(15, 39, 66, 0.06) !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      font-size: 0.95rem !important;
+      font-weight: 600 !important;
+      line-height: 1 !important;
+    }
+
+    /* Hover */
+    .capsa-results-modern commerce-search-paging-control .pageControlPart button.slds-button:hover {
+      background: #f8fafc !important;
+      border-color: #b9c8d8 !important;
+      color: #0f67a2 !important;
+    }
+
+    /* Number buttons */
+    .capsa-results-modern commerce-search-paging-control .pageControlPart button.nav-button {
+      background: #ffffff !important;
+      color: #1f2f3d !important;
+      border: 1px solid #d9e0e8 !important;
+    }
+
+    /* Selected page */
+    .capsa-results-modern commerce-search-paging-control .pageControlPart button.nav-button.selected,
+    .capsa-results-modern commerce-search-paging-control .pageControlPart button.nav-button[aria-current="page"] {
+      background: #0f67a2 !important;
+      border-color: #0f67a2 !important;
+      color: #ffffff !important;
+      box-shadow: none !important;
+    }
+
+    /* Previous / next buttons */
+    .capsa-results-modern commerce-search-paging-control .pageControlPart button.nav-direction {
+      background: #ffffff !important;
+      color: #ffffff !important;
+      border: 1px solid #d9e0e8 !important;
+      position: relative !important;
+      font-size: 0 !important; /* hide any broken icon/text */
+    }
+
+    /* Hide broken icon/svg content inside prev/next */
+    .capsa-results-modern commerce-search-paging-control .pageControlPart button.nav-direction svg,
+    .capsa-results-modern commerce-search-paging-control .pageControlPart button.nav-direction lightning-primitive-icon,
+    .capsa-results-modern commerce-search-paging-control .pageControlPart button.nav-direction span {
+      display: none !important;
+    }
+
+    /* Custom text chevrons */
+    .capsa-results-modern commerce-search-paging-control .pageControlPart button.nav-direction[aria-label="Previous"]::before {
+      content: "‹";
+      font-size: 20px;
+      line-height: 1;
+      color: #ffffff;
+    }
+
+    .capsa-results-modern commerce-search-paging-control .pageControlPart button.nav-direction[aria-label="Next"]::before {
+      content: "›";
+      font-size: 20px;
+      line-height: 1;
+      color: #ffffff;
+    }
+
+    /* Disabled prev/next */
+    .capsa-results-modern commerce-search-paging-control .pageControlPart button.nav-direction:disabled,
+    .capsa-results-modern commerce-search-paging-control .pageControlPart button.nav-direction[aria-disabled="true"] {
+      opacity: 0.45 !important;
+      cursor: not-allowed !important;
+    }
+
+    /* Optional spacing around whole pagination block */
+    .capsa-results-modern commerce-search-paging-control {
+      display: block !important;
+      padding-top: 8px !important;
+      padding-bottom: 8px !important;
+    }
+    </style>
